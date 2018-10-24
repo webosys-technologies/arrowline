@@ -1,0 +1,2 @@
+[13-Aug-2018 16:10:28 UTC] PHP Fatal error:  Call to a member function num_rows() on boolean in /home/sunil1130/public_html/webosys.com/inventory/application/models/Sales_model.php on line 93
+[13-Aug-2018 16:11:58 UTC] PHP Fatal error:  Call to a member function num_rows() on boolean in /home/sunil1130/public_html/webosys.com/inventory/application/models/Sales_model.php on line 93
