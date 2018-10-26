@@ -11,6 +11,15 @@
       redirect('auth','refresh');
   }
 ?>
+<script>
+      
+    </script>
+    <style>
+        #example1 tfoot {
+    display: table-header-group;
+}
+        </style>
+    
 <div class="content-wrapper">
        
   <section class="content">
@@ -104,6 +113,7 @@
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
+                 
                 <tr>
                     <th>
                       <!-- Customer Name -->
@@ -126,8 +136,34 @@
                       <?php echo $this->lang->line('cust_action');?>
                     </th>
                 </tr>
+                
                 </thead>
+                 <tfoot>
+                <tr>
+                    <th>
+                      <!-- Customer Name -->
+                      <?php echo $this->lang->line('cust_name');?>
+                    </th>
+                    <th>
+                      <!-- Email -->
+                      <?php echo $this->lang->line('cust_email');?>
+                    </th>
+                    <th>
+                      <!-- Phone -->
+                      <?php echo $this->lang->line('cust_phone');?>
+                    </th>
+                    <th>
+                      <!-- Status -->
+                      <?php echo $this->lang->line('cust_status');?>
+                    </th>
+                    <th>
+                       <!--Action
+                      <?php echo $this->lang->line('cust_action');?>--> 
+                    </th>
+                </tr>
+                </tfoot>
                 <tbody>
+                    
                      <?php
                            foreach ($data as $value) {
                       ?>
@@ -195,30 +231,7 @@
                       }
                         ?>
               </tbody>
-                <tfoot>
-                <tr>
-                    <th>
-                      <!-- Customer Name -->
-                      <?php echo $this->lang->line('cust_phone');?>
-                    </th>
-                    <th>
-                      <!-- Email -->
-                      <?php echo $this->lang->line('cust_email');?>
-                    </th>
-                    <th>
-                      <!-- Phone -->
-                      <?php echo $this->lang->line('cust_phone');?>
-                    </th>
-                    <th>
-                      <!-- Status -->
-                      <?php echo $this->lang->line('cust_status');?>
-                    </th>
-                    <th>
-                      <!-- Action -->
-                      <?php echo $this->lang->line('cust_action');?>
-                    </th>
-                </tr>
-                </tfoot>
+               
               </table>
             </div>
         </div>
@@ -237,5 +250,31 @@
             $(this).remove(); 
         });
     }, 4000);
+    
+     $(document).ready(function () {
+         var i=1;
+    // Setup - add a text input to each footer cell
+    $('#example1 tfoot th').each(function () {
+        var title = $('#example1 thead th').eq($(this).index()).text().trim();
+        if(i<5)
+        {
+        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        }
+        i++;
+    });
+
+    // DataTable
+    var table = $('#example1').DataTable();
+
+    // Apply the search
+    table.columns().eq(0).each(function (colIdx) {
+        $('input', table.column(colIdx).footer()).on('keyup change', function () {
+            table.column(colIdx)
+                .search(this.value)
+                .draw();
+        });
+    });
+});
+
   </script>
 
