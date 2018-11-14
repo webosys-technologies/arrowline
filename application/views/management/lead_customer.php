@@ -29,7 +29,7 @@
             <div class="col-md-8">
               <div class="top-bar-title padding-bottom">
                 <!-- Customer -->
-                <?php echo $this->lang->line('customers_header');?>
+                <?php echo "Customer Lead Management";?>
               </div>
             </div> 
             <?php  
@@ -47,9 +47,9 @@
               if(in_array("add_customer",$user_session)){
             ?>
             <div class="col-md-2 col-xs-2 top-right-btn">
-                <a href="<?php echo base_url()?>customer/add_customer" class="btn btn-block btn-primary btn-flat btn-border-orange"><span class="fa fa-plus"></span>
+                <a href="<?php echo base_url()?>Management/add_customer_lead" class="btn btn-block btn-primary btn-flat btn-border-orange"><span class="fa fa-plus"></span>
                   <!-- Add Customer -->
-                  <?php echo $this->lang->line('btn_add_customer');?>
+                  <?php echo "Add Lead";?>
                 </a>
             </div>
             <?php } ?>
@@ -111,7 +111,8 @@
             <!-- /.box-header -->
            
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+                <div class="table-responsive">
+              <table id="example1" width="100%" class="table table-bordered table-striped">
                 <thead>
                  
                 <tr>
@@ -119,13 +120,30 @@
                       <!-- Customer Name -->
                       <?php echo $this->lang->line('cust_name');?>
                     </th>
-                    <th>
-                      <!-- Email -->
-                      <?php echo $this->lang->line('cust_email');?>
-                    </th>
+                   
                     <th>
                       <!-- Phone -->
                       <?php echo $this->lang->line('cust_phone');?>
+                    </th>
+                     <th>
+                      <!-- Email -->
+                      <?php echo "Area"; ?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Followup";?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Next Followup";?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Remark";?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Telecaller";?>
                     </th>
                     <th>
                       <!-- Status -->
@@ -144,13 +162,30 @@
                       <!-- Customer Name -->
                       <?php echo $this->lang->line('cust_name');?>
                     </th>
-                    <th>
-                      <!-- Email -->
-                      <?php echo $this->lang->line('cust_email');?>
-                    </th>
+                   
                     <th>
                       <!-- Phone -->
                       <?php echo $this->lang->line('cust_phone');?>
+                    </th>
+                     <th>
+                      <!-- Email -->
+                      <?php echo "Area"; ?>
+                    </th>
+                      <th>
+                      <!-- Status -->
+                      <?php echo "Followup";?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Next Followup";?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Remark";?>
+                    </th>
+                     <th>
+                      <!-- Status -->
+                      <?php echo "Telecaller";?>
                     </th>
                     <th>
                       <!-- Status -->
@@ -166,11 +201,18 @@
                     
                      <?php
                            foreach ($data as $value) {
+                               if($value->is_deleted!=1)
+                               {
+                             
                       ?>
                       <tr>
-                        <td><?php echo $value->name; ?></td>
-                        <td><?php echo $value->email; ?></td>
+                        <td><?php echo $value->name; ?></td>                        
                         <td><?php echo $value->phone; ?></td>
+                        <td></td>
+                        <td><?php echo $value->followup; ?></td>
+                        <td><?php echo $value->nextfollow; ?></td>
+                        <td><?php echo $value->remark; ?></td>
+                        <td><?php echo $value->telecaller; ?></td>
                         <td>
                           <?php if($value->delete_status=="0"){?>
                           <span class="label label-success"><?php echo $this->lang->line('lbl_status_active');?></span>
@@ -182,11 +224,11 @@
                           <?php  
                             if(in_array("edit_customer",$user_session)){
                           ?>
-                         <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>customer/edit_data/<?php echo $value->id;?>" data-tt="tooltip"><span class="fa fa-edit"></span>
+                         <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Management/edit/<?php echo $value->customer_id;?>" data-tt="tooltip"><span class="fa fa-edit"></span>
                          </a>
                          <?php } ?>
                          &nbsp;
-                          <a href="#<?php echo''.$value->id.'';?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" data-tt="tooltip" title="Delete"><span class="fa fa-remove"></span>
+                          <a href="#<?php echo $value->id; ?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" data-tt="tooltip" title="Delete"><span class="fa fa-remove"></span>
                           </a>
                           
                           <div class="example-modal">
@@ -212,7 +254,7 @@
                                     <!-- Close -->
                                       <?php echo $this->lang->line('btn_modal_close');?>
                                     </button>
-                                    <a href="<?php echo base_url();?>customer/delete/<?php echo $value->id; ?>" class="btn btn-danger">
+                                    <a href="<?php echo base_url();?>Management/delete/<?php echo $value->customer_id; ?>" class="btn btn-danger">
                                     <!-- Delete -->
                                     <?php echo $this->lang->line('btn_modal_delete');?>
                                     </a>
@@ -229,10 +271,12 @@
                     </tr>
                      <?php
                       }
+                           }
                         ?>
               </tbody>
                
               </table>
+              </div>      
             </div>
         </div>
       </div>
@@ -256,9 +300,10 @@
     // Setup - add a text input to each footer cell
     $('#example1 tfoot th').each(function () {
         var title = $('#example1 thead th').eq($(this).index()).text().trim();
-        if(i<5)
+        if(i<9)
         {
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        $(this).html('<input type="text" size="12\n\
+" placeholder="Search ' + title + '" />');
         }
         i++;
     });
