@@ -163,6 +163,7 @@ class Quotation extends CI_Controller {
 		This method is call when end user submit new quotation
 	*/
 
+  
 	function add_quotation()
 	{
 
@@ -221,10 +222,10 @@ class Quotation extends CI_Controller {
 
 			$data1=json_decode($this->input->post('largeArea'));
 			
-			/*echo "<pre>";
-			print_r($data);
-			print_r($data1);
-			exit();*/
+//			echo "<pre>";
+//			print_r($data);
+//			print_r($data1);
+//                        die;
 
 			$quotation_id=$this->Quotation_model->addQuotation($data);
 
@@ -658,5 +659,126 @@ class Quotation extends CI_Controller {
 		print_r($data);*/
 		echo json_encode($data);
 		//exit();
+	}
+        
+        public function convert_invoice($id)
+        {
+         if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+        $data['country']  = $this->Customer_model->dataCountry();
+		$data['state1'] = $this->Customer_model->dataState();
+		$data['customer']=$this->Quotation_model->getCustomer();
+		$data['location']=$this->Quotation_model->getLocation();
+		$data['lastid']=$this->Sales_model->getLastSalesId();
+		$data['items']=$this->Quotation_model->getItems();
+		$data['paymentmethod']=$this->Quotation_model->getPaymentMethod();
+		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
+		$data['state']=$this->Sales_model->getCompanyState();
+                $data['quotation']=$this->Quotation_model->get_quotation_detail($id);
+		$this->load->view('quotation/convert_invoice',$data);	   
+        }
+        
+        	function add_sales()
+	{
+
+		if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+
+        $this->form_validation->set_rules('location','Location','required');
+        $this->form_validation->set_rules('customer','Customer Name','required');
+        $this->form_validation->set_rules('sales_date','Sales Date','required');
+        $this->form_validation->set_rules('paymentmethod','Payment Method','required');
+        $this->form_validation->set_rules('paymentterm','Payment Term','required');
+        $this->form_validation->set_rules('reference_no','Reference','required');
+        $this->form_validation->set_rules('status','Status','required');
+        $this->form_validation->set_rules('state','State','required');
+
+        if($this->form_validation->run() == true)
+        {
+
+			$data['location_id']=$this->input->post('location');	
+			$data['customer_id']=$this->input->post('customer');	
+			$data['date'] =$this->input->post('sales_date');	;
+			$data['payment_method_id']=$this->input->post('paymentmethod');	
+			$data['payment_term_id']=$this->input->post('paymentterm');	
+			$data['reference_no']=$this->input->post('reference');	
+			$data['total_tax']=$this->input->post('totalTax');	
+			$data['shipping_charges']=$this->input->post('shipping');	
+			$data['total_amount']=$this->input->post('grandTotal');	
+			$data['notes']=$this->input->post('comments');	
+			$data['country_id']=$this->input->post('country');	
+			$data['state_id']=$this->input->post('state');	
+			$data['city_id']=$this->input->post('city');	
+			$data['shipping_address']=$this->input->post('shipping_address');	
+			$data['status']=$this->input->post('status');	
+			$data['sales_invoice']=$this->input->post('invoice_type');	
+			$data['sales_type']=$this->input->post('sales_type');	
+			$data['port_code']=$this->input->post('port_code');	
+			$data['shipping_bill_no']=$this->input->post('shipping_bill_no');	
+			$data['shipping_bill_date']=$this->input->post('shipping_bill_date');	
+			$data['gst_payable']=$this->input->post('gst_payable');	
+			$data['user_id']=$this->session->userdata("userId");
+
+			$data['delivery_note']=$this->input->post('delivery_note');	
+			$data['supplier_ref']=$this->input->post('supplier_reference');	
+			$data['buyer_order']=$this->input->post('buyer_order_no');	
+			$data['dispatch_doc_no']=$this->input->post('dispatch_doc_no');	
+			$data['dilivery_note_date']=$this->input->post('del_note_date');	
+			$data['dispatch_through']=$this->input->post('dispatch_through');
+
+			/*echo "<pre>";
+			print_r($data);
+			exit();*/
+
+			$data1=json_decode($this->input->post('temptext'));
+
+			$sales_id=$this->Sales_model->addSales($data);
+
+			$SalesItem=array();
+			if(isset($sales_id))
+			{
+				$i=0;
+				foreach ($data1 as $val) {
+					$SalesItem[$i]=array(
+						'item_id'  	=> $val->item_id,
+						'sales_id' 	=> $sales_id,
+						'rate' 		=> $val->rate,
+						'qty' 		=> $val->qty,
+						'tax_amount' => $val->tax,
+						'tax_id'	 => $val->tax_id,
+						'discount' 	=> $val->discount,
+						'amount' 	=> $val->amount,
+						'location_id' =>$data['location_id'],
+						'sub_invoice_no'=> $data['reference_no'].'-'.$val->tax_id
+					);
+					$i++;		
+				}
+				
+
+				$last_invo=$this->Invoice_model->getLastInvoiceID();
+				$addInvoice=array(
+					'invoice_no'   =>   "INV-".sprintf('%04d',intval($last_invo)+1),
+					'sales_id'     =>   $sales_id,
+					'sales_amount' =>   $data['total_amount'],
+					'invoice_date' =>   date('Y-m-d')
+				);
+
+				$this->Sales_model->addSalesItems($SalesItem);
+				if($this->Sales_model->saveInvoice($addInvoice))
+				{
+                                    
+                                       					redirect('invoice/sales_print/'.$sales_id);
+                                                                       
+				}		         		
+			}
+		}
+		else
+		{
+			$this->add_form();
+		}	
 	}
 }

@@ -67,6 +67,8 @@ class Sales extends CI_Controller {
     {
     	$data['items']=$this->Sales_model->getItemById($id,$location_id);
 		$data['tax']=$this->Sales_model->getTaxs();
+//                print_r($data);
+//                die;
 		echo json_encode($data);
     }
 

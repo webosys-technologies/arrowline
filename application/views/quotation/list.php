@@ -1,4 +1,4 @@
-<?php 
+<?php // 
   $this->load->view('layout/header'); 
 
   $user_session = $this->session->userdata('userRole');
@@ -102,7 +102,7 @@
                         <?php } ?>
 
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>quotation/order_print/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
-
+                        <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>quotation/convert_invoice/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
 
                         <div class="example-modal">
                           <div class="modal fade" id="<?php echo''.$value->quotation_id.'';?>">
@@ -130,6 +130,7 @@
                                     <!-- Delete -->
                                     <?php echo $this->lang->line('btn_modal_delete');?>
                                     </a>
+                                   
                                 </div>
                               </div>
                               <!-- /.modal-content -->

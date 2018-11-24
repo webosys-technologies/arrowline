@@ -65,6 +65,7 @@ class Sales_model extends CI_Model{
 
     function getItemById($id,$location_id)
     {
+     
         $this->db->select('t.tax_id,t.*,i.*,w.qty as qty_available');
         $this->db->from('item i');
         $this->db->join('tax t','i.tax_id=t.tax_id');
@@ -74,6 +75,14 @@ class Sales_model extends CI_Model{
         $this->db->where('i.delete_status',0);
         $query=$this->db->get();
         return $query->row();   
+    }
+    
+    function getProductById($id)
+    {
+        $this->db->from('item');
+        $this->db->where('id',$id);
+        $query=$this->db->get();
+        return $query->row();
     }
 
 

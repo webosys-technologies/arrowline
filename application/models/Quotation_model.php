@@ -300,6 +300,14 @@ class Quotation_model extends CI_Model{
         }
         return false;
     }
+    public function get_quotation_detail($id)
+    {
+        $this->db->from('quotation as quot');
+        $this->db->join('quotation_items as item','item.quotation_id=quot.id','LEFT');
+        $this->db->where('quot.id',$id);
+        $query=$this->db->get();
+        return $query->row();
+        }
     
     public function addQuotationItem($quotationItem)
     {
@@ -391,6 +399,13 @@ class Quotation_model extends CI_Model{
         $this->db->where('id',$id);
         $query=$this->db->get('quotation');
         return $query->row();
+    }
+    
+    function getQuotationItem($id)
+    {
+       $this->db->where('quotation_id',$id);
+        $query=$this->db->get('quotation_items');
+        return $query->result();  
     }
 
 
