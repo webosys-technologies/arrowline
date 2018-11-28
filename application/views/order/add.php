@@ -1,6 +1,6 @@
 <?php 
   $this->load->view('layout/header');
-
+    
   $user_session = $this->session->userdata('userRole');
 
   if(empty($user_session))
@@ -8,9 +8,10 @@
     redirect('auth','refresh');
   }
   
-  if(!in_array("add_invoice",$user_session)){
-      redirect('sales','refresh');
+  if(!in_array("add_quotation",$user_session)){
+      redirect('quotation','refresh');
   }
+
 ?>
 
 <div class="content-wrapper">  
@@ -19,196 +20,143 @@
       <div class="col-md-12">
         <div class="box box-default">
            <div class="box-body">
-              <form action="<?php echo base_url();?>Quotation/add_sales" method="POST" name="sales"  id="sales_form">  
-                <div class="col-md-6">
-                  <h5><b>Customer Information</b></h5>
+              <form action="<?php echo base_url();?>quotation/add_quotation" method="POST" name="quotation" id="quotation_form">  
+
+              <!-- <?php echo validation_errors(); ?> -->
+              <div class="col-md-6">
+                <h5><b>Customer Information</b></h5>
                   <div class="well">
 
                     <div class="row">
-                             <?php // print_r($quotation);
-//                             die;?>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>
                             <!-- Customer  -->
-                            <?php echo $this->lang->line('lbl_add_quotation_customer');?>
-                            <span class="text-danger"> *</span>
-                             <a href="#customer" data-toggle="modal" data-target=""><span class="">Add Customer</span></a>
+                              <?php echo $this->lang->line('lbl_add_quotation_customer');?>
+                              <span class="text-danger"> *</span>
+                              <a href="#customer" data-toggle="modal" data-target=""><span class="">Add Customer</span></a>
                           </label>
                           <div class="form-group">
-                            <select class="form-control select2" style="" name="customer" id="customer_id">
-                              <option value="">
-                                <?php echo $this->lang->line('lbl_dropdown_customer');?>
-
-                              </option>
-                              <?php foreach ($customer as $value) {
-                                  ?>
-                              <option value="<?php echo $value->id;?>" <?php if($value->id==$quotation->customer_id){echo "selected";} set_select('customer',$value->id);?> > <?php echo $value->name; ?> </option>
-                                <?php }?>
-   
-                            </select>
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('customer');?></span>
+                          <select class="form-control select2" style="" name="customer_id" id="customer_id">
+                            <option value="">
+                              <!-- Select Customer -->
+                              <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                            </option>
+                            <?php foreach ($customer as $value) {   
+                              echo "<option value='$value->id'".set_select('customer_id',$value->id).">$value->name</option>";
+                            }?>
+                          </select>
+                          <p style="color:#990000;"></p>
+                          <span style="color:#990000"><?php echo form_error('customer_id');?></span>
                           </div>
                         </div>
                       </div>
 
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">
+                              <!-- Warehouse -->
+                              <?php echo $this->lang->line('lbl_warehouse');?>
+                              <span class="text-danger"> *</span>
+                              <!-- <a href="#warehouse" data-toggle="modal" data-target=""><span class="">Add Warehouse</span></a> -->
+                            </label>
+                            <div class="form-group">
+                              <select class="form-control select2" name="location_id" id="location_id">
+                                  <option value="">
+                                    <!-- Select Location -->
+                                    <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                  </option>
+                                  <?php foreach ($location as $value) { 
+                                      echo "<option value='$value->id'".set_select('location_id',$value->id).">$value->location_name</option>";     
+                                  }?>
+                              </select>
+                              <span style="color:#990000"><?php echo form_error('location_id');?></span>
+                              <p style="color:#990000;"></p>
+                            </div>
+                        </div>
+                      </div>
+                      
                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">
                               <!-- Payment Method  -->
                               <?php echo $this->lang->line('lbl_add_quotation_payment');?>
+                              <span class="text-danger"> *</span>
                               <a href="#paymentmethod" data-toggle="modal" data-target=""><span class="" style="">Add Method</span></a>
-                            <span class="text-danger"> *</span></label>
-                            <div class="form-group">
-                              <select class="form-control select2" name="paymentmethod" id="paymentmethod_id">
-                                  <option value=""><?php echo $this->lang->line('lbl_dropdown_customer');?></option>
-                                  <!-- <?php foreach ($paymentmethod as $value) { 
-                                      echo "<option value='$value->id'".set_select('paymentmethod',$value->id).">$value->name</option>";   
-                                  }?> --> 
+                            </label>
+                              <div class="form-group">
+                              <select class="form-control select2" name="paymentmethod_id" id="paymentmethod_id">
+                                  <option value="">
+                                    <!-- Payment Method -->
+                                    <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                  </option>
+
                                   <?php foreach ($paymentmethod as $value) { ?>
-                                      <option value="<?php echo $value->id;?>" <?php if($value->id==$quotation->payment_method_id){ echo "selected";} set_select('paymentmethod',$value->id);?>><?php echo $value->name;?></option>
+                                      <option value="<?php echo $value->id;?>" <?php if($value->default=="Yes"){ echo "selected";}?>><?php echo $value->name;?></option>
                                   <?php } ?> 
 
+                                  <!-- <?php foreach ($paymentmethod as $value) { 
+                                     echo "<option value='$value->id'".set_select('paymentmethod_id',$value->id).">$value->name</option>";     
+                                  }?> -->
                               </select>
                               <p style="color:#990000;"></p>
-                              <span style="color:#990000"><?php echo form_error('paymentmethod');?></span>
+                              <span style="color:#990000"><?php echo form_error('paymentmethod_id');?></span>
                             </div>
                         </div>
-                      </div>
-                        
-                        
-                        
-                                       <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Contact Person 1
-                              </label> 
-                                <div class="input-group">
-                                     <input id="supplier_reference" class="form-control" type="text" name="contact_per1" placeholder="Contact Person 1">
-                                </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Designation
-                              </label> 
-                                <div class="input-group">
-                                    <input id="supplier_reference" class="form-control" type="text" name="designation1" placeholder="Person designation 1">
-                                </div>
-                          </div>
-                        </div>
+                      </div> 
+
                       
-                        
-                         <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Contact Person 2
-                              </label> 
-                                <div class="input-group">
-                                     <input id="supplier_reference" class="form-control" type="text" name="contact_per2" placeholder="Contact Person 2">
-                                </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Designation
-                              </label> 
-                                <div class="input-group">
-                                    <input id="supplier_reference" class="form-control" type="text" name="designation2" placeholder="Person 2 Designation">
-                                </div>
-                          </div>
-                        </div>
-                        
-                        
-                        
-
-                      <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">
-                              <!-- Warehouse -->
-                              <?php echo $this->lang->line('lbl_warehouse');?>
-                            <span class="text-danger"> *</span></label>
-                            <div class="form-group">
-                              <select class="form-control select2" name="location" id="location_id">
-                                  <option value=""><?php echo $this->lang->line('lbl_dropdown_customer');?></option>
-                                  <?php foreach ($location as $value) {  ?>
-                                    
-                                       <option value="<?php echo $value->id;?>" <?php if($value->id==$quotation->location_id){ echo "selected";} set_select('location',$value->id); ?>><?php echo $value->location_name;?></option>
-                                <?php  }?>
-                                    <!-- <option value="<?php echo $value->id;?>"><?php echo $value->location_name;?></option> -->
-                                  
-                              </select>
-                              <p style="color:#990000;"></p>
-                              <span style="color:#990000"><?php echo form_error('location');?></span>
-                            </div>
-                          </div>
-                      </div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-
                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">
-                              <!-- Payment Term  -->
                               <?php echo $this->lang->line('lbl_payment_term');?>
+                              <span class="text-danger"> *</span>
                               <a href="#paymentterm1" data-toggle="modal" data-target=""><span class="" style="">Add Term</span></a>
-                            <span class="text-danger"> *</span></label>
+                            </label>
                             <div class="form-group">
-                            <select class="form-control select2" name="paymentterm" id="paymentterm">
-                                <option value=""><?php echo $this->lang->line('lbl_dropdown_customer');?></option>
-                                <!-- <?php foreach ($paymentTerm as $value) { 
-                                    echo "<option value='$value->id'".set_select('paymentterm',$value->id).">$value->term</option>";
-                                }?> -->
-                                <?php foreach ($paymentTerm as $value){?>
-                                   
-                                    <option value="<?php echo $value->id;?>" <?php if($value->id==$quotation->payment_term_id){ echo "selected";} set_select('paymentterm',$value->id); ?>><?php echo $value->term;?></option>
-                                     <?php } ?>
-                            </select>
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('paymentterm');?></span>
+                              <select class="form-control select2" name="paymentterm" id="paymentterm">
+                                  <option value=""><?php echo $this->lang->line('lbl_dropdown_customer');?></option>
+                                  <?php foreach ($paymentTerm as $value){?>
+                                    <option value="<?php echo $value->id?>" <?php if($value->default=="Yes"){ echo "selected";}?>><?php echo $value->term;?></option>
+                                  <?php } ?>
+                              </select>
+                              <p style="color:#990000;"><?php echo form_error('paymentterm');?></p>
+                            <!-- <span style="color:#990000"><?php echo form_error('paymentterm');?></span> -->
                             </div>
                         </div>
                       </div>
 
                       <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label require" for="inputEmail3">  
+                            <!-- Date  -->
+                            <?php echo $this->lang->line('lbl_add_quotation_date');?>
+                          <span class="text-danger"> *</span></label>
                           <div class="form-group">
-                              <label> 
-                                <!-- Date -->
-                                <?php echo $this->lang->line('lbl_add_quotation_date');?>
-                              <span class="text-danger"> *</span></label>
-                              <div class="form-group">
-                                <input class="form-control" id="datepicker" type="text" name="sales_date" value="<?php echo $quotation->date; ?>" autocomplete="off">
-                                <p style="color:#990000;"></p>
-                              <span style="color:#990000"><?php echo form_error('sales_date');?></span>
-                              </div>
-                              
+                            <input type="text" placeholder="Date" class="form-control valdation_check" id="datepicker" name="order_date" value="<?php echo date('Y-m-d'); ?>">
+                            <!-- <span style="color:#990000"></span> -->
+                            <p style="color:#990000;"><?php echo form_error('order_date');?></p>
+                            
                           </div>
+                        </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="exampleInputEmail1">
                               <!-- Reference -->
-                              <?php echo $this->lang->line('lbl_addpurchase_reference');?>
+                              <?php echo $this->lang->line('lbl_add_quotation_reference');?>
                             </label> 
                               <div class="input-group">
-                                  <div class="input-group-addon">INV-</div>
-                                    <?php $orderno=sprintf('%04d',intval($lastid)+1);?>
+                                  <div class="input-group-addon">SO-</div>
+                                    <?php $orderno=sprintf('%03d',intval($lastid)+1);?>
                                    <input id="reference_no" class="form-control" value="<?php echo $orderno;?>" type="text" name="reference_no">
-                                   <input type="hidden" name="reference" id="reference_no_write" value="<?php echo "INV-".$orderno;?>">
+                                   <input type="hidden" name="reference" id="reference_no_write" value="<?php echo "SO-".$orderno;?>">
                               </div>
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('reference_no');?></span>
+                              <p style="color:red;"></p>
+                              <span id="errMsg" class="text-danger"><?php echo form_error('reference_no');?></span>
                         </div>
-                      </div> 
+                      </div>  
 
                       <div class="col-md-6">
                         <div class="form-group">
@@ -218,11 +166,8 @@
                             <span class="text-danger"> *</span></label>
                             <div class="form-group">
                               <select class="form-control select2" name="status">
-                                  <option value="publish" <?php if('publish'==$quotation->status){echo "selected";}?>> Publish </option>
-                                  <option value="draft" <?php if('draft'==$quotation->status){echo "selected";}?>> Draft </option>
-                                  <!-- <?php foreach ($paymentmethod as $value) { 
-                                      echo "<option value='$value->id'".set_select('paymentmethod',$value->id).">$value->name</option>";   
-                                  }?> --> 
+                                  <option value="publish"> Publish </option>
+                                  <option value="draft"> Draft </option>
                               </select>
                               <p style="color:#990000;"></p>
                               <span style="color:#990000"><?php echo form_error('status');?></span>
@@ -238,10 +183,10 @@
                             <span class="text-danger"> *</span></label>
                             <div class="form-group">
                               <select class="form-control select2" name="invoice_type" id="invoice_type">
-                                  <option <?php if('1'==$quotation->sales_invoice){echo "selected";}?> value="1">Regular</option>
-                                  <option <?php if('2'==$quotation->sales_invoice){echo "selected";}?> value="2">SEZ Supplies with Payment</option>
-                                  <option <?php if('3'==$quotation->sales_invoice){echo "selected";}?> value="3">SEZ Supplies without Payment</option>
-                                  <option <?php if('4'==$quotation->sales_invoice){echo "selected";}?> value="4">Deemed Export</option>
+                                  <option value="1">Regular</option>
+                                  <option value="2">SEZ Supplies with Payment</option>
+                                  <option value="3">SEZ Supplies without Payment</option>
+                                  <option value="4">Deemed Export</option>
                               </select>
                               <p style="color:#990000;"></p>
                               <span style="color:#990000"><?php echo form_error('status');?></span>
@@ -253,21 +198,21 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="port_code">Port Code</label>
-                            <input type="text" name="port_code" value="<?php echo $quotation->port_code;?>" id="port_code" class="form-control">
+                            <input type="text" name="port_code" id="port_code" class="form-control">
                             <span class="validation-color" id="err_port_code"><?php echo form_error('port_code'); ?></span>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="shipping_bill_no">Shipping Bill Number</label>
-                            <input type="text" value="<?php echo $quotation->shipping_bill_no;?>" name="shipping_bill_no" id="shipping_bill_no" class="form-control">
+                            <input type="text" name="shipping_bill_no" id="shipping_bill_no" class="form-control">
                             <span class="validation-color" id="err_shipping_bill_no"><?php echo form_error('shipping_bill_no'); ?></span>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="shipping_bill_date">Shipping Bill Date</label>
-                            <input type="text" name="shipping_bill_date" value="<?php echo $quotation->shipping_bill_date;?>" id="datepicker1" class="form-control datepicker">
+                            <input type="text" name="shipping_bill_date" id="datepicker1" class="form-control datepicker">
                             <span class="validation-color" id="err_shipping_bill_date"><?php echo form_error('shipping_bill_date'); ?></span>
                           </div>
                         </div>
@@ -279,14 +224,14 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Sales Type</label><br>
-                          <input type="radio" name="sales_type" id="sales_type" checked="<?php if($quotation->sales_type==0){echo "true";}else{ echo "false";}?>" value="0"> Through E-commerce <br>
-                          <input type="radio" name="sales_type" id="sales_type" checked="<?php if($quotation->sales_type==1){echo "true";}else{ echo "false";}?>" value="1" checked> Other than E-commerce 
+                          <input type="radio" name="sales_type" id="sales_type" value="0"> Through E-commerce <br>
+                          <input type="radio" name="sales_type" id="sales_type" value="1" checked> Other than E-commerce 
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="checkbox" class="" id="gst_payable" checked="<?php if($quotation->gst_payable=='YES'){echo "true";}else{ echo "false";}?>" name="gst_payable" value="YES">&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="checkbox" class="" id="gst_payable" name="gst_payable" value="YES">&nbsp;&nbsp;&nbsp;&nbsp;
                           <label for="gst_payable">GST Payable On Reverse Charge</label>
                           <span class="validation-color" id="err_gst_payable"><?php echo form_error('gst_payable'); ?></span>
                         </div>
@@ -294,14 +239,13 @@
 
                     </div>
                   </div>
-                </div>
+              </div>    
 
-                <div class="col-md-6">
-                  <h5><b>Shipping Address</b></h5>
+              <div class="col-md-6">
+                <h5><b>Shipping Address</b></h5>
                   <div class="well">
                     <div class="row">
-
-                      <div class="col-md-6">
+                        <div class="col-md-6">
                           <div class="form-group">
                             <label>
                               <!-- Country -->
@@ -312,102 +256,88 @@
                                 <option value="">
                                   <?php echo $this->lang->line('lbl_dropdown_customer');?>
                                 </option>
-                                 <?php foreach ($country as $val) { ?>
-                                   <option value="<?php echo $val->id;?>" <?php if($quotation->country_id==$val->id){echo "selected";}?>><?php echo $val->name;?></option>
-                                  <?php } ?> 
+                               
                               </select>
 
                               <p style="color:#990000;"></p>
-                              <span style="color:#990000"></span>
+                              <span style="color:#990000"><?php echo form_error('state');?></span>
                             </div>
                           </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>
-                            <!-- State -->
-                            <?php echo $this->lang->line('lbl_state');?>
-                          <span class="text-danger"> *</span></label>
-                          <div class="form-group">
-                            <select class="form-control select2" style="" name="state" id="state">
-                              <option value="">
-                                <?php echo $this->lang->line('lbl_dropdown_customer');?>
-                              </option>
-                             <?php foreach ($state1 as $val) { ?>
-                                  <option value="<?php echo $val->id;?>" <?php if($quotation->state_id==$val->id){echo "selected";} set_select('state',$val->id);?>><?php echo $val->name;?></option>
-                             <?php   }?> 
-                            </select>
-
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('state');?></span>
-                          </div>
                         </div>
-                      </div>
-                        
-                         <?php
-                        if(isset($quotation->state_id))
-                        {
-                            $cities=$this->Customer_model->getCity($quotation->state_id);
-                        }
-                        ?>
-                        
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>
-                            <!-- City -->
-                            <?php echo $this->lang->line('lbl_city');?>
-                          </label>
+
+                        <div class="col-md-6">
                           <div class="form-group">
-                            <select class="form-control select2" style="" name="city" id="city">
-                              <option value="">
-                                <?php echo $this->lang->line('lbl_dropdown_customer');?>
-                              </option>
-                               <?php foreach ($cities as $val) { ?>
-                              <option value="<?php echo $val->id;?>" <?php if($quotation->city_id==$val->id){echo "selected";}?>><?php echo $val->name;?></option>    
-                               <?php  }?> 
-                                
-                            </select>
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('city');?></span>
-                          </div>
-                        </div>
-                      </div>
-                       
+                            <label>
+                              <!-- State -->
+                              <?php echo $this->lang->line('lbl_state');?>
+                            <span class="text-danger"> *</span></label>
+                            <div class="form-group">
+                              <select class="form-control select2" style="" name="state" id="state">
+                                <option value="">
+                                  <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                </option>
+                                <!-- <?php foreach ($state1 as $value) { 
+                                    echo "<option value='$value->id'".set_select('state',$value->id).">$value->name</option>";
+                                  }?> -->
+                              </select>
 
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>
-                            Shiping Address
-                            <!-- <?php echo $this->lang->line('lbl_add_quotation_customer');?> -->
-                          </label>
-                          <div class="form-group">
-                              <textarea class="form-control" rows="2" id="shipping_address" name="shipping_address"> <?php echo $quotation->shipping_address;?> </textarea>
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('shipping_address');?></span>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">
-                              <!-- Shipping Charge -->
-                              <?php echo $this->lang->line('lbl_shipping');?>
-                            </label> 
-                            <div class="input-group">
-                                 <input id="shipping" class="form-control text-right" value="0" type="text" name="shipping">
+                              <p style="color:#990000;"></p>
+                              <span style="color:#990000"><?php echo form_error('state');?></span>
                             </div>
-                            <p style="color:#990000;"></p>
-                            <span style="color:#990000"><?php echo form_error('reference_no');?></span>
+                          </div>
                         </div>
-                      </div> 
-
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>
+                              <!-- City -->
+                              <?php echo $this->lang->line('lbl_city');?>
+                            </label>
+                            <div class="form-group">
+                              <select class="form-control select2" style="" name="city" id="city">
+                                <option value="">
+                                  <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                </option>
+                                <!-- <?php foreach ($customer as $value) { 
+                                    echo "<option value='$value->id'".set_select('customer',$value->id).">$value->name</option>";
+                                  }?> -->
+                                  
+                              </select>
+                              <p style="color:#990000;"></p>
+                              <span style="color:#990000"><?php echo form_error('city');?></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>
+                              Shiping Address
+                              <!-- <?php echo $this->lang->line('lbl_add_quotation_customer');?> -->
+                            </label>
+                            <div class="form-group">
+                              <textarea class="form-control" rows="2" id="shipping_address" name="shipping_address"></textarea>
+                              <p style="color:#990000;"></p>
+                              <span style="color:#990000"><?php echo form_error('shipping_address');?></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">
+                                  <!-- Shipping Charge -->
+                                  <?php echo $this->lang->line('lbl_shipping');?>
+                                </label> 
+                                <div class="input-group">
+                                     <input id="shipping" class="form-control" value="0" type="text" name="shipping">
+                                </div>
+                                <p style="color:#990000;"></p>
+                                <span style="color:#990000"><?php echo form_error('reference_no');?></span>
+                            </div>
+                          </div>  
                     </div>
                   </div>
-                </div>
+              </div>
 
-                <div class="col-md-12">
+              <div class="col-md-12">
                   <div class="well">
                     <div class="row">
 
@@ -417,7 +347,7 @@
                                 Supplier Reference
                               </label> 
                                 <div class="input-group">
-                                     <input id="supplier_reference" value="<?php echo $quotation->supplier_ref;?>" class="form-control" type="text" name="supplier_reference" placeholder="Supplier Reference">
+                                     <input id="supplier_reference" class="form-control" type="text" name="supplier_reference" placeholder="Supplier Reference">
                                 </div>
                           </div>
                         </div>
@@ -428,7 +358,7 @@
                                 Buyer Order No
                               </label> 
                                 <div class="input-group">
-                                     <input id="buyer_order_no" class="form-control" value="<?php echo $quotation->buyer_order;?>" type="text" name="buyer_order_no" placeholder="Buyer Order No">
+                                     <input id="buyer_order_no" class="form-control" type="text" name="buyer_order_no" placeholder="Buyer Order No">
                                 </div>
                           </div>
                         </div>
@@ -439,7 +369,7 @@
                                 Dispatch Document No
                               </label> 
                                 <div class="input-group">
-                                     <input id="dispatch_doc_no" class="form-control" value="<?php echo $quotation->dispatch_doc_no;?>" type="text" name="dispatch_doc_no" placeholder="Dispatch Document No">
+                                     <input id="dispatch_doc_no" class="form-control" type="text" name="dispatch_doc_no" placeholder="Dispatch Document No">
                                 </div>
                           </div>
                         </div>
@@ -448,9 +378,9 @@
                           <div class="form-group">
                             <label class="control-label require" for="inputEmail3">  
                              Delivery Note Date
-                            <span class="text-danger"> *</span></label>
+                            <!-- <span class="text-danger"> *</span> --></label>
                             <div class="form-group">
-                              <input type="text" placeholder="Date" class="form-control valdation_check" id="datepicker2" name="del_note_date" value="<?php echo $quotation->dilivery_note_date;?>">
+                              <input type="text" placeholder="Date" class="form-control valdation_check" id="datepicker2" name="del_note_date" value="<?php echo date('Y-m-d'); ?>">
                             </div>
                           </div>
                         </div>
@@ -461,7 +391,7 @@
                                 Dispatch through
                               </label> 
                                 <div class="input-group">
-                                     <input id="dispatch_through" class="form-control" type="text" value="<?php echo $quotation->dispatch_through;?>" name="dispatch_through" placeholder="Dispatch through">
+                                     <input id="dispatch_through" class="form-control" type="text" name="dispatch_through" placeholder="Dispatch through">
                                 </div>
                           </div>
                         </div>
@@ -472,7 +402,7 @@
                                 Delivery Note
                               </label> 
                                 <div class="input-group">
-                                     <textarea placeholder="Terms of delivery" rows="3" class="form-control" name="delivery_note" id="delivery_note"><?php echo $quotation->delivery_note;?></textarea>
+                                     <textarea placeholder="Terms of delivery" rows="3" class="form-control" name="delivery_note" id="delivery_note"></textarea>
                                 </div>
                           </div>
                         </div>
@@ -482,51 +412,30 @@
                 </div>
 
 
-
-                <div class="col-md-12">
+              <div class="col-md-12">
                 <div class="well">
                 <div class="row">
                     
-                    <!-- <div class="col-md-12">
-                      <div class="form-group">
-                          <label class="radio-inline">
-                            <input type="radio" name="optradio" id="radio1" checked>Product Code
-                          </label>
-                          <label class="radio-inline">
-                            <input type="radio" name="optradio" id="radio2">Product Name
-                          </label>
-                      </div>
-                    </div> -->
-
                     <div class="col-md-12">
                       <div class="form-group">
                           <label for="exampleInputEmail1">
                             <!-- Add Items -->
                             <?php echo $this->lang->line('lbl_add_quotation_additems');?>
                           </label>
-                          <input id="product_code" class="form-control" type="text" name="product_code" placeholder="Enter Product Code" autocomplete="off">
-                          <!-- <input id="product_name" class="form-control" type="text" name="product_name" placeholder="Enter Product Name" style="display: none;" autocomplete="off"> -->
+                          <input id="product_code" class="form-control" type="text" name="product_code" placeholder="Enter Product Code/Product Name" autocomplete="off">
                       </div>
                     </div>
 
                 </div>
-                </div>
-                </div>
-
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="text-center" id="quantityMessage" style="color:red; font-weight:bold">
-                      </div>
-                    </div>
-                  </div>
-
+              </div>
+              </div>
+            
                   <div class="row">
                       <div class="col-md-12">
                         <!-- /.box-header -->
                         <div class="box-body no-padding">
                           <div class="table-responsive">
-                          <table class="table table-bordered sales_table" id="sales_table">
+                          <table class="table table-bordered quotation_table" id="quotation_table">
                             <thead>
                               <tr class="tbl_header_color dynamicRows">
                                   <th width="15%" class="text-center">
@@ -537,22 +446,21 @@
                                       <!-- HSN/SAC Code -->
                                       <?php echo $this->lang->line('lbl_hsn_code');?>
                                   </th>
-                                  <th width="8%" class="text-center">
+                                  <th width="10%" class="text-center">
                                     <!-- Quantity -->
                                     <?php echo $this->lang->line('lbl_add_quotation_quantity');?>
                                   </th>
                                   <th>
                                     Available Qty
                                   </th>
-                                  <th width="8%" class="text-center">
-                                    <!-- Rate -->
+                                  <th width="10%" class="text-center">
+                                    <!-- Rate  -->
                                     <?php echo $this->lang->line('lbl_add_quotation_rate');?>
                                     (<?php echo $this->session->userdata("currencySymbol");?>)
                                   </th>
                                   <th width="15%" class="text-center">
                                     <!-- Tax -->
-                                    <?php echo $this->lang->line('lbl_add_quotation_tax');?>
-                                    (%)
+                                    <?php echo $this->lang->line('lbl_add_quotation_tax');?>(%)
                                   </th>
                                   <th width="15%" class="text-center">
                                     <!-- Tax --> 
@@ -561,13 +469,11 @@
                                   </th>
                                   <th width="10%" class="text-center">
                                     <!-- Discount -->
-                                    <?php echo $this->lang->line('lbl_add_quotation_discount');?>
-                                    (%)
+                                    <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
                                   </th>
                                   <th width="10%" class="text-center">
-                                    <!-- Amount  -->
-                                    <?php echo $this->lang->line('lbl_add_quotation_amount');?>
-                                    (<?php echo $this->session->userdata("currencySymbol");?>)
+                                    <!-- Amount --> 
+                                    <?php echo $this->lang->line('lbl_add_quotation_amount');?>(<?php echo $this->session->userdata("currencySymbol");?>)
                                   </th>
                                   <th width="5%" class="text-center">
                                     <!-- Action -->
@@ -575,80 +481,9 @@
                                   </th>
                               </tr>
                             </thead>
-                            <tbody>
-                                <?php if(true){
-                                    
-                                    $items=$this->Quotation_model->getQuotationItem($quotation->quotation_id);
-                                     $taxes=$this->Quotation_model->getTaxs();
-                                    foreach($items as $i)
-                                    {
-                                                                       
-                                       $products=$this->Sales_model->getItemById($i->item_id,$quotation->location_id);
-//                                    print_r($products);
-                                       ?>
-                                
-                                <tr>
-                                    <td class="sales_data">
-                                        <input type="hidden" name="id" value="'+ii+'" id="ii">
-                                        <input type="hidden" name="item_id" value=" <?php echo $products->id; ?>" id="<?php echo $products->id;?>">
-                                      <?php echo $products->item_name; ?>
-                                    </td>
-                                    <td>
-                                       <?php echo $products->hsn_code; ?>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="qty1" id="qty1" value="<?php echo $i->qty; ?>" class="form-control get-data qty1" autocomplete="off" min="0">
-                                          <p class="qty_error" style="color:#990000;"></p>
-                                    </td>
-                                    <td>
-                                        <?php echo $products->qty_available; ?>
-                                        <input type="hidden" name="hidden_available_qty" id="hidden_available_qty" class="form-control" value=" <?php echo $products->qty_available; ?>">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="price_change" id="price_change" value="<?php echo $products->sales_price;?>" class="form-control" autocomplete="off">
-                                        <input type="hidden" name="price" id="price" value="<?php echo $products->sales_price;?>" class="form-control get-data price">
-                                    </td>
-                                    <td>
-                                        
-                                        <div class="form-group">
-                                        <select class="form-control select2" id="item_tax" name="item_tax" style="width: 100%;">
-                                        <option value="0">Select</option>
-                                        <?php  foreach($taxes as $t){ ?>
-                                           
-                                        <option value="<?php echo $t->tax_id; ?>" <?php if($t->tax_id==$products->tax_id){ echo "selected"; } ?>> <?php echo $t->tax_name ?></option>
-                                        <?php } ?> 
-                                       </select></div>
-                                       
-                                    </td>
-                                    <td>
-                                         <input type="hidden" name="tax_rate" id="tax_rate" class="form-control tax_rate" value="0" readonly="">
-                                        <input type="hidden" name="hidden_tax_rate" id="hidden_tax_rate" class="form-control" value="<?php echo $products->tax_value;?>">
-                                        <input type="hidden" name="tax_id" id="tax_id" class="form-control" value="<?php echo $products->tax_id;?>">
-                                        <label id="tax_label"></label>
-                                    </td>
-                                    <td> <input type="text" name="discount" id="discount" class="form-control discount" value="<?php echo $i->discount; ?>" autocomplete="off">
-                                        <input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="subtotal" id="subtotal" class="form-control subtotal" value="<?php echo $i->amount; ?>" readonly>
-                                        <input type="hidden" name="totalsub" id="totalsub" class="form-control totalsub" value="">
-                                        
-                                    </td>
-                                    <td>
-                                        <button type="button" name="remove" class="btn btn-danger btn-xs remove_inventory delete" onclick="hello(this.value);" value="" id=""><span class="fa fa-remove"></span></button>
-                                    </td>
-                            
-                                </tr>
-                               
-                                   <?php    
-                                    }
-//                                    echo "<pre>";
-//                                    print_r($quotation);
-                                }?>
-                               
-                            </tbody>
+                            <tbody></tbody>
                           </table>
-                          <table class="table table-bordered quotation_table" id="quotation_table">
+                          <table class="table table-bordered quotation_table1" id="quotation_table1">
                               
                               <tr class="tableInfo">
                                   <td align="right" width="70%"><strong>
@@ -666,16 +501,16 @@
                                   </td>
                                   <td align="left" width="30%"><strong id="discount_total"></strong></td>
                               </tr>
+
+
                               <tr class="tableInfo">
                                   <td align="right"><strong>
-                                  <!-- Total Tax  -->
-                                  <?php echo $this->lang->line('lbl_add_quotation_totaltax');?>
-                                  (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
+                                    <!-- Total Tax  -->
+                                    <?php echo $this->lang->line('lbl_add_quotation_totaltax');?>
+                                    (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
                                   </td>
                                   <td align="left" colspan="2"><strong id="taxTotal"></strong><input type="hidden" name="totalTax" id="taxTotal1"></td>
-
                               </tr>
-
                               <tr class="tableInfo">
                                   <td align="right"><strong>
                                     Shipping Charges
@@ -688,7 +523,7 @@
 
                               <tr class="tableInfo">
                                 <td align="right"><strong>
-                                  <!-- Grand Total  -->
+                                  <!-- Grand Total --> 
                                   <?php echo $this->lang->line('lbl_add_quotation_grandtotal');?>
                                   (<?php echo $this->session->userdata("currencySymbol");?>)</strong></td>
                                 <td align="left">
@@ -706,17 +541,17 @@
                       <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">
-                             <!--  Note -->
+                              <!-- Note -->
                               <?php echo $this->lang->line('lbl_add_quotation_note');?>
                             </label>
-                            <textarea placeholder="<?php echo $this->lang->line('lbl_add_quotation_desc');?>" rows="3" class="form-control" name="comments" id="largeArea1"><?php echo $quotation->notes; ?></textarea>
+                            <textarea placeholder="<?php echo $this->lang->line('lbl_addpurchase_description');?>" rows="3" class="form-control" name="notes" id="largeArea1"></textarea>
                             <input type="hidden" name="largeArea" id="largeArea">
-                            <input type="hidden" name="temptext" id="temptext">
                         </div>
                         <center>
-                            <input type="submit" name="salesSubmit" class="btn btn-info btn-flat salesSubmit" value=" <?php echo $this->lang->line('btn_submit');?>">
-                            <a href="<?php echo base_url();?>sales/" class="btn btn-default btn-flat"> <?php echo $this->lang->line('btn_cancel');?></a>
-                        
+                            
+                            <input type="submit" name="quotationSubmit" class="btn btn-info btn-flat quotationSubmit"
+                        value="<?php echo $this->lang->line('btn_submit');?>" onsubmit="return checkQty()">
+                            <a href="<?php echo base_url();?>quotation/" class="btn btn-default btn-flat"><?php echo $this->lang->line('btn_cancel');?></a>
                         </center>
                       </div>
                   </div>
@@ -922,6 +757,49 @@
 </div>
 <!-- /.example-modal -->
 
+<!-- ADD NEW Warehouse -->
+<div class="example-modal">
+  <div class="modal fade" id="warehouse">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <center><h4 class="modal-title">
+            <b>Add New Warehouse</b>
+          </h4></center>
+        </div>
+        <div class="modal-body">
+            <!-- <form class="form-horizontal" name="warehouse_form" id="warehouse_form"> -->
+                <div class="form-group">
+                  <label class="col-sm-4 control-label require" for="inputEmail3">        <!-- Location Name -->
+                      <?php echo $this->lang->line('lbl_warehouse_name');?>
+                    <span class="text-danger">*</span>
+                  </label>
+
+                  <div class="col-sm-6">
+                    <input type="text" placeholder="Location Name" class="form-control valdation_check" id="warehouse_name" name="warehouse_name">
+                    <span style="color: #990000"></span>
+                    <p style="color:#990000;" id="warehouse_error"></p>
+                  </div>
+                </div>
+                <br>
+            <!-- </form> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><!-- Close -->
+            <?php echo $this->lang->line('btn_modal_close');?>
+            </button>
+            <input type="button" class="btn btn-danger" value="Save" name="add_warehouse" id="add_warehouse" data-dismiss="modal">
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+</div>
+<!-- /.example-modal -->
 
 <!-- ADD NEW PAYMENT METHOD -->
 <div class="example-modal">
@@ -1037,8 +915,7 @@
 
 
 <script type="text/javascript">
-  $(document).ready(function()
-  {
+  $(document).ready(function(){
 
     $('#invoice_type').change(function(){
       var id = $('#invoice_type').val();
@@ -1053,21 +930,18 @@
       }
     });
 
-
     /*$("#product_name").hide();
     $("#radio1").click(function(){
         $("#product_code").show();        
         $("#product_name").hide();        
     });
-
     $("#radio2").click(function(){
         $("#product_code").hide();        
         $("#product_name").show();        
-    });*/    
+    });*/
 
-    $('#sales_form').on('keyup keypress keydown', function(e) {
+    $('#quotation_form').on('keyup keypress keydown', function(e) {
       var keyCode = e.keyCode || e.which;
-      //alert(keyCode);
       if (keyCode === 13) { 
         e.preventDefault();
         return false;
@@ -1122,23 +996,43 @@
               for(i=0;i<data1['list'].length;i++){
                   $('#customer_id').append('<option value="'+ data1['list'][i].id + '">' + data1['list'][i].name + '</option>');
               }
-              $('select[name^="customer"] option[value="'+id+'"]').attr("selected","selected");
+              $('select[name^="customer_id"] option[value="'+id+'"]').attr("selected","selected");
               $('#customer_id').trigger("change");
           }
         });
 
     });
-    
-    function validateForm()
-    {
-        if(confirm('Are You sure wants to create Invoice ?'))
-        {
-            return true;
-        }else{
-            return false;
-        }
-    }
 
+
+
+    $("#add_warehouse").click(function ()
+    {
+        var warehouse = $("#warehouse_name").val();
+
+        if(warehouse=="")
+        {
+          $('#warehouse_error').text("Enter Warehouse Name");
+          return false;
+        }
+
+        $('#location_id').html('<option value="">Select</option>');
+        $.ajax({
+          url:"<?php echo base_url('quotation/add_warehouse');?>",
+          method:"POST",
+          data:{warehouse_name:warehouse},
+          dataType : "json",
+          success:function(data1)
+          {
+              var id = data1['warehouse_id'];
+              //alert(id);
+              for(i=0;i<data1['warehouse'].length;i++){
+                  $('#location_id').append('<option value="' + data1['warehouse'][i].id + '">' + data1['warehouse'][i].location_name + '</option>');
+              }
+              $('select[name^="location_id"] option[value="'+id+'"]').attr("selected","selected");
+              $("#warehouse_name").val("");
+          }
+        });
+    });
 
     $("#add_payment").click(function ()
     {
@@ -1149,6 +1043,7 @@
           return false;
         }
 
+        //alert(paymentmethod);
         $('#paymentmethod_id').html('<option value="">Select</option>');
         $.ajax({
           url:"<?php echo base_url('quotation/add_paymentmethod');?>",
@@ -1158,11 +1053,11 @@
           success:function(data1)
           {
               var id = data1['paymentmethod'];
-              
+              //alert(id);
               for(i=0;i<data1['method'].length;i++){
                   $('#paymentmethod_id').append('<option value="' + data1['method'][i].id + '">' + data1['method'][i].name + '</option>');
               }
-              $('select[name^="paymentmethod"] option[value="'+id+'"]').attr("selected","selected");
+              $('select[name^="paymentmethod_id"] option[value="'+id+'"]').attr("selected","selected");
               $("#payment_method").val("");
           }
         });
@@ -1199,6 +1094,7 @@
           success:function(data1)
           {
               var id = data1['paymentterm'];
+              //alert(id);
               for(i=0;i<data1['term'].length;i++){
                   $('#paymentterm').append('<option value="'+ data1['term'][i].id + '">' + data1['term'][i].term + '</option>');
               }
@@ -1209,25 +1105,26 @@
     });
   });
 
+    
 
-    var mapping = { };
+
+
+
+    /*var mapping = { };
     $(function(){
             $('#product_code').autoComplete({
                 minChars: 1,
                 source: function(term, suggest){
                     term = term.toLowerCase();
                     var warehouse_id = $('#location_id').val();
-                    /*alert(warehouse_id);
-                    alert(term);*/
                     $.ajax({
-                      url: "<?php echo base_url('sales/getBarcodeProducts') ?>/"+term+'/'+warehouse_id,
+                      url: "<?php echo base_url('quotation/getBarcodeProducts') ?>/"+term+'/'+warehouse_id,
                       type: "GET",
                       dataType: "json",
                       success: function(data){
                         var suggestions = [];
                         for(var i = 0; i < data.length; ++i) {
-                             
-                            suggestions.push(data[i].product_code+' - '+data[i].item_name);
+                            suggestions.push(data[i].product_code);
                             mapping[data[i].product_code] = data[i].id;
                         }
                         suggest(suggestions);
@@ -1235,16 +1132,13 @@
                     });
                 },
                 onSelect: function(event, ui) {
-                  var str = ui.split(' ');
-                  
                   var warehouse_id = $('#location_id').val();
                   $.ajax({
-                    url:"<?php echo base_url('sales/getProductUseCode') ?>/"+mapping[str[0]]+'/'+warehouse_id,
+                    url:"<?php echo base_url('quotation/getProductUseCode') ?>/"+mapping[ui]+'/'+warehouse_id,
                     type:"GET",
                     dataType:"JSON",
                     success: function(data1){
                       filterData(data1);
-                    
                       $('#product_code').val('');
                     }
                   });
@@ -1253,19 +1147,92 @@
             
       });
 
-    
+    var mapping = { };
+    $(function(){
+            $('#product_name').autoComplete({
+                minChars: 1,
+                source: function(term, suggest){
+                    term = term.toLowerCase();
+                    var warehouse_id = $('#location_id').val();
+                    $.ajax({
+                      url: "<?php echo base_url('quotation/getNameProducts') ?>/"+term+'/'+warehouse_id,
+                      type: "GET",
+                      dataType: "json",
+                      success: function(data){
+                        var suggestions = [];
+                        for(var i = 0; i < data.length; ++i) {
+                            suggestions.push(data[i].item_name);
+                            mapping[data[i].item_name] = data[i].id;
+                        }
+                        suggest(suggestions);
+                        }
+                    });
+                },
+                onSelect: function(event, ui) {
+                  var warehouse_id = $('#location_id').val();
+                  $.ajax({
+                    url:"<?php echo base_url('quotation/getProductUseName') ?>/"+mapping[ui]+'/'+warehouse_id,
+                    type:"GET",
+                    dataType:"JSON",
+                    success: function(data1){
+                      filterData(data1);
+                      $('#product_name').val('');
+                    }
+                  });
+                } 
+            });
+            
+      });*/
 
-    
+    var mapping = { };
+    $(function(){
+        $('#product_code').autoComplete({
+            minChars: 1,
+            source: function(term, suggest){
+                term = term.toLowerCase();
+                var warehouse_id = $('#location_id').val();
+              
+                $.ajax({
+                  url: "<?php echo base_url('sales/getBarcodeProducts') ?>/"+term+'/'+warehouse_id,
+                  type: "GET",
+                  dataType: "json",
+                  success: function(data){
+                    var suggestions = [];
+                    for(var i = 0; i < data.length; ++i) {
+                         
+                        suggestions.push(data[i].product_code+' - '+data[i].item_name);
+                        mapping[data[i].product_code] = data[i].id;
+                    }
+                    suggest(suggestions);
+                    }
+                });
+            },
+            onSelect: function(event, ui) {
+              var str = ui.split(' ');
+              var warehouse_id = $('#location_id').val();
+              $.ajax({
+                url:"<?php echo base_url('sales/getProductUseCode') ?>/"+mapping[str[0]]+'/'+warehouse_id,
+                type:"GET",
+                dataType:"JSON",
+                success: function(data1){
+                  filterData(data1);
+                  $('#product_code').val('');
+                }
+              });
+            } 
+        });
+    });
+
+
     $("#shipping").on('keyup',function(){
         var ship = $(this).val();
         
         $("#shipp_charges").text(ship); 
         total();
         taxTotal();
-        grandTotal();  
-        totalDiscount();
+        grandTotal();
+        totalDiscount();     
     });
-
 
     $('#customer_id').change(function(){
         var id = $(this).val();
@@ -1303,6 +1270,7 @@
                   state = data.shipping.state_id;
                   city = data.shipping.city_id;
                   address = data.shipping.street;
+                  
               }
 
               if(data.data1)
@@ -1310,7 +1278,8 @@
                   country = data.data1.country_id;
                   state = data.data1.state_id;
                   city = data.data1.city_id;
-                  //address = data.data1.street;
+                  address = data.data1.street;
+                  
               }
               
               
@@ -1324,12 +1293,12 @@
 
 
     $('#location_id').change(function(){
-    
         var id = $(this).val();
-        $('#sales_table tbody').html("");
-        $('#add_item1').html('<option value="">Select One</option>');
+        $('#quotation_table tbody').html("");
+        $('#grandTotal').val("");
+        /*$('#add_item1').html('<option value="">Select One</option>');
         $.ajax({
-            url: "<?php echo base_url('sales/get_location_item') ?>/"+id,
+            url: "<?php echo base_url('quotation/getItem') ?>/"+id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -1338,12 +1307,11 @@
                 $('#add_item1').append('<option value="' + data[i].id + '">' + data[i].item_name + '</option>');
               }
             }
-          });
+          });*/
     });
 
     $('#country').change(function(){
         var id = $(this).val();
-        //alert(id);
           $('#state').html('<option value="">Select</option>');
           $('#city').html('<option value="">Select</option>');
           $.ajax({
@@ -1374,22 +1342,21 @@
               }
             }
           });
-      });
+    });
 
     $('#country_model').change(function(){
         var id = $(this).val();
-    
-          $('#state_model').html('<option value="">Select</option>');
-          $.ajax({
-              url: "<?php echo base_url('customer/getState') ?>/"+id,
-              type: "GET",
-              dataType: "JSON",
-              success: function(data){
-                for(i=0;i<data.length;i++){
-                  $('#state_model').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
-                }
+        $('#state_model').html('<option value="">Select</option>');
+        $.ajax({
+            url: "<?php echo base_url('customer/getState') ?>/"+id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+              for(i=0;i<data.length;i++){
+                $('#state_model').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
               }
-          });
+            }
+        });
     });
 
 
@@ -1397,7 +1364,7 @@
     $('#state_model').change(function(){
           var id = $(this).val();
           var country=$('#country_model').val();
-         
+         // alert(id);
           $('#city_model').html('<option value="">Select</option>');
           $.ajax({
               url: "<?php echo base_url('customer/getCity') ?>/"+id,
@@ -1432,8 +1399,6 @@
     {
         var id=this.value;
         var id1 = $("#location_id").val();
-
-        //alert(id+" "+id1);
         $.ajax({
           url:"<?php echo base_url('sales/get_items') ?>/"+ id +"/"+ id1,
           method:"POST",
@@ -1444,27 +1409,14 @@
               var item_id=data1['items'].id;
               var item_desc=data1['items'].item_description;
               var tax_id1=data1['items'].tax_id;
-
               var flag=0;
-              $("table.sales_table").find('input[name^="item_id"]').each(function () {
-                    if(data1['items'].id  == +$(this).val()){
-
+              $("table.quotation_table").find('input[name^="item_id"]').each(function () {
+                    if(data1['items'].id  == +$(this).val())
+                    {
                       flag=1;
-                      /*var row_id = $(this).attr("id");
-                      var currentRow=$(this).closest("tr");
-                      var qty1=+currentRow.find('input[name^="qty1"]').val();
-                      var price=+currentRow.find('input[name^="price"]').val();
-                      qty1++;
-                      currentRow.find('input[name^="qty1"]').val(qty1);
-
-                      currentRow.find('input[name^="subtotal"]').val(qty1 * price);
-                      total();
-                      taxTotal();
-                      grandTotal();*/
-                      alert("Oops Product Already In Sales !!");
+                      alert("Oops Product Already In Quotation !!");
                     }   
                 });
-             
                 if(flag == 0){
                     addRow(data1,ii);        
                 }
@@ -1473,8 +1425,7 @@
         });
 
         $('#mySelect').on('change',function(){
-           var currentRow=$(this).closest("tr");
-
+          var currentRow=$(this).closest("tr");
           var ii=+currentRow.find('input[name^="id"]').val();
             //alert(ii);
             var id=$(this).val();
@@ -1482,28 +1433,24 @@
             itemArray[ii].tax_id=id;
             $('#largeArea').val(JSON.stringify(itemArray));
         });
-
     });
 
-
-      function default_function() 
-    {
-        alert();
+    $("table.quotation_table").on("keyup change",'input[name^="qty1"]', function (event) {
+          
           var currentRow=$(this).closest("tr");
           var ii=+currentRow.find('input[name^="id"]').val();
           var qty1=+currentRow.find('input[name^="qty1"]').val();
           var available_qty=+currentRow.find('input[name^="hidden_available_qty"]').val();
 
           if(qty1 > available_qty)
-          {                      
+          {
             currentRow.find('input[name^="qty1"]').val(0);  
             qty1 = 0;
-            currentRow.find('.qty_error').text('Quantity is greater then available!').fadeOut(3000);
+            currentRow.find('.qty_error').text('Quantity is greater then available!').fadeOut(3000); 
             total(ii);
             taxTotal();
             grandTotal();
             totalDiscount();
-          
           }
 
           var rate=+currentRow.find('input[name^="price"]').val();
@@ -1513,8 +1460,44 @@
           var discount_price = calculateDiscount(subtotal,discount);
           var tax_id=+currentRow.find('input[name^="tax_id"]').val();
           currentRow.find('select[name^="item_tax"]').val(tax_id).attr("selected","selected");
+          var discountPrice=calculateDiscountPrice(subtotal,discount);
+          var tax_rate1= (discountPrice*tax_rate)/100;
+          var finalsubtotal = discountPrice + tax_rate1;
 
-          //alert(discount_price);
+          currentRow.find('input[name^="subtotal"]').val(finalsubtotal.toFixed(2));  
+          currentRow.find('input[name^="tax_rate"]').val(tax_rate1.toFixed(2));  
+          currentRow.find('input[name^="hiddendiscount"]').val(discount_price);
+          currentRow.find('input[name^="totalsub"]').val(subtotal);
+          currentRow.find('label').html('GST @'+ (tax_rate) + ' % = ' + (tax_rate1));
+
+          total(ii);
+          taxTotal();
+          grandTotal();
+          totalDiscount();
+      
+    });
+
+    $("table.quotation_table").on("keyup",'input[name^="price_change"]', function (event) {
+          var currentRow=$(this).closest("tr");
+
+          var change=+currentRow.find('input[name^="price"]').val();
+          
+          currentRow.find('input[name^="price"]').val(change);  
+
+          
+          var qty1=+currentRow.find('input[name^="qty1"]').val();
+
+          var rate=+currentRow.find('input[name^="price_change"]').val();
+          var discount=+currentRow.find('input[name^="discount"]').val();
+          var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
+
+          var subtotal = calculatePrice(qty1,rate);
+
+          var discount_price = calculateDiscount(subtotal,discount);
+
+          var tax_id=+currentRow.find('input[name^="tax_id"]').val();
+          currentRow.find('select[name^="item_tax"]').val(tax_id).attr("selected","selected");
+
           var discountPrice=calculateDiscountPrice(subtotal,discount);
           var tax_rate1= (discountPrice*tax_rate)/100;
 
@@ -1525,264 +1508,147 @@
           currentRow.find('input[name^="hiddendiscount"]').val(discount_price);
           currentRow.find('input[name^="totalsub"]').val(subtotal);
 
-          /*currentRow.find('label').html('SGST @'+ (tax_rate/2) + ' = ' + (tax_rate1/2)+ '\n' + 'CGST@'+ (tax_rate/2) + ' = ' + (tax_rate1/2));*/
-          currentRow.find('label').html('GST @'+ (tax_rate) + ' = ' +(tax_rate1));
-          total();
+          currentRow.find('label').html('GST @'+ (tax_rate) + ' % = ' + (tax_rate1));
+
+          total(ii);
           taxTotal();
-          grandTotal();  
-          totalDiscount();
-    }
-
-  
-
-    $("table.sales_table").on("keyup change",'input[name^="qty1"]', function (event) 
-    {
-          var currentRow=$(this).closest("tr");
-          var ii=+currentRow.find('input[name^="id"]').val();
-          var qty1=+currentRow.find('input[name^="qty1"]').val();
-          var available_qty=+currentRow.find('input[name^="hidden_available_qty"]').val();
-
-          if(qty1 > available_qty)
-          {                      
-            currentRow.find('input[name^="qty1"]').val(0);  
-            qty1 = 0;
-            currentRow.find('.qty_error').text('Quantity is greater then available!').fadeOut(3000);
-            total(ii);
-            taxTotal();
-            grandTotal();
-            totalDiscount();
-          
-          }
-
-          var rate=+currentRow.find('input[name^="price"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
-          var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
-          var subtotal = calculatePrice(qty1,rate);
-          var discount_price = calculateDiscount(subtotal,discount);
-          var tax_id=+currentRow.find('input[name^="tax_id"]').val();
-          currentRow.find('select[name^="item_tax"]').val(tax_id).attr("selected","selected");
-
-          //alert(discount_price);
-          var discountPrice=calculateDiscountPrice(subtotal,discount);
-          var tax_rate1= (discountPrice*tax_rate)/100;
-
-          var finalsubtotal = discountPrice + tax_rate1;
-          
-          currentRow.find('input[name^="subtotal"]').val(finalsubtotal.toFixed(2));  
-          currentRow.find('input[name^="tax_rate"]').val(tax_rate1.toFixed(2));  
-          currentRow.find('input[name^="hiddendiscount"]').val(discount_price);
-          currentRow.find('input[name^="totalsub"]').val(subtotal);
-
-          /*currentRow.find('label').html('SGST @'+ (tax_rate/2) + ' = ' + (tax_rate1/2)+ '\n' + 'CGST@'+ (tax_rate/2) + ' = ' + (tax_rate1/2));*/
-          currentRow.find('label').html('GST @'+ (tax_rate) + ' = ' +(tax_rate1));
-          total();
-          taxTotal();
-          grandTotal();  
+          grandTotal();
           totalDiscount();
     });
 
-        $("table.sales_table").on("keyup",'input[name^="discount"]', function (event) {
-
+        $("table.quotation_table").on("keyup",'input[name^="discount"]', function (event) {
           var currentRow=$(this).closest("tr");
           var ii=+currentRow.find('input[name^="id"]').val();
           var discount=+currentRow.find('input[name^="discount"]').val();
           var rate=+currentRow.find('input[name^="price"]').val();
           var qty=+currentRow.find('input[name^="qty1"]').val();
-
           var price=calculatePrice(rate,qty);
           var discount_price = calculateDiscount(price,discount);
-
           var discountPrice=calculateDiscountPrice(price,discount);
-
-           var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
+          var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
+          
           var tax_rate1= (discountPrice*tax_rate)/100;
-
           var finalsubtotal = discountPrice + tax_rate1;
 
           currentRow.find('input[name^="tax_rate"]').val(tax_rate1.toFixed(2)); 
           currentRow.find('input[name^="subtotal"]').val(finalsubtotal);
           currentRow.find('input[name^="hiddendiscount"]').val(discount_price);
 
-          /*currentRow.find('label').html('SGST @'+ (tax_rate/2) + ' = ' + (tax_rate1/2)+ '\n' + 'CGST@'+ (tax_rate/2) + ' = ' + (tax_rate1/2));*/
-          currentRow.find('label').html('GST @'+ (tax_rate) + ' = ' + (tax_rate1));
-
+          currentRow.find('label').html('GST @'+ (tax_rate) + ' % = ' + (tax_rate1));
           total();
           taxTotal();
           grandTotal();
-           totalDiscount();
+          totalDiscount();
         });
 
-        $("table.sales_table").on("keyup",'input[name^="price_change"]', function (event) {
 
-          var currentRow=$(this).closest("tr");
+    $('#quotation_table').on('click', '.delete', function () {
 
-          var ii=+currentRow.find('input[name^="id"]').val();
+      var row_id = $(this).attr("id");
+      $(this).closest('tr').remove();
 
-          var change=+currentRow.find('input[name^="price"]').val();
-          
-          currentRow.find('input[name^="price"]').val(change);  
-
-
-          var qty1=+currentRow.find('input[name^="qty1"]').val();
-
-
-          var rate=+currentRow.find('input[name^="price"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
-          var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
-          var subtotal = calculatePrice(qty1,rate);
-          var discount_price = calculateDiscount(subtotal,discount);
-
-          var tax_id=+currentRow.find('input[name^="tax_id"]').val();
-          currentRow.find('select[name^="item_tax"]').val(tax_id).attr("selected","selected");
-
-
-          //alert(discount_price);
-          var discountPrice=calculateDiscountPrice(subtotal,discount);
-          var tax_rate1= (discountPrice*tax_rate)/100;
-
-          var finalsubtotal = discountPrice + tax_rate1;
-          
-          currentRow.find('input[name^="subtotal"]').val(finalsubtotal.toFixed(2));  
-          currentRow.find('input[name^="tax_rate"]').val(tax_rate1.toFixed(2));  
-          currentRow.find('input[name^="hiddendiscount"]').val(discount_price);
-          currentRow.find('input[name^="totalsub"]').val(subtotal);
-
-          /*currentRow.find('label').html('SGST @'+ (tax_rate/2) + ' = ' + (tax_rate1/2)+ '\n' + 'CGST@'+ (tax_rate/2) + ' = ' + (tax_rate1/2));*/
-          currentRow.find('label').html('GST @'+ (tax_rate) + ' = ' +(tax_rate1));
-          total();
-          taxTotal();
-          grandTotal();  
-          totalDiscount();
+      var currentRow=$(this).closest("tr");
+      var ii=+currentRow.find('input[name^="id"]').val();
+      total();
+      taxTotal();
+      grandTotal();
+      totalDiscount();
     });
 
 
-        $("table.sales_table").on("change",'#item_tax',function (event) 
-        {
-          
-          var currentRow=$(this).closest("tr");
-          var ii=+currentRow.find('input[name^="id"]').val();
-          var id=+currentRow.find('#item_tax').val();
+    $("table.quotation_table").on("change",'#item_tax',function (event) 
+    {
+      var currentRow=$(this).closest("tr");
+      
+      var ii=+currentRow.find('input[name^="id"]').val();
+      var id=+currentRow.find('#item_tax').val();
+      var tax_rate="";
+      
+        $.ajax({
+          url:"<?php echo base_url(); ?>quotation/find_tax",
+          method:"POST",
+          data:{tax_id:id},
+          dataType : "json",
+          success:function(data1)
+          {
+              if(id == 0)
+              {
+                tax_rate = 0; 
+              }
+              else{
+                var tax_rate=data1['taxvalue'].tax_value; 
+              }
 
-          //itemArray[ii].tax_id=id;
+              currentRow.find('input[name^="hidden_tax_rate"]').val(tax_rate); 
+              currentRow.find('input[name^="tax_id"]').val(id); 
 
-          $.ajax({
-            url:"<?php echo base_url(); ?>quotation/find_tax",
-            method:"POST",
-            data:{tax_id:id},
-            dataType : "json",
-            success:function(data1)
+              var qty1=+currentRow.find('input[name^="qty1"]').val();
+              var rate=+currentRow.find('input[name^="price"]').val();
+              var discount=+currentRow.find('input[name^="discount"]').val();
+        
+              var subtotal = calculatePrice(qty1,rate);
+              var discountPrice=calculateDiscountPrice(subtotal,discount);
+              var tax_rate1= (discountPrice*tax_rate)/100;
+              var finalsubtotal = discountPrice + tax_rate1;
+
+              currentRow.find('input[name^="subtotal"]').val(finalsubtotal.toFixed(2));  
+              currentRow.find('input[name^="tax_rate"]').val(tax_rate1.toFixed(2));  
+              currentRow.find('input[name^="hidden_tax_rate"]').val(tax_rate);  
+              currentRow.find('label').html('GST @'+ (tax_rate) + ' % = ' + (tax_rate1));  
+              total(ii);
+              taxTotal();
+              grandTotal();
+          }
+        });
+
+    });
+
+    $("input[name='quotationSubmit']").click(function(e){
+       
+        var customer      =  chkDrop("quotation","customer_id","Please Select Customer");
+        var location      =  chkDrop("quotation","location_id","Please Select Location");
+        var paymentmethod =  chkDrop("quotation","paymentmethod_id","Please Select Payment Method");
+        var date          =  chkEmpty("quotation","order_date","Please Enter Date");
+        var reference     =  chkEmpty("quotation","reference_no","Please Enter Reference No");
+        var total         =  chkGrandTotal("quotation","grandTotal","Please Select one Item");
+        var state         =  chkDrop("sales","state","Please Select State");
+        var country       =  chkDrop("sales","country","Please Select Country");
+        var paymentterm   =  chkDrop("sales","paymentterm","Please Select Payment Term");
+
+        if((customer + location + paymentmethod + date + reference + total + state + country + paymentterm) < 1){
+          var flag = 0;
+          $('.item_name1').each(function(){
+            var currentRow=$(this).closest("tr");
+            
+            var qty1=+currentRow.find('input[name^="qty1"]').val();
+            if(qty1 <= 0)
             {
-                
-                if(id == 0)
-                {
-                  tax_rate = 0; 
-                }
-                else{
-                  var tax_rate=data1['taxvalue'].tax_value; 
-                }
-
-
-                //var tax_rate=data1['taxvalue'].tax_value; 
-                
-                currentRow.find('input[name^="hidden_tax_rate"]').val(tax_rate); 
-                currentRow.find('input[name^="tax_id"]').val(id); 
-
-                var qty1=+currentRow.find('input[name^="qty1"]').val();
-                var rate=+currentRow.find('input[name^="price"]').val();
-                var discount=+currentRow.find('input[name^="discount"]').val();
-          
-                var subtotal = calculatePrice(qty1,rate);
-          
-                var discountPrice=calculateDiscountPrice(subtotal,discount);
-                var tax_rate1= (discountPrice*tax_rate)/100;
-
-                var finalsubtotal = discountPrice + tax_rate1;
-
-                currentRow.find('input[name^="subtotal"]').val(finalsubtotal.toFixed(2));  
-                currentRow.find('input[name^="tax_rate"]').val(tax_rate1.toFixed(2));  
-                currentRow.find('input[name^="hidden_tax_rate"]').val(tax_rate);  
-
-                /*currentRow.find('label').html('SGST @'+ (tax_rate/2) + ' = ' + (tax_rate1/2)+ '\n' + 'CGST@'+ (tax_rate/2) + ' = ' + (tax_rate1/2));*/  
-                currentRow.find('label').html('GST @'+ (tax_rate) + ' = ' + (tax_rate1));
-                total(ii);
-                taxTotal();
-                grandTotal(); 
+              flag = 1;
             }
           });
 
-        });
+          if(flag == 0){
+            quotation.submit();
+            return true;
+          }
+          else{
+            alert("some where Qty is missing")
+            return false;
+          }
 
+        }else{
+          return false;
+        }
+    });
 
-
-        $('#sales_table').on('click', '.delete', function () {
-
-          var row_id = $(this).attr("id");
-          $(this).closest('tr').remove();
-
-          var currentRow=$(this).closest("tr");
-          var ii=+currentRow.find('input[name^="id"]').val();
-          itemArray[ii]=null;
-          $('#largeArea').val(JSON.stringify(itemArray));
-
-          total();
-          taxTotal();
-          grandTotal();
-          totalDiscount();
-        });
-
-
-        $("input[name='salesSubmit']").click(function(e){
-            var customer=chkDrop("sales","customer","Please Select Customer");
-            var location=chkDrop("sales","location","Please Select Location");
-            var paymentmethod=chkDrop("sales","paymentmethod","Please Select Payment");
-            var paymentterm=chkDrop("sales","paymentterm","Please Select Payment Term");
-            var ref=chkEmpty("sales","reference_no","Please Enter Reference No");
-            var state=chkDrop("sales","state","Please Select State");
-            var country=chkDrop("sales","country","Please Select Country");
-//            var total=chkGrandTotal("sales","grandTotal","Please Select one Item");
-            var date=chkGrandTotal("sales","sales_date","Please Select Valid Date");
-            //var add=chktxtArea("sales","shipping_address","Please Enter Shipping address");
-            
-            if((customer + location + paymentmethod + paymentterm + date + state + ref) < 1){
-                if(confirm("Are you sure want to creae a reciept ?"))
-                {
-              var flag = 0;
-              $('.sales_data').each(function(){
-                var currentRow=$(this).closest("tr");
-                
-                var qty1=+currentRow.find('input[name^="qty1"]').val();
-                if(qty1 <= 0)
-                {
-                  flag = 1;
-                }
-              });
-
-              if(flag == 0){
-                sales.submit();
-                return true;
-              }
-              else{
-                alert("some where Qty is missing")
-                return false;
-              }
-          }else{ return false; }
-            }else{
-              return false;
-            }
-
-        });
-
-
-        $(document).on("click",".salesSubmit",function(){
+    $(document).on("click",".quotationSubmit",function(){
           var ii=0;
           itemArray = new Array();
           var data="";
-          $('.sales_data').each(function(){
+          $('.item_name1').each(function(){
               var currentRow=$(this).closest("tr");
               var qty1=+currentRow.find('input[name^="qty1"]').val();
-
               var item_id=+currentRow.find('input[name^="item_id"]').val();
-              var qty1=+currentRow.find('input[name^="qty1"]').val();
               var rate=+currentRow.find('input[name^="price"]').val();
               var discount=+currentRow.find('input[name^="discount"]').val();
               var tax_rate=+currentRow.find('input[name^="tax_rate"]').val();
@@ -1790,28 +1656,26 @@
               var amount=+currentRow.find('input[name^="subtotal"]').val();
               var quotation_id=$('#quotation_id').val();
               
-              var items={"item_id":item_id,"qty":qty1,"rate":rate,"tax_id":tax_id,"tax":tax_rate,"discount":discount,"amount":amount}
-              itemArray[ii]=items;
-
-              $('#largeArea').val(JSON.stringify(itemArray));
+              if(qty1 > 0){
+                var items={"item_id":item_id,"qty":qty1,"rate":rate,"tax_id":tax_id,"tax":tax_rate,"discount":discount,"amount":amount}
+                itemArray[ii]=items;
+              }
               ii++;
 
           });
-          $("input[name='temptext']").val(JSON.stringify(itemArray));
-          $("input[name='temptext1']").val(data);
-          
-        });
 
+          $('#largeArea').val(JSON.stringify(itemArray));
+    });
   });
-  
+    
   function filterData(data1)
   {
       var flag=0;
-      $("table.sales_table").find('input[name^="item_id"]').each(function () {
+      $("table.quotation_table").find('input[name^="item_id"]').each(function () {
             if(data1['items'].id  == +$(this).val())
             {
               flag=1;
-              alert("Oops Product Already In Sales !!");
+              alert("Oops Product Already In Quotation !!");
             }   
         });
         if(flag == 0){
@@ -1819,29 +1683,30 @@
         }
   }  
 
-
-  function calculateShiping(total,shipping)
+  function checkQty(e)
   {
-    var charges = total + shipping;
-    return charges;
+      evt.preventDefault(); 
+      $('.item_name1').each(function(){
+          var currentRow=$(this).closest("tr");
+          var flag = 0;
+          var qty1=+currentRow.find('input[name^="qty1"]').val();
+          //alert(qty1);
+          if(qty1 == 0)
+          {
+            flag = 1;
+          }
+      });
+      //alert(flag);
+      if(flag == 1){
+         return false;
+      }
   }
-  
+
   function calculateDiscount(price,discount)
   {
     var dis = price * discount/100;
     return dis;
   }
-
-  function totalDiscount()
-  {
-    var discount_total = 0;
-    $("table.sales_table").find('input[name^="hiddendiscount"]').each(function () {
-      discount_total += +$(this).val();
-    });
-    //itemArray[ii].total=grandTotal;
-    $("#discount_total").text(discount_total.toFixed(2));  
-  }
-
 
   function calculateDiscountPrice(p,d){
     var discount = [(d*p)/100];
@@ -1862,27 +1727,29 @@
   }
 
   function total()
-  {
-    
+  { 
     var grandTotal = 0;
-    $("table.sales_table").find('input[name^="totalsub"]').each(function () {
+    $("table.quotation_table").find('input[name^="totalsub"]').each(function () {
       grandTotal += +$(this).val();
     });
     //itemArray[ii].total=grandTotal;
     $("#subTotal").text(grandTotal.toFixed(2)); 
+  }
 
-    /*var grandTotal = 0;
-    $("table.sales_table").find('input[name^="subtotal"]').each(function () {
-      grandTotal += +$(this).val();
+  function totalDiscount()
+  {
+    var discount_total = 0;
+    $("table.quotation_table").find('input[name^="hiddendiscount"]').each(function () {
+      discount_total += +$(this).val();
     });
-
-    $("#subTotal").text(grandTotal.toFixed(2)); */
+    //itemArray[ii].total=grandTotal;
+    $("#discount_total").text(discount_total.toFixed(2));  
   }
 
   function taxTotal()
   {
     var taxTotal = 0;
-    $("table.sales_table").find('input[name^="tax_rate"]').each(function () {
+    $("table.quotation_table").find('input[name^="tax_rate"]').each(function () {
       taxTotal += +$(this).val();
     });
     $("#taxTotal").text(taxTotal.toFixed(2));
@@ -1890,16 +1757,10 @@
 
   }
 
-
-
   function grandTotal()
   {
-    /*var sub=parseInt($('#subTotal').text());
-    var tax=parseInt($('#taxTotal').text());
-    var subtotal = sub + tax;*/
-
     var Total = 0;
-    $("table.sales_table").find('input[name^="subtotal"]').each(function () {
+    $("table.quotation_table").find('input[name^="subtotal"]').each(function () {
       Total += +$(this).val();
     });
 
@@ -1907,35 +1768,26 @@
     if(isNaN(shipping)){
       shipping = 0;
     }
-
     var grand = Total + shipping;
-
     $("#grandTotal").val(grand.toFixed(2));
   }
 
 
-  function addRow(data1,ii)
+  function addRow(data1)
   {
-
-     /* var taxtype="";
-      for (var i in data1['tax']) {
-        taxtype += '<option value="'+ data1['tax'][i].id +'">'+data1['tax'][i].tax_name+'</option>';
-      }*/
-
+      
       var select_tax = "";
       select_tax += '<div class="form-group">';
       select_tax += '<select class="form-control select2" id="item_tax" name="item_tax" style="width: 100%;">';
       select_tax += '<option value="0">Select</option>';
-        for(b=0;b<data1['tax'].length;b++){
-          //var id =data1['tax'][b].tax_value +'|'+ data1['tax'][b].tax_id;
 
+        for(b=0;b<data1['tax'].length;b++){
           select_tax += '<option value="' + data1['tax'][b].tax_id +'">' + data1['tax'][b].tax_name+ '</option>';
         }
       select_tax += '</select></div>';
 
       var table='<tr>'+                
-                '<td class="sales_data">'+
-                  '<input type="hidden" name="id" value="'+ii+'" id="ii">'+
+                '<td class="item_name1">'+
                   '<input type="hidden" name="item_id" value="'+data1['items'].id+'" id="'+data1['items'].id+'">'+
                   data1['items'].item_name+
                 '</td>'+
@@ -1943,7 +1795,7 @@
                   data1['items'].hsn_code+
                 '</td>'+
                 '<td>'+
-                  '<input type="number" name="qty1" id="qty1" value="0" class="form-control get-data qty1" autocomplete="off" min="0">'+
+                  '<input type="number" name="qty1" id="qty1" value="0" class="form-control get-data qty1" autocomplete="off">'+
                   '<p class="qty_error" style="color:#990000;"></p>'+
                 '</td>'+
                 '<td>'+
@@ -1953,14 +1805,16 @@
                 '<td>'+
                   '<input type="text" name="price_change" id="price_change" value="'+data1['items'].sales_price+'" class="form-control" autocomplete="off">'+
                   '<input type="hidden" name="price" id="price" value="'+data1['items'].sales_price+'" class="form-control get-data price">'+
+                '</td>'+
+
                 '<td>'+
                   select_tax+
                 '</td>'+
 
                 '<td>'+
                     '<input type="hidden" name="tax_rate" id="tax_rate" class="form-control tax_rate" value="0" readonly="">'+
+                    '<input type="hidden" name="tax_id" id="tax_id" class="form-control tax_id" value="'+data1['items'].tax_id+'">'+
                     '<input type="hidden" name="hidden_tax_rate" id="hidden_tax_rate" class="form-control" value="'+data1['items'].tax_value+'">'+
-                    '<input type="hidden" name="tax_id" id="tax_id" class="form-control" value="'+data1['items'].tax_id+'">'+
                     '<label id="tax_label"></label>'+
                 '</td>'+
 
@@ -1979,16 +1833,11 @@
                 '</td>'+
 
               '<tr>';
-              
-              $('#sales_table').append(table);
+              $('#quotation_table').append(table);
               total();
               taxTotal();
               grandTotal();
       }
 
-      function changeID(data)
-      {
-          //alert(data);
-      }
 </script>
 <script src="<?php echo base_url('assets/plugins/autocomplite/');?>jquery.auto-complete.js"></script>

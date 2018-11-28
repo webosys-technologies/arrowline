@@ -136,6 +136,18 @@
                     </a>
                   </li>
                   <?php }} ?>
+                  
+                  
+                    <?php 
+                  if (isset($user_session)) {
+                  if(in_array("add_invoice",$user_session)){?>
+                  <li>
+                    <a href="<?php echo base_url();?>sales/sales_order">
+                      <i class="fa fa-plus text-yellow"></i> Sales Order
+                    </a>
+                  </li>
+                  <?php }} ?>
+                  
 
                   <?php 
                   if (isset($user_session)) {
@@ -394,6 +406,11 @@
                 if(in_array("manage_supplier",$user_session)){?>
                 <li><a href="<?php echo base_url();?>supplier/"><i class="fa fa-users text-yellow"></i>  <?php echo $this->lang->line('sidebar_supplier');?>  </a></li>
               <?php }} ?>
+                
+                 <?php if(isset($user_session)){
+                if(in_array("manage_supplier",$user_session)){?>
+                <li><a href="<?php echo base_url();?>staff/"><i class="fa fa-users text-blue"></i>  <?php echo "Staff";?>  </a></li>
+              <?php }} ?>
               </ul>
             </li>
           <?php }} ?>
@@ -439,6 +456,19 @@
                   </a>
                 </li>
               <?php }} ?>
+                
+                
+                   <?php 
+              if (isset($user_session)) {
+                if(in_array("manage_invoice",$user_session)){
+                ?>
+              <li>
+                <a href="<?php echo base_url();?>Order/"><i class="fa fa-shopping-bag text-aqua"></i>
+                     <?php echo "Order" ;?>
+                </a>
+              </li>
+              <?php }} ?>
+                
 
               <?php 
               if (isset($user_session)) {

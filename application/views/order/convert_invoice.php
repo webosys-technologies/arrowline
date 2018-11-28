@@ -76,54 +76,6 @@
                             </div>
                         </div>
                       </div>
-                        
-                        
-                        
-                                       <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Contact Person 1
-                              </label> 
-                                <div class="input-group">
-                                     <input id="supplier_reference" class="form-control" type="text" name="contact_per1" placeholder="Contact Person 1">
-                                </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Designation
-                              </label> 
-                                <div class="input-group">
-                                    <input id="supplier_reference" class="form-control" type="text" name="designation1" placeholder="Person designation 1">
-                                </div>
-                          </div>
-                        </div>
-                      
-                        
-                         <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Contact Person 2
-                              </label> 
-                                <div class="input-group">
-                                     <input id="supplier_reference" class="form-control" type="text" name="contact_per2" placeholder="Contact Person 2">
-                                </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label for="exampleInputEmail1">
-                                Designation
-                              </label> 
-                                <div class="input-group">
-                                    <input id="supplier_reference" class="form-control" type="text" name="designation2" placeholder="Person 2 Designation">
-                                </div>
-                          </div>
-                        </div>
-                        
-                        
-                        
 
                       <div class="col-md-6">
                           <div class="form-group">
@@ -146,13 +98,6 @@
                             </div>
                           </div>
                       </div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
 
                       <div class="col-md-6">
                         <div class="form-group">

@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Quotation extends CI_Controller {
+class Order extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();	
-		$this->load->model(array('Quotation_model','Invoice_model','Sales_model','Customer_model'));
+		$this->load->model(array('Quotation_model','Invoice_model','Sales_model','Customer_model','Order_model'));
 		$this->load->library(array('ion_auth','form_validation'));
 		$this->load->library("cart");
 	}
@@ -23,10 +23,10 @@ class Quotation extends CI_Controller {
 		    redirect('auth','refresh');
 		}
 		
-		$data['quotation']=$this->Quotation_model->getQuotation();
+		$data['orders']=$this->Order_model->getOrder();
 		/*echo "<pre>";
 		print_r($data);exit();*/
-		$this->load->view('quotation/list',$data);
+		$this->load->view('order/list',$data);
 	}
 
 	/*
@@ -702,10 +702,6 @@ class Quotation extends CI_Controller {
 
 			$data['location_id']=$this->input->post('location');	
 			$data['customer_id']=$this->input->post('customer');	
-                        $data['contact_per1']=$this->input->post('contact_per1');	
-                        $data['designation1']=$this->input->post('designation1');	
-                        $data['contact_per2']=$this->input->post('contact_per2');	
-                        $data['designation2']=$this->input->post('designation2');	
 			$data['date'] =$this->input->post('sales_date');	;
 			$data['payment_method_id']=$this->input->post('paymentmethod');	
 			$data['payment_term_id']=$this->input->post('paymentterm');	
