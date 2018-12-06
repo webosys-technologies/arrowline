@@ -51,7 +51,7 @@ class Order extends CI_Controller {
                 $data['SO']=$this->Order_model->getlastorder();
 		/*echo "<pre>";
 		print_r($data);exit();*/
-		$this->load->view('Order/add',$data);	
+		$this->load->view('order/add',$data);	
 
 	}
 
