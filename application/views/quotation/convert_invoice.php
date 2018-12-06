@@ -19,7 +19,7 @@
       <div class="col-md-12">
         <div class="box box-default">
            <div class="box-body">
-              <form action="<?php echo base_url();?>Quotation/add_sales" method="POST" name="sales"  id="sales_form">  
+              <form action="<?php echo base_url();?>Order/add_sales" method="POST" name="sales"  id="sales_form">  
                 <div class="col-md-6">
                   <h5><b>Customer Information</b></h5>
                   <div class="well">
@@ -200,10 +200,24 @@
                               <?php echo $this->lang->line('lbl_addpurchase_reference');?>
                             </label> 
                               <div class="input-group">
-                                  <div class="input-group-addon">INV-</div>
+                                 <?php
+                                 if(explode('/',$AL)[0]=="AL")
+                                 {
+                                     $prev=explode("-",explode('/',$AL)[1])[0];
+                                     if($prev!=substr(date("Y"),2,2))
+                                     {
+                                         $lastid=0;
+                                       
+                                     }
+                                    
+                                 }else{
+                                     $lastid=0;
+                                 }
+                                 ?>
+                                  <div class="input-group-addon">AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/"; ?></div>
                                     <?php $orderno=sprintf('%04d',intval($lastid)+1);?>
                                    <input id="reference_no" class="form-control" value="<?php echo $orderno;?>" type="text" name="reference_no">
-                                   <input type="hidden" name="reference" id="reference_no_write" value="<?php echo "INV-".$orderno;?>">
+                                   <input type="hidden" name="reference" id="reference_no_write" value="AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/".$orderno;?>">
                               </div>
                             <p style="color:#990000;"></p>
                             <span style="color:#990000"><?php echo form_error('reference_no');?></span>
@@ -483,11 +497,11 @@
 
 
 
-                <div class="col-md-12">
+<!--                <div class="col-md-12">
                 <div class="well">
                 <div class="row">
                     
-                    <!-- <div class="col-md-12">
+                     <div class="col-md-12">
                       <div class="form-group">
                           <label class="radio-inline">
                             <input type="radio" name="optradio" id="radio1" checked>Product Code
@@ -496,22 +510,22 @@
                             <input type="radio" name="optradio" id="radio2">Product Name
                           </label>
                       </div>
-                    </div> -->
+                    </div> 
 
                     <div class="col-md-12">
                       <div class="form-group">
                           <label for="exampleInputEmail1">
-                            <!-- Add Items -->
+                             Add Items 
                             <?php echo $this->lang->line('lbl_add_quotation_additems');?>
                           </label>
                           <input id="product_code" class="form-control" type="text" name="product_code" placeholder="Enter Product Code" autocomplete="off">
-                          <!-- <input id="product_name" class="form-control" type="text" name="product_name" placeholder="Enter Product Name" style="display: none;" autocomplete="off"> -->
+                           <input id="product_name" class="form-control" type="text" name="product_name" placeholder="Enter Product Name" style="display: none;" autocomplete="off"> 
                       </div>
                     </div>
 
                 </div>
                 </div>
-                </div>
+                </div>-->
 
 
                   <div class="row">
@@ -577,14 +591,31 @@
                             </thead>
                             <tbody>
                                 <?php if(true){
-                                    
-                                    $items=$this->Quotation_model->getQuotationItem($quotation->quotation_id);
-                                     $taxes=$this->Quotation_model->getTaxs();
+                                    $tax_total=0;
+                                    $sub_total=0;
+                                    $total_disc=0;
+                                    $grand_total=0;
+                                    $items=$this->Order_model->getQuotationItem($quotation->order_id);
+//                                 print_r($items);
+                                     $taxes=$this->Order_model->getTaxs();
                                     foreach($items as $i)
                                     {
-                                                                       
+                                       
+                                       $total=$i->qty*$i->rate;
+                                       $sub_total=$total+$sub_total;
+                                       
+                                       
+                                       
+                                       $tax_total=$i->tax+$tax_total;
+                                       $disc=$total*$i->discount/100;
+                                       $total_disc=$disc+$total_disc;
+                                       
+                                       $grand_total=$i->amount+$grand_total;
+                                       
+                                       
+                                       
                                        $products=$this->Sales_model->getItemById($i->item_id,$quotation->location_id);
-//                                    print_r($products);
+//                                    
                                        ?>
                                 
                                 <tr>
@@ -642,8 +673,7 @@
                                
                                    <?php    
                                     }
-//                                    echo "<pre>";
-//                                    print_r($quotation);
+                                  
                                 }?>
                                
                             </tbody>
@@ -652,11 +682,11 @@
                               
                               <tr class="tableInfo">
                                   <td align="right" width="70%"><strong>
-                                    <!-- Sub Total  -->
+                                     Sub Total  
                                     <?php echo $this->lang->line('lbl_add_quotation_subtotal');?>
                                     (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
                                   </td>
-                                  <td align="left" width="30%"><strong id="subTotal"></strong></td>
+                                  <td align="left" width="30%"><strong id="subTotal"><?php echo $sub_total; ?></strong></td>
                               </tr>
                               <tr class="tableInfo">
                                   <td align="right" width="70%"><strong>
@@ -664,7 +694,7 @@
                                     <!-- <?php echo $this->lang->line('lbl_add_quotation_subtotal');?> -->
                                     (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
                                   </td>
-                                  <td align="left" width="30%"><strong id="discount_total"></strong></td>
+                                  <td align="left" width="30%"><strong id="discount_total"><?php echo $total_disc; ?></strong></td>
                               </tr>
                               <tr class="tableInfo">
                                   <td align="right"><strong>
@@ -672,7 +702,7 @@
                                   <?php echo $this->lang->line('lbl_add_quotation_totaltax');?>
                                   (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
                                   </td>
-                                  <td align="left" colspan="2"><strong id="taxTotal"></strong><input type="hidden" name="totalTax" id="taxTotal1"></td>
+                                  <td align="left" colspan="2"><strong id="taxTotal"><?php echo $tax_total; ?></strong><input type="hidden" value="<?php echo $tax_total; ?>" name="totalTax" id="taxTotal1"></td>
 
                               </tr>
 
@@ -692,7 +722,7 @@
                                   <?php echo $this->lang->line('lbl_add_quotation_grandtotal');?>
                                   (<?php echo $this->session->userdata("currencySymbol");?>)</strong></td>
                                 <td align="left">
-                                  <input type="text" name="grandTotal" class="form-control" id="grandTotal" size="5" readonly="" value="">
+                                  <input type="text" name="grandTotal" class="form-control" id="grandTotal" size="5" readonly="" value="<?php echo $grand_total; ?>">
                                   <p style="color:#990000;"></p>
                                 </td>
                               </tr>
@@ -1788,7 +1818,7 @@
               var tax_rate=+currentRow.find('input[name^="tax_rate"]').val();
               var tax_id=+currentRow.find('input[name^="tax_id"]').val();
               var amount=+currentRow.find('input[name^="subtotal"]').val();
-              var quotation_id=$('#quotation_id').val();
+              var order_id=$('#order_id').val();
               
               var items={"item_id":item_id,"qty":qty1,"rate":rate,"tax_id":tax_id,"tax":tax_rate,"discount":discount,"amount":amount}
               itemArray[ii]=items;

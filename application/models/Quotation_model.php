@@ -229,6 +229,17 @@ class Quotation_model extends CI_Model{
         $query=$this->db->get('payment_method');
         return $query->result();
     }
+    
+    public function getlastquotation()
+    {
+         $sql1="SELECT * FROM  `quotation` ORDER BY `id` DESC LIMIT 1";
+        $query=$this->db->query($sql1);
+        if( $query->num_rows() > 0 )
+        {
+            return $query->row()->reference_no;
+        } 
+        return FALSE;
+    }
 
     public function getLastID()
     {

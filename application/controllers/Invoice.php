@@ -254,7 +254,8 @@ class Invoice extends CI_Controller {
 		$data['payment']=$this->Invoice_model->getSalesPaymentData($id);
 		$data['s'] = $this->Sales_model->SalesByID($id);
 		$data['shipping'] = $this->Sales_model->SalesShippingAddress($id);
-
+               $data['tax'] = $this->Sales_model->getTax($id);
+                  
 		/*echo "<pre>";
 		print_r($data);exit();*/
 		

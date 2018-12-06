@@ -151,11 +151,26 @@
                               <!-- Reference -->
                               <?php echo $this->lang->line('lbl_add_quotation_reference');?>
                             </label> 
+                             <?php
+                                 if(explode('/',$QN)[0]=="QN")
+                                 {
+                                     $prev=explode("-",explode('/',$QN)[1])[0];
+                                     if($prev!=substr(date("Y"),2,2))
+                                     {
+                                         $lastid=0;
+                                       
+                                     }
+                                    
+                                 }else{
+                                     $lastid=0;
+                                 }
+                                 ?>
+                            
                               <div class="input-group">
-                                  <div class="input-group-addon">SO-</div>
+                                  <div class="input-group-addon">QN/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/"; ?></div>
                                     <?php $orderno=sprintf('%03d',intval($lastid)+1);?>
                                    <input id="reference_no" class="form-control" value="<?php echo $orderno;?>" type="text" name="reference_no">
-                                   <input type="hidden" name="reference" id="reference_no_write" value="<?php echo "SO-".$orderno;?>">
+                                   <input type="hidden" name="reference" id="reference_no_write" value="AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/".$orderno;?>">
                               </div>
                               <p style="color:red;"></p>
                               <span id="errMsg" class="text-danger"><?php echo form_error('reference_no');?></span>
