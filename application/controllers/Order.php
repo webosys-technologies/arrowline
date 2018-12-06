@@ -41,16 +41,17 @@ class Order extends CI_Controller {
         }
 
         $data['state1'] = $this->Customer_model->dataState();
-		$data['customer']=$this->Quotation_model->getCustomer();
-		$data['location']=$this->Quotation_model->getLocation();
-		$data['lastid']=$this->Quotation_model->getLastId();
-		$data['items']=$this->Quotation_model->getItems();
-		$data['paymentmethod']=$this->Quotation_model->getPaymentMethod();
+		$data['customer']=$this->Order_model->getCustomer();
+		$data['location']=$this->Order_model->getLocation();
+		$data['lastid']=$this->Order_model->getLastId();
+		$data['items']=$this->Order_model->getItems();
+		$data['paymentmethod']=$this->Order_model->getPaymentMethod();
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['country']  = $this->Customer_model->dataCountry();
+                $data['SO']=$this->Order_model->getlastorder();
 		/*echo "<pre>";
 		print_r($data);exit();*/
-		$this->load->view('quotation/add',$data);	
+		$this->load->view('Order/add',$data);	
 
 	}
 
@@ -164,7 +165,7 @@ class Order extends CI_Controller {
 	*/
 
   
-	function add_quotation()
+	function add_order()
 	{
 
 		if(!$this->ion_auth->logged_in())
@@ -227,15 +228,15 @@ class Order extends CI_Controller {
 //			print_r($data1);
 //                        die;
 
-			$quotation_id=$this->Quotation_model->addQuotation($data);
+			$order_id=$this->Order_model->addOrder($data);
 
-			$quotationItem=array();
-			if(isset($quotation_id))
+			$orderitem=array();
+			if(isset($order_id))
 			{
 				$i=0;
 				foreach ($data1 as $key => $val) {
-						$quotationItem[$i]=array(
-							'quotation_id' => $quotation_id,
+						$orderitem[$i]=array(
+							'order_id' => $order_id,
 							'item_id' => $val->item_id,
 							//'item_description' => $value->item_desc,
 							'qty' => $val->qty,
@@ -250,10 +251,10 @@ class Order extends CI_Controller {
 					$i++;		
 				}
 					
-				$this->Quotation_model->addQuotationItem($quotationItem);
+				$this->Order_model->addOrderItem($orderitem);
 		
 				//$this->order_details($quotation_id);            		
-				redirect('quotation/order_details/'.$quotation_id);			
+				redirect('Order/order_details/'.$order_id);			
 			}
         }
         else
@@ -267,21 +268,22 @@ class Order extends CI_Controller {
 		This method load particular quotation details using quotation id
 	*/
 
-	public function order_details($quotation_id)
+	public function order_details($order_id)
 	{
 		if(!$this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
 
-		$data['quotation']=$this->Quotation_model->getQuotaion($quotation_id);
-		$data['quotation_items']=$this->Quotation_model->getQuotaionItems($quotation_id);
+		$data['quotation']=$this->Order_model->getOrders($order_id);
+               
+		$data['quotation_items']=$this->Order_model->getOrderItems($order_id);
 		/*echo "<pre>";
 		print_r($data);
 		exit();*/
 
-		//$data['orderdetails']=$this->Quotation_model->orderDetails($quotation_id);
-		$data['country']=$this->Quotation_model->companyDetails();
+		//$data['orderdetails']=$this->Quotation_model->orderDetails($order_id);
+		$data['country']=$this->Order_model->companyDetails();
 
 		if(!isset($data['country']))
 		{
@@ -289,13 +291,13 @@ class Order extends CI_Controller {
 			redirect('quotation','refresh');
 		}
 
-		$data['invoice']=$this->Quotation_model->getInvoiceDetails($quotation_id);
-		$data['s'] = $this->Quotation_model->quotationByID($quotation_id);
+		$data['invoice']=$this->Order_model->getInvoiceDetails($order_id);
+		$data['s'] = $this->Order_model->orderByID($order_id);
 
 		/*echo "<pre>";
 		print_r($data);
 		exit();*/
-		$this->load->view('quotation/order',$data);
+		$this->load->view('order/order',$data);
 	}
 
 
@@ -447,21 +449,21 @@ class Order extends CI_Controller {
 	/*
 		This method generate print for quotation details
 	*/
-	public function order_print($quotation_id)
+	public function order_print($order_id)
 	{
 		if(!$this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
 
-        $data['address'] = $this->Quotation_model->getShippingAddress($quotation_id);
+        $data['address'] = $this->Order_model->getShippingAddress($order_id);
 
 
-  		$data['orderdetails']=$this->Quotation_model->orderDetails($quotation_id);
-		$data['country']=$this->Quotation_model->companyDetails();
-		$data['invoice']=$this->Quotation_model->getInvoiceDetails($quotation_id);
-		$data['s'] = $this->Quotation_model->quotationByID($quotation_id);
-		$data['shipping'] = $this->Quotation_model->SalesShippingAddress($quotation_id);
+  		$data['orderdetails']=$this->Order_model->orderDetails($order_id);
+		$data['country']=$this->Order_model->companyDetails();
+		$data['invoice']=$this->Order_model->getInvoiceDetails($order_id);
+		$data['s'] = $this->Order_model->orderByID($order_id);
+		$data['shipping'] = $this->Order_model->SalesShippingAddress($order_id);
 		
 		/*echo "<pre>";
 		print_r($data);exit();*/
@@ -471,7 +473,7 @@ class Order extends CI_Controller {
 	    $html=utf8_encode($html);
 	    
 	    //$html=$this->load->view('report/list_vehicle','',TRUE);
-	    $html=$this->load->view('quotation/quotation_print',$data,TRUE);
+	    $html=$this->load->view('order/order_print',$data,TRUE);
 	    require_once(APPPATH.'third_party/mpdf60/mpdf.php');
 	    
 	    $mpdf=new mPDF();
@@ -562,10 +564,10 @@ class Order extends CI_Controller {
 			'id' => $id
 		);
 
-		if($this->Quotation_model->deleteQuotation($data))
+		if($this->Order_model->deleteOrder($data))
 		{
-			$this->session->set_flashdata('success', 'Quotation Deleted successfully.');
-            redirect("quotation",'refresh');
+			$this->session->set_flashdata('success', 'Order Deleted successfully.');
+            redirect("order",'refresh');
 		}
 	}
 
@@ -669,14 +671,15 @@ class Order extends CI_Controller {
         }
         $data['country']  = $this->Customer_model->dataCountry();
 		$data['state1'] = $this->Customer_model->dataState();
-		$data['customer']=$this->Quotation_model->getCustomer();
-		$data['location']=$this->Quotation_model->getLocation();
+		$data['customer']=$this->Order_model->getCustomer();
+		$data['location']=$this->Order_model->getLocation();
 		$data['lastid']=$this->Sales_model->getLastSalesId();
-		$data['items']=$this->Quotation_model->getItems();
-		$data['paymentmethod']=$this->Quotation_model->getPaymentMethod();
+                $data['AL']=$this->Sales_model->getlastreference();
+		$data['items']=$this->Order_model->getItems();
+		$data['paymentmethod']=$this->Order_model->getPaymentMethod();
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['state']=$this->Sales_model->getCompanyState();
-                $data['quotation']=$this->Quotation_model->get_quotation_detail($id);
+                $data['quotation']=$this->Order_model->get_Order_detail($id);
 		$this->load->view('quotation/convert_invoice',$data);	   
         }
         
@@ -761,7 +764,7 @@ class Order extends CI_Controller {
 
 				$last_invo=$this->Invoice_model->getLastInvoiceID();
 				$addInvoice=array(
-					'invoice_no'   =>   "INV-".sprintf('%04d',intval($last_invo)+1),
+					'invoice_no'   =>   $this->input->post('reference'),
 					'sales_id'     =>   $sales_id,
 					'sales_amount' =>   $data['total_amount'],
 					'invoice_date' =>   date('Y-m-d')

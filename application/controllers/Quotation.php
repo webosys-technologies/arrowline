@@ -48,6 +48,7 @@ class Quotation extends CI_Controller {
 		$data['paymentmethod']=$this->Quotation_model->getPaymentMethod();
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['country']  = $this->Customer_model->dataCountry();
+                 $data['QN']=$this->Quotation_model->getlastquotation();
 		/*echo "<pre>";
 		print_r($data);exit();*/
 		$this->load->view('quotation/add',$data);	

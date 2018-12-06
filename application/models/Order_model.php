@@ -46,6 +46,17 @@ class Order_model extends CI_Model{
         $query=$this->db->get();
         return $query->result();
     }
+    
+     public function getlastorder()
+    {
+        $sql1="SELECT * FROM  `sales_order` ORDER BY `id` DESC LIMIT 1";
+        $query=$this->db->query($sql1);
+        if( $query->num_rows() > 0 )
+        {
+            return $query->row()->reference_no;
+        } 
+        return FALSE;
+    }
 
     function getItemById($id,$location_id)
     {
@@ -118,23 +129,23 @@ class Order_model extends CI_Model{
     {   
         if($this->session->userdata('type')=='admin')
         {
-            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as quotation_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
                         ->from('sales_order q')
-                        ->join('quotation_items qa','q.id=qa.quotation_id')
+                        ->join('order_items qa','q.id=qa.order_id')
                         ->join('customer c','c.id=q.customer_id')
                         ->where('q.delete_status',0)
-                        ->group_by('qa.quotation_id')
+                        ->group_by('qa.order_id')
                         ->get()->result();
         }
         else
         {
-            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as quotation_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
-                        ->from('quotation q')
-                        ->join('quotation_items qa','q.id=qa.quotation_id')
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+                        ->from('sales_order q')
+                        ->join('order_items qa','q.id=qa.order_id')
                         ->join('customer c','c.id=q.customer_id')
                         ->where('q.delete_status',0)
                         ->where('q.user_id',$this->session->userdata('userId'))
-                        ->group_by('qa.quotation_id')
+                        ->group_by('qa.order_id')
                         ->get()->result();   
         }
     }
@@ -142,10 +153,10 @@ class Order_model extends CI_Model{
 
 
 
-    public function quotationByID($id)
+    public function orderByID($id)
     {
         
-        return $this->db->select('state_id')->where('id',$id)->get('quotation')->row();
+        return $this->db->select('state_id')->where('id',$id)->get('sales_order')->row();
     }
 
     public function getCustomerID($id)
@@ -190,7 +201,7 @@ class Order_model extends CI_Model{
 
     public function SalesShippingAddress($id)
     {
-        return $this->db->select('shipping_address')->where('id',$id)->get('quotation')->row();   
+        return $this->db->select('shipping_address')->where('id',$id)->get('sales_order')->row();   
     }
 
     public function updateInvoice($id)
@@ -232,7 +243,7 @@ class Order_model extends CI_Model{
 
     public function getLastID()
     {
-        $sql1="SELECT id FROM  `quotation` ORDER BY `id` DESC LIMIT 1";
+        $sql1="SELECT id FROM  `sales_order` ORDER BY `id` DESC LIMIT 1";
         $query=$this->db->query($sql1);
         if( $query->num_rows() > 0 )
         {
@@ -292,33 +303,33 @@ class Order_model extends CI_Model{
         return $query->result();      
     }
 
-    public function addQuotation($data)
+    public function addOrder($data)
     {
-        if($this->db->insert('quotation', $data))
+        if($this->db->insert('sales_order', $data))
         {
             return $this->db->insert_id();    
         }
         return false;
     }
-    public function get_quotation_detail($id)
+    public function get_order_detail($id)
     {
-        $this->db->from('quotation as quot');
-        $this->db->join('quotation_items as item','item.quotation_id=quot.id','LEFT');
+        $this->db->from('sales_order as quot');
+        $this->db->join('order_items as item','item.order_id=quot.id','LEFT');
         $this->db->where('quot.id',$id);
         $query=$this->db->get();
         return $query->row();
         }
     
-    public function addQuotationItem($quotationItem)
+    public function addOrderItem($quotationItem)
     {
-        $data = $this->db->insert_batch('quotation_items', $quotationItem);
+        $data = $this->db->insert_batch('order_items', $quotationItem);
     }
 
     function orderDetails($quotation_id)
     {   
-        $this->db->select('q.id as quotation_id,q.*,qi.*,t.*,i.*,l.*,c.*,c.name as cust_name,ad.street as cust_street,ct.id as cust_city_id,ct.name as cust_city,st.id as cust_state_id,st.name as cust_state,con.name as country_name,ad.zip_code as cust_zipcode,q.status as status_edit,pt.due_days,pm.name as payment_method_name');
-        $this->db->from('quotation q');
-        $this->db->join('quotation_items qi','q.id=qi.quotation_id','left');
+        $this->db->select('q.id as order_id,q.*,qi.*,t.*,i.*,l.*,c.*,c.name as cust_name,ad.street as cust_street,ct.id as cust_city_id,ct.name as cust_city,st.id as cust_state_id,st.name as cust_state,con.name as country_name,ad.zip_code as cust_zipcode,q.status as status_edit,pt.due_days,pm.name as payment_method_name');
+        $this->db->from('sales_order q');
+        $this->db->join('order_items qi','q.id=qi.order_id','left');
         $this->db->join('payment_term pt','pt.id=q.payment_term_id','left');
         $this->db->join('payment_method pm','pm.id=q.payment_method_id','left');
         $this->db->join('tax t','qi.tax_id=t.tax_id','left');
@@ -334,10 +345,10 @@ class Order_model extends CI_Model{
         return $query->result();
     }
 
-    public function getQuotaion($id)
+    public function getOrders($id)
     {
         $this->db->select('
-                q.id as quotation_id,
+                q.id as order_id,
                 q.reference_no,
                 q.date,
                 q.total_tax,
@@ -357,7 +368,7 @@ class Order_model extends CI_Model{
                 l.location_name,
                 q.total_amount,
                 q.status');
-        $this->db->from('quotation q');
+        $this->db->from('sales_order q');
         $this->db->join('payment_term pt','pt.id=q.payment_term_id','left');
         $this->db->join('payment_method pm','pm.id=q.payment_method_id','left');
         $this->db->join('location l','q.location_id=l.id','left');
@@ -370,10 +381,10 @@ class Order_model extends CI_Model{
         return $query->row();
     }
 
-    public function getQuotaionItems($id)
+    public function getOrderItems($id)
     {
          $this->db->select('
-                q.id as quotation_id,
+                q.id as order_id,
                 q.*,
                 qi.*,
                 t.tax_value,
@@ -381,8 +392,8 @@ class Order_model extends CI_Model{
                 i.hsn_code,
                 i.item_description');
         
-        $this->db->from('quotation q');
-        $this->db->join('quotation_items qi','q.id=qi.quotation_id','left');
+        $this->db->from('sales_order q');
+        $this->db->join('order_items qi','q.id=qi.order_id','left');
         $this->db->join('tax t','qi.tax_id=t.tax_id','left');
         $this->db->join('item i','qi.item_id=i.id','left');
         $this->db->where('q.id',$id);
@@ -403,8 +414,8 @@ class Order_model extends CI_Model{
     
     function getQuotationItem($id)
     {
-       $this->db->where('quotation_id',$id);
-        $query=$this->db->get('quotation_items');
+       $this->db->where('order_id',$id);
+        $query=$this->db->get('order_items');
         return $query->result();  
     }
 
@@ -471,9 +482,9 @@ class Order_model extends CI_Model{
         return FALSE;
     }
 
-    function getInvoiceDetails($quotation_id)
+    function getInvoiceDetails($order_id)
     {
-        $this->db->where('quotation_id',$quotation_id);
+        $this->db->where('quotation_id',$order_id);
         $query=$this->db->get('invoice');
         return $query->row();   
     }
@@ -486,9 +497,9 @@ class Order_model extends CI_Model{
         return $query->result();
     }
     
-    public function deleteQuotation($data)
+    public function deleteOrder($data)
     {
-        $sql="UPDATE quotation SET delete_status= ? , delete_date = ? WHERE id =?";
+        $sql="UPDATE sales_order SET delete_status= ? , delete_date = ? WHERE id =?";
         if($this->db->query($sql,$data)) {
             return true;
         }

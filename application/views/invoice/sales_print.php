@@ -231,7 +231,7 @@
               $sub_total=0;$cnt = 1;
               $total_salesvalue = 0;
               $total_discount = 0;
-              $tax = 0;
+//              $tax = 0;
               $total_tax = 0;
               $total_sgst = 0;
               $total_cgst = 0;

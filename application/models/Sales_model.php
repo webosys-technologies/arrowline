@@ -49,6 +49,15 @@ class Sales_model extends CI_Model{
         $query=$this->db->get();
         return $query->result();
     }
+    
+    public function getTax($id)
+    {
+        $this->db->select('total_tax');
+        $this->db->from('sales');
+        $this->db->where('id',$id);
+        $query=$this->db->get();
+        return $query->row()->total_tax;
+    }
 
     public function getProductName($term,$warehouse)
     {
@@ -159,6 +168,17 @@ class Sales_model extends CI_Model{
         if( $query->num_rows() > 0 )
         {
             return $query->row()->id;
+        } 
+        return FALSE;
+    }
+    
+     public function getlastreference()
+    {
+        $sql1="SELECT * FROM  `sales` ORDER BY `id` DESC LIMIT 1";
+        $query=$this->db->query($sql1);
+        if( $query->num_rows() > 0 )
+        {
+            return $query->row()->reference_no;
         } 
         return FALSE;
     }

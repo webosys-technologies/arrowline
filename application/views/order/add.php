@@ -20,7 +20,7 @@
       <div class="col-md-12">
         <div class="box box-default">
            <div class="box-body">
-              <form action="<?php echo base_url();?>quotation/add_quotation" method="POST" name="quotation" id="quotation_form">  
+              <form action="<?php echo base_url();?>Order/add_order" method="POST" name="quotation" id="quotation_form">  
 
               <!-- <?php echo validation_errors(); ?> -->
               <div class="col-md-6">
@@ -147,11 +147,29 @@
                               <!-- Reference -->
                               <?php echo $this->lang->line('lbl_add_quotation_reference');?>
                             </label> 
+                            
+                             <?php
+                             
+                                 if(explode('/',$SO)[0]=="SO")
+                                 {
+                                     $prev=explode("-",explode('/',$SO)[1])[0];
+                                     if($prev!=substr(date("Y"),2,2))
+                                     {
+                                         $lastid=0;
+                                       
+                                     }
+                                    
+                                 }else{
+                                     $lastid=0;
+                                 }
+                                
+                                 ?>
+                            
                               <div class="input-group">
-                                  <div class="input-group-addon">SO-</div>
+                                  <div class="input-group-addon">SO/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/"; ?></div>
                                     <?php $orderno=sprintf('%03d',intval($lastid)+1);?>
                                    <input id="reference_no" class="form-control" value="<?php echo $orderno;?>" type="text" name="reference_no">
-                                   <input type="hidden" name="reference" id="reference_no_write" value="<?php echo "SO-".$orderno;?>">
+                                   <input type="hidden" name="reference" id="reference_no_write" value="SO/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/".$orderno;?>">
                               </div>
                               <p style="color:red;"></p>
                               <span id="errMsg" class="text-danger"><?php echo form_error('reference_no');?></span>
@@ -256,6 +274,9 @@
                                 <option value="">
                                   <?php echo $this->lang->line('lbl_dropdown_customer');?>
                                 </option>
+<!--                                 <?php foreach ($country as $val) { ?>
+                                   <option value="<?php echo $val->id;?>"><?php echo $val->name;?></option>
+                                  <?php } ?> -->
                                
                               </select>
 

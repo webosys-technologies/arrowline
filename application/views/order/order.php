@@ -47,7 +47,7 @@
 
                 <?php if(!isset($invoice)){?>
                   <?php if(in_array("add_invoice",$user_session)){?>
-                    <a href="<?php echo base_url();?>invoice/generate_invoice/<?php echo $quotation->quotation_id;?>" title="Convert to invoice" class="btn btn-primary btn-flat pull-right">
+                    <a href="<?php echo base_url();?>invoice/generate_invoice/<?php echo $quotation->order_id;?>" title="Convert to invoice" class="btn btn-primary btn-flat pull-right">
                       <!-- Generate Invoice -->
                       <?php echo $this->lang->line('btn_generateinvoice');?>
                     </a>
@@ -55,12 +55,12 @@
 
 
               <?php if(in_array("add_invoice",$user_session)){?>
-                <a class="btn btn-warning btn-flat pull-right" href="<?php echo base_url()?>quotation/add_form"><i class="fa fa-truck"></i> 
-                  New Quotation
+                <a class="btn btn-warning btn-flat pull-right" href="<?php echo base_url()?>Order/add_form"><i class="fa fa-truck"></i> 
+                  New Order
                 </a>
               <?php } ?>
               
-              <a href="#<?php echo''.$quotation->quotation_id.'';?>" data-toggle="modal" data-target="" class="btn btn-danger btn-flat delete-btn pull-right"><i class="fa fa-remove"></i>
+              <a href="#<?php echo''.$quotation->order_id.'';?>" data-toggle="modal" data-target="" class="btn btn-danger btn-flat delete-btn pull-right"><i class="fa fa-remove"></i>
                 <!-- Delete -->
                 <?php echo $this->lang->line('btn_delete');?>
               </a>  
@@ -70,13 +70,13 @@
                 <?php echo $this->lang->line('btn_email');?>
               </button>
 
-              <a target="_blank" href="<?php echo base_url();?>quotation/order_print/<?php echo $quotation->quotation_id;?>" title="Print" class="btn btn-info btn-flat pull-right"><i class="fa fa-print"></i>
+              <a target="_blank" href="<?php echo base_url();?>Order/order_print/<?php echo $quotation->order_id;?>" title="Print" class="btn btn-info btn-flat pull-right"><i class="fa fa-print"></i>
                 <!-- Print -->
                 <?php echo $this->lang->line('btn_print');?>
               </a>
 
               <?php if($quotation->status == "draft"){ ?>
-              <a href="<?php echo base_url();?>quotation/edit_data/<?php echo $quotation->quotation_id;?>" title="Edit" class="btn bg-orange btn-flat pull-right"><i class="fa fa-edit"></i>
+              <a href="<?php echo base_url();?>quotation/edit_data/<?php echo $quotation->order_id;?>" title="Edit" class="btn bg-orange btn-flat pull-right"><i class="fa fa-edit"></i>
                 <!-- Edit -->
                 <?php echo $this->lang->line('btn_edit');?>
               </a>
@@ -392,7 +392,7 @@
 
 <!-- Delete Quotation Model -->
 <div class="example-modal">
-  <div class="modal fade" id="<?php echo''.$quotation->quotation_id.'';?>">
+  <div class="modal fade" id="<?php echo''.$quotation->order_id.'';?>">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -411,7 +411,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('btn_modal_close');?></button>
-            <a href="<?php echo base_url();?>quotation/delete/<?php echo $quotation->quotation_id; ?>" class="btn btn-danger" ><?php echo $this->lang->line('btn_modal_delete');?></a>
+            <a href="<?php echo base_url();?>Order/delete/<?php echo $quotation->order_id; ?>" class="btn btn-danger" ><?php echo $this->lang->line('btn_modal_delete');?></a>
         </div>
       </div>
       <!-- /.modal-content -->

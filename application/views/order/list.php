@@ -19,7 +19,7 @@
             <!-- Quotation   -->
               <?php echo "Sales Order";?>
               <?php if(in_array("add_quotation",$user_session)){?>
-                <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>quotation/add_form"><i class="fa fa-plus"></i>
+                <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>Order/add_form"><i class="fa fa-plus"></i>
                  <!-- New Quotation -->
                  <?php echo "New Order";?>
                 </a>
@@ -76,10 +76,12 @@
                 </thead>
                 <tbody>
                 <?php if(isset($orders)){
+//                    print_r($orders);
                     foreach ($orders as $value){ 
+                        
                   ?>
                   <tr>
-                      <td><a href="<?php echo base_url();?>quotation/order_details/<?php echo $value->quotation_id;?>"><?php echo $value->reference_no;?></td>
+                      <td><a href="<?php echo base_url();?>quotation/order_details/<?php echo $value->order_id;?>"><?php echo $value->reference_no;?></td>
                       <td><a href="<?php echo base_url();?>customer/edit_data/<?php echo $value->customer_id;?>"><?php echo $value->name;?></a></td>
                       <td><?php echo $value->salesqty;?></td>
                       <td><?php echo $value->total_amount;?></td>
@@ -91,21 +93,21 @@
                         ?>
 
                         <?php if(in_array("edit_quotation",$user_session)){?>
-                          <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>quotation/edit_data/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="fa fa-edit"></span></a>
+                          <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>quotation/edit_data/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-edit"></span></a>
                         <?php }} ?>
 
                         <!-- <a title="Edit" class="btn btn-xs btn-danger" href="<?php echo base_url();?>invoice/edit"><span class="fa fa-remove"></span></a> -->
 
 
                         <?php if(in_array("delete_quotation",$user_session)){?>
-                          <a href="#<?php echo''.$value->quotation_id.'';?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" title="Delete" data-tt="tooltip"><span class="fa fa-remove"></span></a>
+                          <a href="#<?php echo''.$value->order_id.'';?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" title="Delete" data-tt="tooltip"><span class="fa fa-remove"></span></a>
                         <?php } ?>
 
-                        <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>quotation/order_print/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
-                        <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>quotation/convert_invoice/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
+                        <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>order/order_print/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
+                        <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>order/convert_invoice/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
 
                         <div class="example-modal">
-                          <div class="modal fade" id="<?php echo''.$value->quotation_id.'';?>">
+                          <div class="modal fade" id="<?php echo''.$value->order_id.'';?>">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -126,7 +128,7 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal"><!-- Close -->
                                     <?php echo $this->lang->line('btn_modal_close');?>
                                     </button>
-                                    <a href="<?php echo base_url();?>quotation/delete/<?php echo $value->quotation_id; ?>" class="btn btn-danger">
+                                    <a href="<?php echo base_url();?>quotation/delete/<?php echo $value->order_id; ?>" class="btn btn-danger">
                                     <!-- Delete -->
                                     <?php echo $this->lang->line('btn_modal_delete');?>
                                     </a>
