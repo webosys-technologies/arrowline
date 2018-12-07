@@ -170,7 +170,7 @@
                                   <div class="input-group-addon">QN/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/"; ?></div>
                                     <?php $orderno=sprintf('%03d',intval($lastid)+1);?>
                                    <input id="reference_no" class="form-control" value="<?php echo $orderno;?>" type="text" name="reference_no">
-                                   <input type="hidden" name="reference" id="reference_no_write" value="AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/".$orderno;?>">
+                                   <input type="hidden" name="reference" id="reference_no_write" value="QN/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/".$orderno; ?>">
                               </div>
                               <p style="color:red;"></p>
                               <span id="errMsg" class="text-danger"><?php echo form_error('reference_no');?></span>

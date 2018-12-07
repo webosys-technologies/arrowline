@@ -409,7 +409,7 @@
                 
                  <?php if(isset($user_session)){
                 if(in_array("manage_supplier",$user_session)){?>
-                <li><a href="<?php echo base_url();?>staff/"><i class="fa fa-users text-blue"></i>  <?php echo "Staff";?>  </a></li>
+                <!--<li><a href="<?php echo base_url();?>staff/"><i class="fa fa-users text-blue"></i>  <?php echo "Staff";?>  </a></li>-->
               <?php }} ?>
               </ul>
             </li>
@@ -422,7 +422,7 @@
               <a href="<?php echo base_url();?>item/">
                 <i class="fa fa-list-alt text-yellow"></i> 
                 <span>
-                    <?php echo $this->lang->line('sidebar_items');?>
+                    <?php echo "Products";?>
                 </span>
                 <span class="pull-right-container">
                   <!-- <i class="fa fa-angle-left pull-right"></i> -->
