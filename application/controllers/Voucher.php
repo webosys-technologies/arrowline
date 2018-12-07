@@ -73,7 +73,7 @@ class Voucher extends CI_Controller {
 				
 				$acc=array(
 					'from_account_id'=>$this->input->post('from'),
-                                        'voucher_type' =>$this->input->post('type'),
+//                                        'voucher_type' =>$this->input->post('type'),
 					'to_account_id'=>$this->input->post('to'),		
 					'date'=>$this->input->post('date'),
 					'description'=>$this->input->post('desc'),
@@ -103,7 +103,7 @@ class Voucher extends CI_Controller {
 
 				if($this->Voucher_model->add($acc))
 				{
-					$this->Transfer_model->addTransaction($transaction);
+					$this->Voucher_model->addTransaction($transaction);
 					$this->session->set_flashdata('success', 'Amount transfer successfully');
 					redirect('Voucher','refresh');
 				}

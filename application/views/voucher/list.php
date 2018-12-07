@@ -119,7 +119,7 @@
                   <tr> 
                     <td><?php echo $row->account_name;?></td>
                     <td><?php echo $row->account_no;?></td>
-                    <td><?php echo $row->voucher_type;?></td>
+                    <td><?php?></td>
                     <td><?php echo $row->description;?></td>
                     <td><?php echo $row->amount;?></td>
                     <td><?php echo $row->date;?></td>

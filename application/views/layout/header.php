@@ -565,6 +565,16 @@
               <!-- Bank Account Transfers -->
               </a></li>
             <?php }} ?>
+              
+              <?php 
+            if (isset($user_session)) {
+            if(in_array("manage_balance_transfer",$user_session)){?>
+              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-list text-success"></i> 
+               <?php echo 'Voucher'//$this->lang->line('sidebar_transfer');?>
+              <!-- Voucher -->
+              </a></li>
+            <?php }} ?>
+              
 
             <?php 
             if (isset($user_session)) {
@@ -668,17 +678,7 @@
           </a>
         </li>
         
-           <li class="treeview">
-          <a href="<?php echo base_url();?>Voucher/">
-            <i class="fa fa-outdent text-red"></i>
-            <span>
-                Voucher
-            </span>
-            <span class="pull-right-container">
-              <!-- <i class="fa fa-angle-left pull-right"></i> -->
-            </span>
-          </a>
-        </li>
+           
         
         
         <?php 
