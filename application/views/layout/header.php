@@ -656,6 +656,31 @@
           <?php }} ?>
         
 
+           <li class="treeview">
+          <a href="<?php echo base_url();?>Ledger/">
+            <i class="fa fa-outdent text-red"></i>
+            <span>
+                Ledger
+            </span>
+            <span class="pull-right-container">
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            </span>
+          </a>
+        </li>
+        
+           <li class="treeview">
+          <a href="<?php echo base_url();?>Voucher/">
+            <i class="fa fa-outdent text-red"></i>
+            <span>
+                Voucher
+            </span>
+            <span class="pull-right-container">
+              <!-- <i class="fa fa-angle-left pull-right"></i> -->
+            </span>
+          </a>
+        </li>
+        
+        
         <?php 
           if (isset($user_session)) {
           if(in_array("manage_report",$user_session)){?>

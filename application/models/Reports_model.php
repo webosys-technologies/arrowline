@@ -262,6 +262,35 @@ class Reports_model extends CI_Model
             return $query->result();   
         
   }
+  public function ledgerFilter($customer,$from,$to)
+  {
+      
+            $this->db->select('c.name,in.invoice_no,s.id,s.date,in.sales_amount,in.paid_amount');
+            $this->db->from('customer c'); 
+            $this->db->join('sales s','s.customer_id=c.id');
+            $this->db->join('invoice in','in.sales_id=s.id');
+            $this->db->join('sales_item st','st.sales_id=s.id');
+            $this->db->join('item i','i.id = st.item_id');
+            if(!$this->session->userdata('type')=='admin')
+            {
+              $this->db->where('s.user_id',$this->session->userdata('userId')); 
+            }
+            
+            if($customer=="all")
+            {   
+              $this->db->where('s.date >=',$from); 
+              $this->db->where('s.date <=',$to); 
+            }
+            else{
+              $this->db->where('c.id="'.$customer.'"');
+              $this->db->where('s.date >=',$from); 
+              $this->db->where('s.date <=',$to);   
+            }
+            $this->db->group_by('s.id'); 
+            $query = $this->db->get();
+            return $query->result();   
+        
+  }
 
   /*
       Get Purchase Filter Data
