@@ -16,7 +16,7 @@
   <section class="content">
     <div class="box box-default">
         <div class="box-body">
-          <div class="row">cs
+          <div class="row">
             <div class="col-md-8">
                  <div class="top-bar-title padding-bottom">
                  <!-- Items -->
