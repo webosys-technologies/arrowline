@@ -565,16 +565,7 @@
               <!-- Bank Account Transfers -->
               </a></li>
             <?php }} ?>
-              
-              <?php 
-            if (isset($user_session)) {
-            if(in_array("manage_balance_transfer",$user_session)){?>
-              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-list text-success"></i> 
-               <?php echo 'Voucher'//$this->lang->line('sidebar_transfer');?>
-              <!-- Voucher -->
-              </a></li>
-            <?php }} ?>
-              
+                          
 
             <?php 
             if (isset($user_session)) {
@@ -588,7 +579,45 @@
             </ul>
           </li>
         <?php }} ?>
-
+          
+           <?php 
+          if (isset($user_session)) {
+          if(in_array("manage_banking_transaction",$user_session)){?>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-folder text-danger"></i>
+              <span>
+                 <?php echo 'Voucher'//$this->lang->line('sidebar_bank_trans');?>
+              </span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+             
+                <?php 
+            if (isset($user_session)) {
+            if(in_array("manage_balance_transfer",$user_session)){?>
+              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-list text-success"></i> 
+               <?php echo 'Payment Voucher'//$this->lang->line('sidebar_transfer');?>
+              <!-- Voucher -->
+              </a></li>
+            <?php }} ?>
+              
+              <?php 
+            if (isset($user_session)) {
+            if(in_array("manage_balance_transfer",$user_session)){?>
+              <li><a href="#"><i class="fa fa-file text-aqua"></i> 
+               <?php echo 'Receipt Voucher'//$this->lang->line('sidebar_transfer');?>
+              <!-- Voucher -->
+              </a></li>
+            <?php }} ?>
+              
+           </ul>
+          </li>
+        <?php }} ?>
+          
+          
         <?php 
           if (isset($user_session)) {
           if(in_array("manage_expense",$user_session)){?>
@@ -666,17 +695,42 @@
           <?php }} ?>
         
 
-           <li class="treeview">
-          <a href="<?php echo base_url();?>Ledger/">
-            <i class="fa fa-outdent text-red"></i>
-            <span>
-                Ledger
-            </span>
-            <span class="pull-right-container">
-              <!-- <i class="fa fa-angle-left pull-right"></i> -->
-            </span>
-          </a>
-        </li>
+             <?php 
+          if (isset($user_session)) {
+          if(in_array("manage_banking_transaction",$user_session)){?>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-folder text-danger"></i>
+              <span>
+                 <?php echo 'Ledger'//$this->lang->line('sidebar_bank_trans');?>
+              </span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+             
+                <?php 
+            if (isset($user_session)) {
+            if(in_array("manage_balance_transfer",$user_session)){?>
+              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-list text-success"></i> 
+               <?php echo 'Payment Voucher'//$this->lang->line('sidebar_transfer');?>
+              <!-- Voucher -->
+              </a></li>
+            <?php }} ?>
+              
+              <?php 
+            if (isset($user_session)) {
+            if(in_array("manage_balance_transfer",$user_session)){?>
+              <li><a href="#"><i class="fa fa-file text-aqua"></i> 
+               <?php echo 'Receipt Voucher'//$this->lang->line('sidebar_transfer');?>
+              <!-- Voucher -->
+              </a></li>
+            <?php }} ?>
+              
+           </ul>
+          </li>
+        <?php }} ?>
         
            
         

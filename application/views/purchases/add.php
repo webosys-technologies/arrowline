@@ -176,8 +176,8 @@
                       <table class="table table-bordered purchase_table" id="purchase_table">
                         <thead>
                           <tr class="tbl_header_color dynamicRows">
-                            <th width="15%" class="text-center">
-                              <?php echo $this->lang->line('lbl_addpurchase_description');?>
+                            <th width="23%" class="text-center">
+                              <?php echo 'Name'// $this->lang->line('lbl_addpurchase_description');?>
                             </th>
                             <th width="10%" class="text-center">
                                 <!-- HSN/SAC Code -->
@@ -203,10 +203,10 @@
                                 (<?php echo $this->session->userdata("currencySymbol");?>)
                             </th>
 
-                            <th width="8%" class="text-center">
-                              <!-- Discount (%) -->
+<!--                            <th width="8%" class="text-center">
+                               Discount (%) 
                               <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
-                            </th>
+                            </th>-->
 
                             <th width="10%" class="text-center">
                               <!-- Amount  -->
@@ -235,14 +235,14 @@
                               </td>
                             </tr>
 
-                            <tr class="tableInfo">
+<!--                            <tr class="tableInfo">
                                 <td align="right" width="70%"><strong>
                                   Total Discount
-                                  <!-- <?php echo $this->lang->line('lbl_add_quotation_subtotal');?> -->
+                                   <?php echo $this->lang->line('lbl_add_quotation_subtotal');?> 
                                   (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
                                 </td>
                                 <td align="left" width="30%"><strong id="discount_total"></strong></td>
-                            </tr>
+                            </tr>-->
     
                             <tr class="tableInfo" style="">
                                 <td align="right"><strong>
