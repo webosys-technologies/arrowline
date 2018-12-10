@@ -60,7 +60,7 @@
               
 
               <?php if(in_array("add_invoice",$user_session)){?>
-                <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>sales/add_form"><i class="fa fa-truck"></i> 
+                <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>order"><i class="fa fa-truck"></i> 
                 <!-- New Invoice -->
                 <?php echo $this->lang->line('btn_add_invoice');?>
                 </a>

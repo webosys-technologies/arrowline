@@ -47,7 +47,7 @@
 
 	<table width="100%" border="1" cellspacing="0" style="border: 0px solid black; border-collapse: collapse;" class="table" cellpadding="2">
 			<tr>
-				<td colspan="6" style="border: 0px;text-align: right;">Invoice</td>
+				<td colspan="6" style="border: 0px;text-align: right;">Tax Invoice</td>
 				<td colspan="8" style="border: 0px;text-align: right;">(ORIGINAL FOR RECIPIENT)</td>
 			</tr>
 

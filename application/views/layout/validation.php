@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	function chkEmpty(frm,field,msg){
 		var inputVal=$("input[name='"+field+"']").val();//document.forms[frm][field].value;
-                alert(inputVal);
+//                alert(inputVal);
 		 if (inputVal == null || inputVal == "") {
 			$("input[name='"+field+"']").parent().addClass("has-error has-feedback");
 			$("input[name='"+field+"']").parent().find("span").addClass("fa fa-remove form-control-feedback");

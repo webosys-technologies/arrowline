@@ -81,7 +81,7 @@
                         
                   ?>
                   <tr>
-                      <td><a href="<?php echo base_url();?>quotation/order_details/<?php echo $value->order_id;?>"><?php echo $value->reference_no;?></td>
+                      <td><a href="<?php echo base_url();?>order/order_details/<?php echo $value->order_id;?>"><?php echo $value->reference_no;?></td>
                       <td><a href="<?php echo base_url();?>customer/edit_data/<?php echo $value->customer_id;?>"><?php echo $value->name;?></a></td>
                       <td><?php echo $value->salesqty;?></td>
                       <td><?php echo $value->total_amount;?></td>
@@ -105,6 +105,7 @@
 
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>order/order_print/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
                         <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>order/convert_invoice/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
+                         <!--<a title="Convert" class="btn btn-xs btn-info" href="<?php echo base_url();?>order/order_details/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>-->
 
                         <div class="example-modal">
                           <div class="modal fade" id="<?php echo''.$value->order_id.'';?>">

@@ -267,6 +267,33 @@ class Order extends CI_Controller {
 	/*
 		This method load particular quotation details using quotation id
 	*/
+        
+        function invoice_details($id)
+	{
+		if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+		$invoice_data['country']=$this->Quotation_model->companyDetails();
+
+		if(!isset($invoice_data['country']))
+		{
+			$this->session->set_flashdata('success','Please Add Company Setting Details');
+			redirect('sales','refresh');
+		}
+		
+		$invoice_data['sales']=$this->Invoice_model->salesOrder($id);
+		
+		$invoice_data['sales_item']=$this->Invoice_model->salesOrderDetails($id);
+		$invoice_data['payment']=$this->Invoice_model->getSalesPaymentData($id);
+		$invoice_data['s'] = $this->Sales_model->SalesByID($id);
+		/*echo "<pre>";
+		print_r($invoice_data);
+		exit();*/
+		
+		$this->load->view('invoice/order',$invoice_data);
+	}
+        
 
 	public function order_details($order_id)
 	{
@@ -297,6 +324,8 @@ class Order extends CI_Controller {
 		/*echo "<pre>";
 		print_r($data);
 		exit();*/
+            
+                
 		$this->load->view('order/order',$data);
 	}
 
@@ -665,11 +694,11 @@ class Order extends CI_Controller {
         
         public function convert_invoice($id)
         {
-         if(!$this->ion_auth->logged_in())
-        {
-            redirect('auth/login', 'refresh');
-        }
-        $data['country']  = $this->Customer_model->dataCountry();
+                if(!$this->ion_auth->logged_in())
+               {
+                   redirect('auth/login', 'refresh');
+               }
+                $data['country']  = $this->Customer_model->dataCountry();
 		$data['state1'] = $this->Customer_model->dataState();
 		$data['customer']=$this->Order_model->getCustomer();
 		$data['location']=$this->Order_model->getLocation();
@@ -680,6 +709,8 @@ class Order extends CI_Controller {
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['state']=$this->Sales_model->getCompanyState();
                 $data['quotation']=$this->Order_model->get_Order_detail($id);
+                $data['order_id']=$id;
+               
 		$this->load->view('quotation/convert_invoice',$data);	   
         }
         
@@ -773,8 +804,9 @@ class Order extends CI_Controller {
 				$this->Sales_model->addSalesItems($SalesItem);
 				if($this->Sales_model->saveInvoice($addInvoice))
 				{
-                                    
-                                       					redirect('invoice/sales_print/'.$sales_id);
+
+//                                 redirect('invoice/sales_print/'.$sales_id);
+                                     redirect('order/invoice_details/'.$sales_id);                            
                                                                        
 				}		         		
 			}

@@ -488,7 +488,7 @@
                                     <?php echo $this->lang->line('lbl_add_quotation_tax');?>
                                     (<?php echo $this->session->userdata("currencySymbol");?>)
                                   </th>
-                                  <th width="10%" class="text-center">
+                                  <th width="10%" class="text-center" hidden="true">
                                     <!-- Discount -->
                                     <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
                                   </th>
@@ -1844,7 +1844,7 @@
                   '<input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">'+
                 '</td>'+
 
-                '<td>'+
+                '<td hidden="true">'+
                   '<input type="text" name="subtotal" id="subtotal" class="form-control subtotal" value="'+data1['items'].sales_price * 0 +'" readonly>'+
                   '<input type="hidden" name="totalsub" id="totalsub" class="form-control totalsub" value="">'+
                 '</td>'+
