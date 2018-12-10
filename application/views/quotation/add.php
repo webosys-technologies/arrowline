@@ -16,6 +16,13 @@
 
 <div class="content-wrapper">  
   <section class="content">
+       <div class="box-footer">
+            <h4 class="box-title">
+            <!-- Quotation   -->
+              <?php echo $this->lang->line('quotation_header');?>
+              
+            </h4>
+        </div>
     <div class="row">
       <div class="col-md-12">
         <div class="box box-default">

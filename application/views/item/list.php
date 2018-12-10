@@ -17,17 +17,17 @@
     <div class="box box-default">
         <div class="box-body">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                  <div class="top-bar-title padding-bottom">
                  <!-- Items -->
-                 <b><?php echo $this->lang->line('item_heading');?></b>
+                 <b><?php echo 'Products'//$this->lang->line('item_heading');?></b>
                  </div>
             </div> 
             <?php if(in_array("add_item",$user_session)){ ?>
-              <div class="col-md-2 top-left-btn">
+              <div class="col-md-3 top-left-btn">
                   <a href="<?php echo base_url();?>item/import" class="btn btn-block btn-default btn-flat btn-border-purple"><span class="fa fa-upload"> &nbsp;</span>
-                  <!-- Import New Items -->
-                  <?php echo $this->lang->line('btn_import_items');?>
+                  <!-- Import New Products -->
+                  <?php echo 'Import New Products'// $this->lang->line('btn_import_items');?>
                   </a>
               </div>
             <?php } ?>
@@ -35,8 +35,8 @@
             <?php if(in_array("add_item",$user_session)){ ?>
               <div class="col-md-2 top-right-btn">
                   <a href="<?php echo base_url()?>item/create_item" class="btn btn-block btn-primary btn-flat btn-border-orange"><span class="fa fa-plus"> &nbsp;</span>
-                    <!-- Add New Item -->
-                    <?php echo $this->lang->line('btn_add_items');?>
+                    <!-- Add New Product -->
+                    <?php echo 'Add New Product'// $this->lang->line('btn_add_items');?>
                   </a>
               </div>
             <?php } ?>
@@ -51,7 +51,7 @@
           <div class="col-md-2 col-xs-6 border-right text-center" style="border-color:#6F7173;">
               <h3 class="bold"><?php echo $value->item?></h3>
               <span class="text-info bold">
-                Available Items
+                Available Products
                 <!-- <?php echo $this->lang->line('item_heading');?> -->
               </span>
           </div>

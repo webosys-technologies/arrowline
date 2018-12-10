@@ -16,7 +16,13 @@
 
 <div class="content-wrapper">  
   <section class="content">
-    <div class="row">
+<div class="box-footer">
+            <h4 class="box-title">
+              <?php echo 'Order Invoice';?>
+              
+            </h4>
+        </div>
+      <div class="row">
       <div class="col-md-12">
         <div class="box box-default">
            <div class="box-body">

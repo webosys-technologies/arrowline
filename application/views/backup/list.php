@@ -20,13 +20,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-         <div class="col-md-12">
+<!--         <div class="col-md-12">
             <div class="alert alert-info alert-dismissible">
               <button type="button" class="close" aria-hidden="true">&times;</button>
               <h4><i class="icon fa fa-info"></i>Alert!</h4>
                 Database Backup is not available in demo version
             </div>
-        </div> 
+        </div> -->
         <!-- /.col -->
         <div class="col-md-12">
           <div class="box box-default">
@@ -39,18 +39,18 @@
                   </div>
                 </div> 
                 <div class="col-md-2">
-                  <!-- <?php if(isset($user_session)){
+                   <?php if(isset($user_session)){
                     if(in_array("add_db_backup",$user_session)){
-                  ?> -->
-<!--                      <a href="<?php echo base_url("backup/dbbackup") ?>" class="btn btn-block btn-primary btn-flat"><i class="fa fa-cloud-download">&nbsp;</i>
+                  ?> 
+                      <a href="<?php echo base_url("backup/dbbackup") ?>" class="btn btn-block btn-primary btn-flat"><i class="fa fa-cloud-download">&nbsp;</i>
                         Database Backup
-                         <?php echo $this->lang->line('btn_unit_newunit');?> 
-                      </a>-->
-                      <a href="#" class="btn btn-block btn-primary btn-flat"><i class="fa fa-cloud-download">&nbsp;</i>
-                        Database Backup
-                        <!-- <?php echo $this->lang->line('btn_unit_newunit');?> -->
+                        <?php ?> 
                       </a>
-                  <!-- <?php }} ?> -->
+<!--                      <a href="#" class="btn btn-block btn-primary btn-flat"><i class="fa fa-cloud-download">&nbsp;</i>
+                        Database Backup
+                     <?php echo $this->lang->line('btn_unit_newunit');?> 
+                      </a>-->
+                   <?php }} ?> 
                 </div>
               </div>
             </div>
@@ -88,12 +88,12 @@
                           <td><?php echo $row->name;?></td>
                           <td><?php echo $row->date;?></td>
                           <td>
-                              <!-- <?php if(isset($user_session)){
+                              <?php if(isset($user_session)){
                                 if(in_array("download_db_backup",$user_session)){
-                              ?> -->
-                              <!--<a title="Download Database" href="<?php echo base_url("backup/download/".$row->name) ?>" class="btn btn-xs btn-primary edit-unit" data-tt="tooltip"><span class="fa fa-cloud-download"></span></a> &nbsp;-->
-                              <a title="Download Database" href="" class="btn btn-xs btn-primary edit-unit" data-tt="tooltip"><span class="fa fa-cloud-download"></span></a> &nbsp;
-                              <!-- <?php }} ?> -->
+                              ?> 
+                              <a title="Download Database" href="<?php echo base_url("backup/download/".$row->name) ?>" class="btn btn-xs btn-primary edit-unit" data-tt="tooltip"><span class="fa fa-cloud-download"></span></a> &nbsp;
+<!--                              <a title="Download Database" href="" class="btn btn-xs btn-primary edit-unit" data-tt="tooltip"><span class="fa fa-cloud-download"></span></a> &nbsp;-->
+                               <?php }} ?> 
 
 
                                <?php if(isset($user_session)){
