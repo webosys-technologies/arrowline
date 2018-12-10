@@ -147,10 +147,28 @@
                               <?php echo $this->lang->line('lbl_addpurchase_reference');?>
                             </label> 
                               <div class="input-group">
-                                  <div class="input-group-addon">INV-</div>
+                                 
+                                   <?php
+//                                 echo $AL;
+                                 if(explode('/',$AL)[0]=="AL")
+                                 {
+                                     $prev=explode("-",explode('/',$AL)[1])[0];
+                                     if($prev!=substr(date("Y"),2,2))
+                                     {
+                                         $lastid=0;
+                                       
+                                     }
+                                    
+                                 }else{
+                                     $lastid=0;
+                                 }
+                                 ?>
+                                  
+                                  
+                                  <div class="input-group-addon">AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/"; ?></div>
                                     <?php $orderno=sprintf('%04d',intval($lastid)+1);?>
                                    <input id="reference_no" class="form-control" value="<?php echo $orderno;?>" type="text" name="reference_no">
-                                   <input type="hidden" name="reference" id="reference_no_write" value="<?php echo "INV-".$orderno;?>">
+                                   <input type="hidden" name="reference" id="reference_no_write" value="AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/".$orderno;?>">
                               </div>
                             <p style="color:#990000;"></p>
                             <span style="color:#990000"><?php echo form_error('reference_no');?></span>

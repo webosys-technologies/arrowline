@@ -320,7 +320,8 @@ class Order extends CI_Controller {
 
 		$data['invoice']=$this->Order_model->getInvoiceDetails($order_id);
 		$data['s'] = $this->Order_model->orderByID($order_id);
-
+                
+               
 		/*echo "<pre>";
 		print_r($data);
 		exit();*/

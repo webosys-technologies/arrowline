@@ -40,6 +40,7 @@ class Sales extends CI_Controller {
 		$data['paymentmethod']=$this->Quotation_model->getPaymentMethod();
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['state']=$this->Sales_model->getCompanyState();
+                $data['AL']=$this->Sales_model->getlastreference();
 		$this->load->view('sales/add',$data);	
 
 	}
@@ -196,7 +197,7 @@ class Sales extends CI_Controller {
 
 				$last_invo=$this->Invoice_model->getLastInvoiceID();
 				$addInvoice=array(
-					'invoice_no'   =>   "INV-".sprintf('%04d',intval($last_invo)+1),
+					'invoice_no'   =>   $this->input->post('reference'),
 					'sales_id'     =>   $sales_id,
 					'sales_amount' =>   $data['total_amount'],
 					'invoice_date' =>   date('Y-m-d')
@@ -328,7 +329,7 @@ class Sales extends CI_Controller {
 					'amount' => $val->amount,
 					'location_id' =>$sales['location_id'],
 					'sub_invoice_no'=> $reference.'-'.$val->tax_id
-				);
+                                                );
 				$i++;	
 			}
 

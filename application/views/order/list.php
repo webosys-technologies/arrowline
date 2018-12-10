@@ -78,7 +78,7 @@
                 <?php if(isset($orders)){
 //                    print_r($orders);
                     foreach ($orders as $value){ 
-                        
+                        $invoice=$this->Order_model->getInvoiceDetails($value->order_id);
                   ?>
                   <tr>
                       <td><a href="<?php echo base_url();?>order/order_details/<?php echo $value->order_id;?>"><?php echo $value->reference_no;?></td>
@@ -104,7 +104,9 @@
                         <?php } ?>
 
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>order/order_print/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
+                         <?php if(!isset($invoice)){ ?>
                         <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>order/convert_invoice/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
+                         <?php } ?>       
                          <!--<a title="Convert" class="btn btn-xs btn-info" href="<?php echo base_url();?>order/order_details/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>-->
 
                         <div class="example-modal">
