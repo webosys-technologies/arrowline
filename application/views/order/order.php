@@ -45,13 +45,16 @@
 
             <div class="col-xs-10 btn-group pull-right">
 
-                <?php if(!isset($invoice)){?>
+                <?php if(!isset($invoice)){
+                    ?>
                   <?php if(in_array("add_invoice",$user_session)){?>
-                    <a href="<?php echo base_url();?>invoice/generate_invoice/<?php echo $quotation->order_id;?>" title="Convert to invoice" class="btn btn-primary btn-flat pull-right">
+                    <a href="<?php echo base_url();?>order/convert_invoice/<?php echo $quotation->order_id;?>" title="Convert to invoice" class="btn btn-primary btn-flat pull-right">
                       <!-- Generate Invoice -->
                       <?php echo $this->lang->line('btn_generateinvoice');?>
                     </a>
-                <?php }} ?>
+                <?php }
+                
+                  } ?>
 
 
               <?php if(in_array("add_invoice",$user_session)){?>

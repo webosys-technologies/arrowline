@@ -60,7 +60,7 @@
               
 
               <?php if(in_array("add_invoice",$user_session)){?>
-                <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>sales/add_form"><i class="fa fa-truck"></i> 
+                <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>order"><i class="fa fa-truck"></i> 
                 <!-- New Invoice -->
                 <?php echo $this->lang->line('btn_add_invoice');?>
                 </a>
@@ -196,7 +196,8 @@
                  Discount 
                  <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
               </th>
-              <th width="" class="text-center">
+              
+              <th width="" class="text-center" hidden="true">
                  Discount Value 
                 <?php echo $this->lang->line('lbl_discount_value');?>
                 (<?php echo $this->session->userdata("currencySymbol");?>)
@@ -296,8 +297,10 @@
               <tr>
                 <td class="text-right" colspan="4"><b><?php echo $this->lang->line('lbl_quotation_total');?></b></td>
                 <td class="text-center"><?php if(isset($total_price)){echo $total_price;}?></td>
+
                 <!--<td class="text-center"></td>-->
                 <!--<td class="text-center"><?php if(isset($total_discount)){echo $total_discount;}?></td>-->
+
                 <td class="text-center"><?php if(isset($total_taxablevalue)){echo $total_taxablevalue;}?></td>
                 <td class="text-center"><?php if(isset($total_sgst)){echo $total_sgst;}?></td>
                 <td class="text-center"><?php if(isset($total_cgst)){echo $total_cgst;}?></td>

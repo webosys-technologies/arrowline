@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                   <h5><b>Customer Information</b></h5>
                   <div class="well">
-
+                      <input type="hidden" name="order_id" value="<?php echo  $order_id; ?>">
                     <div class="row">
                              <?php // print_r($quotation);
 //                             die;?>
@@ -201,6 +201,7 @@
                             </label> 
                               <div class="input-group">
                                  <?php
+//                                 echo $AL;
                                  if(explode('/',$AL)[0]=="AL")
                                  {
                                      $prev=explode("-",explode('/',$AL)[1])[0];
@@ -573,8 +574,8 @@
                                     <?php echo $this->lang->line('lbl_add_quotation_tax');?>
                                     (<?php echo $this->session->userdata("currencySymbol");?>)
                                   </th>
-                                  <th width="10%" class="text-center">
-                                    <!-- Discount -->
+                                  <th width="10%" class="text-center" hidden>
+                                     Discount 
                                     <?php echo $this->lang->line('lbl_add_quotation_discount');?>
                                     (%)
                                   </th>
@@ -657,7 +658,7 @@
                                         <input type="hidden" name="tax_id" id="tax_id" class="form-control" value="<?php echo $products->tax_id;?>">
                                         <label id="tax_label"></label>
                                     </td>
-                                    <td> <input type="text" name="discount" id="discount" class="form-control discount" value="<?php echo $i->discount; ?>" autocomplete="off">
+                                    <td hidden> <input type="text" name="discount" id="discount" class="form-control discount" value="<?php echo $i->discount; ?>" autocomplete="off">
                                         <input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">
                                     </td>
                                     <td>

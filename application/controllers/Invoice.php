@@ -127,6 +127,7 @@ class Invoice extends CI_Controller {
 	*/
 	function invoice_details($id)
 	{
+           
 		if(!$this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
