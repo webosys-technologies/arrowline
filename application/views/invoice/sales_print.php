@@ -166,7 +166,7 @@
 				S.No
 				<!-- <?php echo $this->lang->line('no');?>  -->
 			</th>
-			<th style="text-align: center;font-size: 12px;">
+			<th colspan="3" width='25%' style="text-align: center;font-size: 12px;">
 				<!-- Item Name -->
 				<?php echo $this->lang->line('add_item_name');?> 
 			</th>
@@ -191,15 +191,15 @@
 				<?php echo $this->lang->line('lbl_total_sales');?>
                         (<?php echo $this->session->userdata("currencySymbol");?>)
 			</th>
-			<th style="text-align: center;font-size: 12px;" width="5%">
+<!--			<th style="text-align: center;font-size: 12px;" width="5%">
 				Disc
-				<!-- <?php echo $this->lang->line('lbl_add_quotation_discount');?> -->(%)
+				 <?php echo $this->lang->line('lbl_add_quotation_discount');?> (%)
 			</th>
 			<th style="text-align: center;font-size: 12px;">
 				Disc
-				<!-- <?php echo $this->lang->line('lbl_discount_value');?> -->
+				 <?php echo $this->lang->line('lbl_discount_value');?> 
                         (<?php echo $this->session->userdata("currencySymbol");?>)
-			</th>
+			</th>-->
 			<th style="text-align: center;font-size: 12px;">
 				<!-- Taxable Value -->
 				<?php echo $this->lang->line('lbl_taxable_value');?>
@@ -282,14 +282,14 @@
               ?>
 			<tr>
 				<td align="center" class="fontS"><?php if(isset($cnt)){echo $cnt;}?></td>
-				<td class="fontS"><?php if(isset($value->item_name)){echo $value->item_name;}?></td>
+				<td colspan="3" class="fontS"><?php if(isset($value->item_name)){echo $value->item_name;}?></td>
 				<!-- <td class="fontS"><?php if(isset($value->item_description)){echo $value->item_description;}?></td> -->
 				<td class="fontS"><?php if(isset($value->hsn_code)){echo $value->hsn_code;}?></td>
 				<td align="center" class="fontS"><?php if(isset($value->qty)){echo $value->qty;}?></td>
 				<td align="right" class="fontS"><?php if(isset($value->rate)){echo $value->rate;}?>.00</td>
 				<td align="right" class="fontS"><?php if(isset($total_sales)){echo $total_sales;}?>.00</td>
-				<td align="right" class="fontS"><?php if(isset($value->discount)){echo $value->discount;}?></td>
-				<td align="right" class="fontS"><?php if(isset($discount_value)){echo $discount_value;}?>.00</td>
+<!--				<td align="right" class="fontS"><?php if(isset($value->discount)){echo $value->discount;}?></td>
+				<td align="right" class="fontS"><?php if(isset($discount_value)){echo $discount_value;}?>.00</td>-->
 				<td align="right" class="fontS"><?php if(isset($taxable_value)){echo $taxable_value;}?>.00</td>
 				<td align="right" class="fontS"><?php if(isset($sgst)){echo $sgst.' ('.$sgst_percent.'%)';}?></td>
 				<td align="right" class="fontS"><?php if(isset($cgst)){echo $cgst.' ('.$sgst_percent.'%)';}?></td>
@@ -300,16 +300,16 @@
 			$cnt++;
 			} ?>
 			<tr>
-				<td colspan="5" align="right" style="font-size: 11px;font-weight: bold;"><?php echo $this->lang->line('lbl_quotation_total');?></td>
+				<td colspan="7" align="right" style="font-size: 11px;font-weight: bold;"><?php echo $this->lang->line('lbl_quotation_total');?></td>
 				<td align="right" style="font-size: 10px;">
 					<!-- <?php echo $total_salesvalue?> -->
 					<?php if(isset($total_salesvalue)){echo number_format((float)$total_salesvalue, 2, '.', '');}?>		
 				</td>
-				<td></td>
+<!--				<td></td>
 				<td align="right" class="fontS">
-					<!-- <?php echo $total_discount?> -->
+					 <?php echo $total_discount?> 
 					<?php if(isset($total_discount)){echo number_format((float)$total_discount, 2, '.', '');}?>	
-				</td>
+				</td>-->
 				<td align="right" class="fontS">
 					<!-- <?php echo $total_tax?> -->
 					<?php if(isset($total_tax)){echo number_format((float)$total_tax, 2, '.', '');}?>	

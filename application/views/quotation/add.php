@@ -493,10 +493,10 @@
                                     <?php echo $this->lang->line('lbl_add_quotation_tax');?>
                                     (<?php echo $this->session->userdata("currencySymbol");?>)
                                   </th>
-                                  <th width="10%" class="text-center">
-                                    <!-- Discount -->
+<!--                                  <th width="10%" class="text-center">
+                                     Discount 
                                     <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
-                                  </th>
+                                  </th>-->
                                   <th width="10%" class="text-center">
                                     <!-- Amount --> 
                                     <?php echo $this->lang->line('lbl_add_quotation_amount');?>(<?php echo $this->session->userdata("currencySymbol");?>)
@@ -519,14 +519,14 @@
                                   </td>
                                   <td align="left" width="30%"><strong id="subTotal"></strong></td>
                               </tr>
-                              <tr class="tableInfo">
+<!--                              <tr class="tableInfo">
                                   <td align="right" width="70%"><strong>
                                     Total Discount
-                                    <!-- <?php echo $this->lang->line('lbl_add_quotation_subtotal');?> -->
+                                     <?php echo $this->lang->line('lbl_add_quotation_subtotal');?> 
                                     (<?php echo $this->session->userdata("currencySymbol");?>)</strong>
                                   </td>
                                   <td align="left" width="30%"><strong id="discount_total"></strong></td>
-                              </tr>
+                              </tr>-->
 
 
                               <tr class="tableInfo">
@@ -1480,7 +1480,7 @@
           }
 
           var rate=+currentRow.find('input[name^="price"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+          var discount=0;
           var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
           var subtotal = calculatePrice(qty1,rate);
           var discount_price = calculateDiscount(subtotal,discount);
@@ -1514,7 +1514,7 @@
           var qty1=+currentRow.find('input[name^="qty1"]').val();
 
           var rate=+currentRow.find('input[name^="price_change"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+          var discount=0;
           var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
 
           var subtotal = calculatePrice(qty1,rate);
@@ -1545,7 +1545,7 @@
         $("table.quotation_table").on("keyup",'input[name^="discount"]', function (event) {
           var currentRow=$(this).closest("tr");
           var ii=+currentRow.find('input[name^="id"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+          var discount=0;
           var rate=+currentRow.find('input[name^="price"]').val();
           var qty=+currentRow.find('input[name^="qty1"]').val();
           var price=calculatePrice(rate,qty);
@@ -1610,7 +1610,7 @@
 
               var qty1=+currentRow.find('input[name^="qty1"]').val();
               var rate=+currentRow.find('input[name^="price"]').val();
-              var discount=+currentRow.find('input[name^="discount"]').val();
+              var discount=0;
         
               var subtotal = calculatePrice(qty1,rate);
               var discountPrice=calculateDiscountPrice(subtotal,discount);
@@ -1676,7 +1676,7 @@
               var qty1=+currentRow.find('input[name^="qty1"]').val();
               var item_id=+currentRow.find('input[name^="item_id"]').val();
               var rate=+currentRow.find('input[name^="price"]').val();
-              var discount=+currentRow.find('input[name^="discount"]').val();
+              var discount=0;
               var tax_rate=+currentRow.find('input[name^="tax_rate"]').val();
               var tax_id=+currentRow.find('input[name^="tax_id"]').val();
               var amount=+currentRow.find('input[name^="subtotal"]').val();
@@ -1844,10 +1844,10 @@
                     '<label id="tax_label"></label>'+
                 '</td>'+
 
-                '<td>'+
-                  '<input type="text" name="discount" id="discount" class="form-control discount" value="0" autocomplete="off">'+
-                  '<input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">'+
-                '</td>'+
+//                '<td>'+
+//                  '<input type="text" name="discount" id="discount" class="form-control discount" value="0" autocomplete="off">'+
+//                  '<input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">'+
+//                '</td>'+
 
                 '<td>'+
                   '<input type="text" name="subtotal" id="subtotal" class="form-control subtotal" value="'+data1['items'].sales_price * 0 +'" readonly>'+

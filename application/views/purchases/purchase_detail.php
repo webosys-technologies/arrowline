@@ -150,14 +150,14 @@
                       <table class="table table-bordered" id="salesInvoice">
                         <tbody>
                         <tr class="tbl_header_color dynamicRows">
-                          <th width="20%" class="text-center">
+                          <th width="35%" class="text-center">
                             <!-- Item Name -->
                             <?php echo $this->lang->line('add_item_name');?> 
                           </th>
-                          <th width="20%" class="text-center">
-                            <!-- Description -->
+<!--                          <th width="20%" class="text-center">
+                             Description 
                             <?php echo $this->lang->line('lbl_add_quotation_desc');?>
-                          </th>
+                          </th>-->
                           <th width="10%" class="text-center">
                             <!-- HSN/SAC Code -->
                             <?php echo $this->lang->line('lbl_hsn_code');?>
@@ -177,15 +177,15 @@
                              <?php echo $this->lang->line('lbl_total_sales');?>
                             (<?php echo $this->session->userdata("currencySymbol");?>)
                           </th>
-                          <th class="text-center" width="10%">
-                            <!-- Discount -->
+<!--                          <th class="text-center" width="10%">
+                             Discount 
                              <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
                           </th>
                           <th width="" class="text-center">
-                           <!--  Discount Value -->
+                             Discount Value 
                              <?php echo $this->lang->line('lbl_discount_value');?>
                             (<?php echo $this->session->userdata("currencySymbol");?>)
-                          </th>
+                          </th>-->
                           <th width="" class="text-center">
                             <!-- Taxable Value -->
                              <?php echo $this->lang->line('lbl_taxable_value');?>
@@ -265,13 +265,13 @@
                           ?>
                         <tr>
                           <td class="text-center"><?php if(isset($value->item_name)){echo $value->item_name;}?></td>
-                          <td class="text-center"><?php if(isset($value->item_description)){echo $value->item_description;}?></td>
+                          <!--<td class="text-center"><?php if(isset($value->item_description)){echo $value->item_description;}?></td>-->
                           <td class="text-center"><?php if(isset($value->hsn_code)){echo $value->hsn_code;}?></td>
                           <td class="text-center"><?php if(isset($value->qty)){echo $value->qty;}?></td>
                           <td class="text-center"><?php if(isset($value->rate)){echo $value->rate;}?></td>
                           <td class="text-center"><?php if(isset($net)){echo $net;}?></td>
-                          <td class="text-center"><?php if(isset($value->discount)){echo $value->discount;}?></td>
-                          <td class="text-center"><?php if(isset($dis)){echo $dis;}?></td>
+<!--                          <td class="text-center"><?php if(isset($value->discount)){echo $value->discount;}?></td>
+                          <td class="text-center"><?php if(isset($dis)){echo $dis;}?></td>-->
                           <td class="text-center"><?php if(isset($taxable_value)){echo $taxable_value;}?></td>
                           <td align="right"><?php if(isset($sgst)){echo $sgst.' ('.$sgst_percent.'%)';}?></td>
                           <td align="right"><?php if(isset($cgst)){echo $cgst.' ('.$sgst_percent.'%)';}?></td>
@@ -281,18 +281,18 @@
                         <?php } ?>
 
                         <tr>
-                          <td class="text-right" colspan="5"><b> <?php echo $this->lang->line('lbl_quotation_total');?> </b></td>
+                          <td class="text-right" colspan="4"><b> <?php echo $this->lang->line('lbl_quotation_total');?> </b></td>
                           <td class="text-center">
                             <?php if(isset($total_price)){echo number_format((float)$total_price, 2, '.', '');}?>
                             <!-- <?php echo $total_price;?> -->
                             
                           </td>
-                          <td class="text-center"></td>
+<!--                          <td class="text-center"></td>
                           <td class="text-center">
                             <?php if(isset($total_discount)){echo number_format((float)$total_discount, 2, '.', '');}?>
-                            <!-- <?php echo $total_discount;?> -->
+                             <?php echo $total_discount;?> 
                             
-                          </td>
+                          </td>-->
                           <td class="text-center">
                             <?php if(isset($total_taxablevalue)){echo number_format((float)$total_taxablevalue, 2, '.', '');}?>
                             <!-- <?php echo $total_taxablevalue;?> -->
@@ -323,29 +323,29 @@
                         <?php foreach ($purchase as $value)?>
 
                         <tr class="tableInfos">
-                          <td colspan="12" align="right">
+                          <td colspan="9" align="right">
                             <!-- Total Quantity  -->
                              <?php echo $this->lang->line('lbl_quantity_total');?>
                           </td><td align="right" colspan="2"><?php if(isset($qty_total)){echo $qty_total;}?></td>
                         </tr>
                         <tr class="tableInfos">
-                          <td colspan="12" align="right">
+                          <td colspan="9" align="right">
                             <!-- Sub Total  -->
                             <?php echo $this->lang->line('lbl_add_quotation_subtotal');?>
                             (<?php echo $this->session->userdata("currencySymbol");?>)</td><td align="right" colspan="2"><?php if(isset($sub_total)){echo $sub_total;}?></td>
                         </tr>
-                        <tr class="tableInfos">
+<!--                        <tr class="tableInfos">
                           <td colspan="12" align="right">
-                            <!-- Total Discount -->
+                             Total Discount 
                             <?php echo $this->lang->line('lbl_total_discount');?>
                             (<?php echo $this->session->userdata("currencySymbol");?>)
                           </td>
                           <td align="right">
                             <?php if(isset($total_discount)){echo $total_discount;}?>
                           </td>
-                        </tr>
+                        </tr>-->
                         <tr>
-                          <td colspan="12" align="right">
+                          <td colspan="9" align="right">
                             <!-- Tax  -->
                             <?php echo $this->lang->line('lbl_add_quotation_totaltax');?>
 
@@ -353,7 +353,7 @@
                           <td class="text-right"><?php if(isset($value->total_tax)){echo $value->total_tax;}?></td>
                         </tr>
                         <tr class="tableInfos">
-                          <td colspan="12" align="right"><strong>
+                          <td colspan="9" align="right"><strong>
                             <!-- Grand Total  -->
                             <?php echo $this->lang->line('lbl_add_quotation_grandtotal');?>
                             (<?php echo $this->session->userdata("currencySymbol");?>)</strong></td>
