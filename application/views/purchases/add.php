@@ -13,6 +13,12 @@
 
 <div class="content-wrapper">    
   <section class="content">
+      <div class="box-footer">
+            <h4 class="box-title">
+              <?php echo 'Purchase';?>
+              
+            </h4>
+        </div>
      <div class="row">
        <div class="col-md-12">
          <div class="box box-default">
@@ -535,7 +541,8 @@
 
           var qty1=+currentRow.find('input[name^="qty1"]').val();
           var rate=+currentRow.find('input[name^="price"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+//          var discount=+currentRow.find('input[name^="discount"]').val();
+          var discount=0;
           var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
 
           var subtotal = calculatePrice(qty1,rate);
@@ -568,7 +575,8 @@
 
           var currentRow=$(this).closest("tr");
           var ii=+currentRow.find('input[name^="id"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+//          var discount=+currentRow.find('input[name^="discount"]').val();
+          var discount=0;
           var rate=+currentRow.find('input[name^="price"]').val();
           var qty=+currentRow.find('input[name^="qty1"]').val();
 
@@ -605,7 +613,8 @@
           var qty1=+currentRow.find('input[name^="qty1"]').val();
 
           var rate=+currentRow.find('input[name^="price_change"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+//          var discount=+currentRow.find('input[name^="discount"]').val();
+          var discount=0;
           var tax_rate=+currentRow.find('input[name^="hidden_tax_rate"]').val();
 
           var subtotal = calculatePrice(qty1,rate);
@@ -663,8 +672,8 @@
 
               var qty1=+currentRow.find('input[name^="qty1"]').val();
               var rate=+currentRow.find('input[name^="price"]').val();
-              var discount=+currentRow.find('input[name^="discount"]').val();
-        
+//              var discount=+currentRow.find('input[name^="discount"]').val();
+              var discount=0;
               var subtotal = calculatePrice(qty1,rate);
         
               var discountPrice=calculateDiscountPrice(subtotal,discount);
@@ -748,7 +757,8 @@
           var item_id=+currentRow.find('input[name^="item_id"]').val();
           var qty1=+currentRow.find('input[name^="qty1"]').val();
           var rate=+currentRow.find('input[name^="price"]').val();
-          var discount=+currentRow.find('input[name^="discount"]').val();
+//          var discount=+currentRow.find('input[name^="discount"]').val();
+            var discount=0;
           var tax_rate=+currentRow.find('input[name^="tax_rate"]').val();
           var tax_id=+currentRow.find('input[name^="tax_id"]').val();
           
@@ -902,10 +912,10 @@
                     '<label id="tax_label"></label>'+
                 '</td>'+
 
-                '<td>'+
-                  '<input type="text" name="discount" id="discount" class="form-control discount" value="0" autocomplete="off">'+
-                  '<input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">'+
-                '</td>'+
+//                '<td>'+
+//                  '<input type="text" name="discount" id="discount" class="form-control discount" value="0" autocomplete="off">'+
+//                  '<input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">'+
+//                '</td>'+
 
                 '<td>'+
                   '<input type="text" name="subtotal" id="subtotal" class="form-control subtotal" value="'+data1['items'].purchase_price * 0 +'" readonly>'+
