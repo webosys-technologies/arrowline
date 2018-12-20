@@ -338,6 +338,13 @@ class Customer_model extends CI_Model
     $query=$this->db->query($sql);
     return $query->row();       
    }
+   public function leadCustomer()
+   {
+
+    $sql="SELECT count(id) AS total FROM lead_customer where status=1";
+    $query=$this->db->query($sql);
+    return $query->row();       
+   }
    
    /*
 

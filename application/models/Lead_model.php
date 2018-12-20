@@ -19,6 +19,14 @@ class Lead_model extends CI_Model
             return $data->result();
           
     }
+    
+    public function getCity($id)
+    {
+        $sql="SELECT * FROM cities where id='$id'";
+        $query=$this->db->query($sql);
+        return $query->row();  
+    }
+    
     public function getrow($data)
     {
         $this->db->from($this->table);
@@ -67,5 +75,14 @@ class Lead_model extends CI_Model
         }else{
             return false;
         }
+   }
+   
+   function query()
+   {
+     
+       $query=$this->db->query('select total_tax from sales_order INNER JOIN customer ON sales_order.customer_id=customer.id');
+   
+       echo "<pre>";
+       print_r($query->result());
    }
 }

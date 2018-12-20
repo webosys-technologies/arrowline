@@ -149,6 +149,32 @@ class Order_model extends CI_Model{
                         ->get()->result();   
         }
     }
+    
+     function getOrderByCustomer($id)
+    {   
+        if($this->session->userdata('type')=='admin')
+        {
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+                        ->from('sales_order q')
+                        ->join('order_items qa','q.id=qa.order_id')
+                        ->join('customer c','c.id=q.customer_id')
+                        ->where('q.delete_status',0)
+                        ->where('q.customer_id',$id)
+                        ->group_by('qa.order_id')
+                        ->get()->result();
+        }
+        else
+        {
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+                        ->from('sales_order q')
+                        ->join('order_items qa','q.id=qa.order_id')
+                        ->join('customer c','c.id=q.customer_id')
+                        ->where('q.delete_status',0)
+                        ->where('q.customer_id',$id)
+                        ->group_by('qa.order_id')
+                        ->get()->result();   
+        }
+    }
 
 
 
