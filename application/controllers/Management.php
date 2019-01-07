@@ -114,6 +114,12 @@
 	}
 	}
         
+        public function convert_customer($id)
+        {
+            $this->Customer_model->convert_customer($id);
+            redirect("Management/lead_customer",'refresh');
+        }
+        
         
         public function edit($id)
         {

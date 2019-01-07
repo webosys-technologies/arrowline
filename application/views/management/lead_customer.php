@@ -240,23 +240,28 @@
                           <a href="#<?php echo $value->id; ?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" data-tt="tooltip" title="Delete"><span class="fa fa-remove"></span>
                           </a>
                              
-                            <?php  
-                            if(in_array("edit_customer",$user_session)){
-                          ?>
-                         <a title="Get Order" class="btn btn-xs btn-info" href="<?php echo base_url();?>Management/add_form/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span>
-                         </a>
-                         <?php } ?>
                              
-                          <?php  
+                              <?php  
                             if(in_array("edit_customer",$user_session)){
                                 if($value->status=='0')
                                 {
                                     
                                 
                           ?>
-                         <a title="Get Order" class="btn btn-xs btn-warning" href="<?php echo base_url();?>Management/convert_customer/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span>
+                         <a title="Convert Customer" class="btn btn-xs btn-warning" href="<?php echo base_url();?>Management/convert_customer/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span>
                          </a>
                             <?php } } ?>
+                             
+                            <?php  
+                            if(in_array("edit_customer",$user_session)){
+                             if($value->status=='1')   
+                             {
+                          ?>
+                         <a title="Get Order" class="btn btn-xs btn-info" href="<?php echo base_url();?>Management/add_form/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span>
+                         </a>
+                            <?php } } ?>
+                             
+                         
                           
                           <div class="example-modal">
                           <div class="modal fade" id="<?php echo''.$value->id.'';?>">

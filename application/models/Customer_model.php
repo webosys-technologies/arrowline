@@ -34,6 +34,16 @@ class Customer_model extends CI_Model
         return $this->db->select('state_id')->where('customer_id',$id)->get('shipping_address')->row();
     }    
 
+    
+    public function convert_customer($id)
+    {
+         $sql="UPDATE customer set status = '1'  WHERE id = '$id' ";
+        if($this->db->query($sql)) {
+           
+            return true;
+        }
+        return FALSE;
+    }
      /*
 
     this function used for add new customer record
