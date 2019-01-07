@@ -26,8 +26,8 @@
         $data['data'] = $this->Customer_model->custUserData();
         $data['customer']=$this->Customer_model->getCustomer();
         $data['status']=$this->Customer_model->getStatus();
-        $data['deactive']=$this->Customer_model->getDeactive();
-       
+        $data['deactive']=$this->Customer_model->getDeactive();      
+     
         
 
         $this->load->view('customer/list',$data);

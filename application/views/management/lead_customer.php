@@ -145,10 +145,10 @@
                       <!-- Status -->
                       <?php echo "Telecaller";?>
                     </th>
-                    <th>
-                      <!-- Status -->
+<!--                    <th>
+                       Status 
                       <?php echo $this->lang->line('cust_status');?>
-                    </th>
+                    </th>-->
                     <th>
                       <!-- Action -->
                       <?php echo $this->lang->line('cust_action');?>
@@ -187,10 +187,10 @@
                       <!-- Status -->
                       <?php echo "Telecaller";?>
                     </th>
-                    <th>
-                      <!-- Status -->
+<!--                    <th>
+                       Status 
                       <?php echo $this->lang->line('cust_status');?>
-                    </th>
+                    </th>-->
                     <th>
                        <!--Action
                       <?php echo $this->lang->line('cust_action');?>--> 
@@ -200,36 +200,68 @@
                 <tbody>
                     
                      <?php
+                      
+                         
                            foreach ($data as $value) {
-                               if($value->is_deleted!=1)
+                               if($value->delete_status!=1)
                                {
+                                   
+                            $city=$this->Lead_model->getCity($value->city_id);
+                            
+                           
+                          if(isset($value->telecaller)){ 
+                           $telecaller=$this->Customer_model->gettelecaller($value->telecaller);
+                           }
                              
                       ?>
                       <tr>
-                        <td><?php echo $value->name; ?></td>                        
+                          <td><a target="_blank" href="<?php echo base_url();?>Management/lead_order/<?php echo $value->id?>"><?php echo $value->name; ?></a></td>                        
                         <td><?php echo $value->phone; ?></td>
-                        <td></td>
-                        <td><?php echo $value->followup; ?></td>
+                        <td><?php if(isset($city)){ echo $city->name; }?></td>
+                        <td><?php echo $value->follow; ?></td>
                         <td><?php echo $value->nextfollow; ?></td>
                         <td><?php echo $value->remark; ?></td>
-                        <td><?php echo $value->telecaller; ?></td>
-                        <td>
+                        <td><?php if($telecaller){echo $telecaller->first_name." ".$telecaller->last_name;} ?></td>
+<!--                        <td>
                           <?php if($value->delete_status=="0"){?>
                           <span class="label label-success"><?php echo $this->lang->line('lbl_status_active');?></span>
                           <?php } else {?>
                             <span class="label label-warning"><?php echo $this->lang->line('lbl_status_deactive');?></span>
                           <?php } ?>
-                        </td>
+                        </td>-->
                          <td>
                           <?php  
                             if(in_array("edit_customer",$user_session)){
                           ?>
-                         <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Management/edit/<?php echo $value->customer_id;?>" data-tt="tooltip"><span class="fa fa-edit"></span>
+                         <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Management/edit/<?php echo $value->id;?>" data-tt="tooltip"><span class="fa fa-edit"></span>
                          </a>
-                         <?php } ?>
-                         &nbsp;
+                         <?php } ?>                      
+                               
                           <a href="#<?php echo $value->id; ?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" data-tt="tooltip" title="Delete"><span class="fa fa-remove"></span>
                           </a>
+                             
+                             
+                              <?php  
+                            if(in_array("edit_customer",$user_session)){
+                                if($value->status=='0')
+                                {
+                                    
+                                
+                          ?>
+                         <a title="Convert Customer" class="btn btn-xs btn-warning" href="<?php echo base_url();?>Management/convert_customer/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span>
+                         </a>
+                            <?php } } ?>
+                             
+                            <?php  
+                            if(in_array("edit_customer",$user_session)){
+                             if($value->status=='1')   
+                             {
+                          ?>
+                         <a title="Get Order" class="btn btn-xs btn-info" href="<?php echo base_url();?>Management/add_form/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span>
+                         </a>
+                            <?php } } ?>
+                             
+                         
                           
                           <div class="example-modal">
                           <div class="modal fade" id="<?php echo''.$value->id.'';?>">
@@ -254,7 +286,7 @@
                                     <!-- Close -->
                                       <?php echo $this->lang->line('btn_modal_close');?>
                                     </button>
-                                    <a href="<?php echo base_url();?>Management/delete/<?php echo $value->customer_id; ?>" class="btn btn-danger">
+                                    <a href="<?php echo base_url();?>Management/delete/<?php echo $value->id; ?>" class="btn btn-danger">
                                     <!-- Delete -->
                                     <?php echo $this->lang->line('btn_modal_delete');?>
                                     </a>

@@ -19,6 +19,14 @@ class Lead_model extends CI_Model
             return $data->result();
           
     }
+    
+    public function getCity($id)
+    {
+        $sql="SELECT * FROM cities where id='$id'";
+        $query=$this->db->query($sql);
+        return $query->row();  
+    }
+    
     public function getrow($data)
     {
         $this->db->from($this->table);
@@ -36,6 +44,30 @@ class Lead_model extends CI_Model
        }else
        {
            return false;
+       }
+   }
+   
+   public function addCustomer($customer,$shipping)
+   {
+       
+
+        $sql="INSERT INTO `customer`(`name`, `email`, `phone`, `street`, `city_id`, `state_id`,`state_code`, `zip_code`, `country_id`,`gstin`,`gst_registration_type`,`user_id`,`follow`,`nextfollow`,`remark`,`telecaller`,`status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)";
+
+        if($this->db->query($sql,$customer))
+        {
+             $cust=$this->db->insert_id();
+            $sql1="INSERT INTO `shipping_address`(`customer_id`, `street`, `city_id`, `state_id`, `zip_code`, `country_id`,`user_id`) VALUES (?,?,?,?,?,?,?)";
+            if($this->db->query($sql1,array($cust,$shipping['street1'],$shipping['city1'],$shipping['state1'],$shipping['zip_code1'],$shipping['country_id'],$shipping['user_id']))){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+       else
+       {
+        return false;
        }
    }
    
@@ -67,5 +99,13 @@ class Lead_model extends CI_Model
         }else{
             return false;
         }
+   }
+   
+   function query()
+   {
+     
+       $query=$this->db->query('ALTER TABLE `customer` ADD `follow` DATE NOT NULL AFTER `country_id`, ADD `nextfollow` DATE NOT NULL AFTER `follow`, ADD `remark` VARCHAR(55) NOT NULL AFTER `nextfollow`, ADD `telecaller` VARCHAR(55) NOT NULL AFTER `remark`');
+   
+     
    }
 }
