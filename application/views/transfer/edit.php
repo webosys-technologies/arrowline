@@ -23,7 +23,7 @@
       <div class="box-body">
           <strong>
            <!-- Transfer -->
-           <?php echo $this->lang->line('lbl_transfer_header');?>
+           <?php echo 'Voucher'//$this->lang->line('lbl_transfer_header');?>
           </strong>
         </div>
       </div>
@@ -36,11 +36,11 @@
             <div class="box-header with-border">
               <h3 class="box-title">
                 <!-- New Transfer -->
-                <?php echo $this->lang->line('lbl_bank_transfer_header');?>
+                <?php echo ' '//$this->lang->line('lbl_bank_transfer_header');?>
               </h3>
             </div>
 
-            <form action="<?php echo base_url();?>transfer/update"  method="post" class="form-horizontal" enctype="multipart/form-data" name="transferForm">
+            <form action="<?php echo base_url();?>Voucher/update"  method="post" class="form-horizontal" enctype="multipart/form-data" name="transferForm">
               <input type="hidden" name="id" value="<?php echo $transfer->id?>"> 
               <div class="box-body" style="padding: 20px">
                 <div class="form-group">

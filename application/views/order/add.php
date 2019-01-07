@@ -477,6 +477,10 @@
                                     <!-- Quantity -->
                                     <?php echo $this->lang->line('lbl_add_quotation_quantity');?>
                                   </th>
+                                  <th width="10%" class="text-center">
+                                    <!-- UNIT -->
+                                    <?php echo 'Unit'//$this->lang->line('lbl_add_quotation_quantity');?>
+                                  </th>
                                   <th>
                                     Available Qty
                                   </th>
@@ -498,7 +502,7 @@
                                      Discount 
 
                                   <th width="10%" class="text-center" hidden="true">
-                                    <!-- Discount -->
+                                     Discount 
                                     <?php echo $this->lang->line('lbl_add_quotation_discount');?>(%)
                                   </th>-->
                                   <th width="10%" class="text-center">
@@ -1827,6 +1831,9 @@
                 '<td>'+
                   '<input type="number" name="qty1" id="qty1" value="0" class="form-control get-data qty1" autocomplete="off">'+
                   '<p class="qty_error" style="color:#990000;"></p>'+
+                '</td>'+                
+                '<td>'+
+                
                 '</td>'+
                 '<td>'+
                   data1['items'].qty_available+

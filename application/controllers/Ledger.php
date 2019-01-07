@@ -4,7 +4,7 @@ class Ledger extends CI_Controller
 {
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('Sales_model','Reports_model'));
+        $this->load->model(array('Sales_model','Reports_model','Ledger_model'));
         $this->load->library(array('form_validation','ion_auth'));
     }
     
@@ -31,11 +31,13 @@ class Ledger extends CI_Controller
         $from=$this->input->post('st_date');
         $to=$this->input->post('end_date');
 
-        $data=$this->Reports_model->ledgerFilter($customer,$from,$to);
+        $trans=$this->Ledger_model->ledgerFilter($customer,$from,$to);
+//        $data['ob']=$this->Ledger_model->opening_balance($customer,$from,$to);
+//        print_r($data);
 
         //log_message('debug',print_r($data,true));
         
-        print_r(json_encode($data,true));
+        print_r(json_encode($trans);
         
     }
 }

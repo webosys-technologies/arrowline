@@ -118,7 +118,7 @@ class Quotation_model extends CI_Model{
     {   
         if($this->session->userdata('type')=='admin')
         {
-            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as quotation_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as quotation_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status,q.supplier_ref')
                         ->from('quotation q')
                         ->join('quotation_items qa','q.id=qa.quotation_id')
                         ->join('customer c','c.id=q.customer_id')
@@ -128,7 +128,7 @@ class Quotation_model extends CI_Model{
         }
         else
         {
-            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as quotation_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as quotation_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status,q.supplier_ref')
                         ->from('quotation q')
                         ->join('quotation_items qa','q.id=qa.quotation_id')
                         ->join('customer c','c.id=q.customer_id')

@@ -129,7 +129,7 @@ class Order_model extends CI_Model{
     {   
         if($this->session->userdata('type')=='admin')
         {
-            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status,q.supplier_ref')
                         ->from('sales_order q')
                         ->join('order_items qa','q.id=qa.order_id')
                         ->join('customer c','c.id=q.customer_id')
@@ -139,7 +139,7 @@ class Order_model extends CI_Model{
         }
         else
         {
-            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status')
+            return $this->db->select('qa.id,sum(qa.qty) as salesqty,q.total_amount,q.date,q.reference_no,c.name,q.id as order_id,q.invoice_status,c.id as customer_id,qa.id as qua_item_id,q.status,q.supplier_ref')
                         ->from('sales_order q')
                         ->join('order_items qa','q.id=qa.order_id')
                         ->join('customer c','c.id=q.customer_id')
