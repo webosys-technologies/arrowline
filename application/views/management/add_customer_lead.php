@@ -23,11 +23,10 @@
       </div>
       <br>
       <?php echo validation_errors();?>
-      
+      <form name="customerForm" class="form-horizontal row-border" method="POST" action="<?php echo base_url(); ?>Management/add" id="customerForm">     
       
         <div class="box-footer">
           <div class="box-body" style="padding: 20px">
-              <form name="customerForm" class="form-horizontal row-border" method="POST" action="<?php echo base_url(); ?>Management/add" id="customerForm">     
               <div class="row">
                  <div class="col-md-12">
                     <div class="col-md-6">
@@ -36,63 +35,268 @@
                         <?php echo $this->lang->line('lbl_cust_info');?>
                       </h4>
                       <?php echo validation_errors();?>
-<!--                      <div class="form-group">
+                      <div class="form-group">
                           <label class="col-sm-4 control-label require" for="name">
-                           Name 
+                          <!-- Name -->
                           <?php echo $this->lang->line('lbl_name');?>
                           <label style="color:red;">*</label></label>
                               <div class="col-sm-8">
-                                 <input type="text" class="form-control" id="name" name="name" tabindex="1" onblur='' >
+                                 <input type="text" class="form-control" id="name" name="name" tabindex="1" onblur='chkEmpty("customerForm","name","Please Enter Name");' >
                                  <span style="color: red;"><?php echo form_error('name'); ?></span>
                                  <span style="font-size:20px;"></span>
                                   <p id="alphaname" style="color:#990000;"></p>
                                  
                              </div>
                       </div>
-                        
-                     
+         
+                      <div class="form-group">
+                          <label class="col-sm-4 control-label require" for="inputEmail3">
+                          <!-- Email -->
+                            <?php echo $this->lang->line('lbl_email');?>
+                          </label>
+                            <div class="col-sm-8">
+                                <input type="email" value="" class="form-control" id="email" name="email" tabindex="2">
+                                <span style="color: red;"></span>
+                                <span style="font-size:20px;"></span>
+                                 <h4 id="emailspan" style="font-size:15px;color:#990000"></h4>
+                                <p id="a" style="color:#990000;"></p>
+                            </div>
+                      </div>
+
                       <div class="form-group">
                            <label class="col-sm-4 control-label" for="contact">
-                            Phone 
+                           <!-- Phone -->
                             <?php echo $this->lang->line('lbl_phone');?>
                            <label style="color:red;">*</label></label>
                              <div class="col-sm-8">
-                                 <input type="text" value="" class="form-control" id="contact" name="phone" tabindex="3" onblur=''>
+                                 <input type="text" value="" class="form-control" id="contact" name="phone" tabindex="3" onblur='chkEmpty("customerForm","phone","Please Enter Phone");'>
                                  <span style="color: red;"><?php echo form_error('phone'); ?></span>
                                  <span style="font-size:20px;"></span>
                                   <h4 id="phonespan" style="font-size:15px;color:#990000"></h4>
                                  <p id="c" style="color:#990000;"></p>
                             </div>
-                      </div>-->
+                      </div>
 
-                                              <div class="form-group">
-                          <label class="col-sm-4 control-label" for="customer">
+                      <div class="form-group">
+                        <label class="col-sm-4 control-label require" for="inputEmail3">Street</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="street" name="street" tabindex="4">
+                                <span style="color: red;"></span>
+                                <span style="font-size:20px;"></span>
+                                <p style="color:#990000;"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="country">
                           <!-- Country -->
-                            <?php echo "Customer";?>
+                            <?php echo $this->lang->line('lbl_country');?>
                           </label>
                             <div class="col-sm-8">
-                                <select class="form-control select2" id="name" name="name" tabindex="1" onblur=''>
+                                <select class="form-control select2" id="country"  name="country" tabindex="5">
                                    <option value="">
                                     <?php echo $this->lang->line('lbl_dropdown_customer');?>  
                                     </option>
 
                                     <?php 
-                                      if(isset($data)){
-                                        foreach ($data as $value) {?>
-                               
+                                      if(isset($country)){
+                                        foreach ($country as $value) {?>
                                           <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option> 
                                       <?php }} ?>
                                 </select>
-<!--                                   <span style="color: red;"><?php echo form_error('country'); ?></span>
+                                   <span style="color: red;"><?php echo form_error('country'); ?></span>
                                    <span style="font-size:20px;"></span>
-                              <p style="color:#990000;"></p>-->
-                                 <!--<input type="text" class="form-control" id="name" name="name" tabindex="1" onblur='' >-->
-                                 <span style="color: red;"><?php echo form_error('name'); ?></span>
-                                 <span style="font-size:20px;"></span>
-                                  <p id="alphaname" style="color:#990000;"></p>
+                              <p style="color:#990000;"></p>
                           </div>
                         </div>
-                        
+
+                        <div class="form-group">
+                         <label class="col-sm-4 control-label" for="inputEmail3"><!-- State -->
+                          <?php echo $this->lang->line('lbl_state');?>  
+                         </label>
+                          <div class="col-sm-8">
+                            <select class="form-control select2" id="state" name="state" tabindex="6">
+                                 <option value="">
+                                 <!-- Select One -->
+                                 <?php echo $this->lang->line('lbl_dropdown_customer');?> 
+                                 </option>
+                              </select>
+                            <span style="color: red;"><?php echo form_error('state'); ?></span>
+                            <span style="font-size:20px;"></span>
+                            <p style="color:#990000;"></p>
+                          </div>
+                         </div>
+                         <div class="form-group">
+                            <label class="col-sm-4 control-label" for="state_code">
+                              State code
+                              
+                              <!-- <?php echo $this->lang->line('lbl_zipcode');?> -->
+                            </label>
+                              <div class="col-sm-8">
+                                <input type="text" placeholder="State code" class="form-control" id="state_code" name="state_code" tabindex="7" value="">
+                                <span style="color: red;"></span>
+                                <span style="font-size:20px;"></span>
+                                 <p style="color:#990000;"></p>
+                                </div>
+                          </div>
+
+
+                         <div class="form-group">
+                          <label class="col-sm-4 control-label require" for="inputEmail3">
+                          <!-- City -->
+                            <?php echo $this->lang->line('lbl_city');?>  
+                          </label>
+                            <div class="col-sm-8">
+                              <select class="form-control select2" id="city" name="city" tabindex="8">
+                                <option value=""><?php echo $this->lang->line('lbl_dropdown_customer');?></option>
+                              </select>
+                                <span style="color: red;"><?php echo form_error('city'); ?></span>
+                                <span style="font-size:20px;"></span>
+                                <p style="color:#990000;"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="zip_code">
+                          <!-- Zip code -->
+                          <?php echo $this->lang->line('lbl_zipcode');?>
+                          </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="zip_code" name="zip_code" tabindex="9">
+                                <span style="color: red;"></span>
+                                <span style="font-size:20px;"></span>
+                                <p id="b" style="color:#990000;"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-sm-4 control-label" for="gstin">
+                          <!-- GSTIN -->
+                          <?php echo $this->lang->line('lbl_gstin');?>
+                          </label>
+                              <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="gstin" name="gstin" tabindex="10" maxlength="15">
+                                  <span style="font-size:20px;"></span>
+                                  <label>ex : 22AAAAA0000A1Z5(15 digit)</label>
+                                  <span style="color: red;"></span>
+                                  <p id="gstinno" style="color:#990000;"></p>
+                              </div>
+                         </div>
+
+                         <div class="form-group">
+                          <label class="col-sm-4 control-label" for="country">
+                          GST Registration Type
+                            <!-- <?php echo $this->lang->line('lbl_country');?> -->
+                          </label>
+                            <div class="col-sm-8">
+                                <select class="form-control select2" id="gst_reg_type"  name="gst_reg_type" tabindex="5">
+                                  <option>Registered</option>
+                                  <option>Unregistered</option>
+                                  <option>Composition Scheme</option>
+                                  <option>Input Service Distributor</option>
+                                  <option>E-Commerece Operator</option>
+                                </select>
+                                <span style="color: red;"><?php echo form_error('country'); ?></span>
+                                <span style="font-size:20px;"></span>
+                              <p style="color:#990000;"></p>
+                          </div>
+                        </div>
+
+                      </div>
+          
+                        <div class="col-md-6">
+                         <h4 class="text-primary text-center">
+                          <!-- Shipping Address  -->
+                          <?php echo $this->lang->line('lbl_shipping_address');?>
+                          <!--<button id="copy" class="btn btn-default btn-xs" type="button">Copy Address</button>--></h4>
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="inputEmail3">
+                                <!-- Street -->
+                                <?php echo $this->lang->line('lbl_street');?>
+                              </label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" id="street1" name="street1" tabindex="11">
+                                  <span style="color: red;"></span>
+                                  <span style="font-size:20px;"></span>
+                                  <p style="color:#990000;"></p>
+                                </div>
+                            </div>
+                       
+                            <div class="form-group">
+                              <label class="col-sm-4 control-label" for="inputEmail3">
+                                <!-- Country -->
+                                <?php echo $this->lang->line('lbl_country');?>
+                              </label>
+                                <div class="col-sm-8">
+                                    <select class="form-control select2" id="country1"  name="country1" tabindex="12">
+                                       <option value="">
+                                        <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                         
+                                       </option>
+                                        <?php 
+                                          if($country){
+                                          foreach ($country as $value) {?>
+                                            <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option> 
+                                          <?php }} ?>
+                                    </select>
+                                    <span style="color: red;"></span>
+                                    <span style="font-size:20px;"></span>
+                                  <p style="color:#990000;"></p>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                             <label class="col-sm-4 control-label" for="inputEmail3">
+                             <!-- State -->
+                              <?php echo $this->lang->line('lbl_state');?>
+                             </label>
+                              <div class="col-sm-8">
+                                <select class="form-control select2" id="state1" name="state1" tabindex="13">
+                                    <option value="">
+                                      <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                    </option>
+                                  </select>
+                                <span style="color: red;"></span>
+                                <span style="font-size:20px;"></span>
+                                <p style="color:#990000;"></p>
+                              </div>
+                             </div>
+
+                             <div class="form-group">
+                              <label class="col-sm-4 control-label require" for="inputEmail3">
+                              <!-- City -->
+                                <?php echo $this->lang->line('lbl_city');?>
+                              </label>
+                                <div class="col-sm-8">
+                                  <select class="form-control select2" id="city1" name="city1" tabindex="14">
+                                    <option value="">
+                                      <?php echo $this->lang->line('lbl_dropdown_customer');?>
+                                    </option>
+                                  </select>
+                                    <span style="color: red;"></span>
+                                    <span style="font-size:20px;"></span>
+                                    <p style="color:#990000;"></p>
+                                </div>
+                            </div>
+
+                      
+                            <div class="form-group">
+                               <label class="col-sm-4 control-label" for="inputEmail3">
+                                <!-- Zip code -->
+                                <?php echo $this->lang->line('lbl_zipcode');?>
+                                </label>
+                                  <div class="col-sm-8">
+                                      <input type="text" class="form-control" id="zip_code1" name="zip_code1" tabindex="15">
+                                      <span style="color: red;"></span>
+                                      <span style="font-size:20px;"></span>
+                                      <p id="z" style="color:#990000;"></p>
+                                  </div>
+                            </div>
+                            
+                          <h4 class="text-primary text-center">
+                          <!-- Shipping Address  -->
+                          <?php echo "Lead";?>
+                          <!--<button id="copy" class="btn btn-default btn-xs" type="button">Copy Address</button>--></h4>   
                         <div class="form-group">
                         <label class="col-sm-4 control-label require" for="followup">Follow Up</label>
                             <div class="col-sm-8">
@@ -120,7 +324,7 @@
                                 <p style="color:#990000;"></p>
                             </div>
                         </div>
-                         <div class="form-group">
+<!--                         <div class="form-group">
                         <label class="col-sm-4 control-label require" for="nextfollow">Telecaller</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="telecaller" name="telecaller" tabindex="4">
@@ -128,21 +332,15 @@
                                 <span style="font-size:20px;"></span>
                                 <p style="color:#990000;"></p>
                             </div>
-                        </div>
-
-                       
-
-
-
+                        </div>-->
                       </div>
-          
                   </div>
               </div>
               
                <div class="box-footer">
                 <center>
                     <input type="submit" class="btn btn-info btn-flat" id="btn" name="customerSubmit" value="<?php echo $this->lang->line('btn_submit');?>">
-                    <a href="<?php echo base_url();?>Management/lead_customer" class="btn btn-default btn-flat"><?php echo $this->lang->line('btn_cancel');?></a>
+                    <a href="<?php echo base_url();?>customer/" class="btn btn-default btn-flat"><?php echo $this->lang->line('btn_cancel');?></a>
                 </center>
                </div>
       </form>
@@ -170,8 +368,8 @@
 
 
             
-            var name=chk("customerForm","name","Please Select Customer");
-//            var phone=chkEmpty("customerForm","phone","Please Enter number");
+            var name=chkEmpty("customerForm","name","Please Enter Name");
+            var phone=chkEmpty("customerForm","phone","Please Enter number");
 
             /*var d=chkEmpty("customerForm","street","Please Enter street");
             var e=chkDrop("customerForm","city","Please Enter city");
@@ -187,7 +385,7 @@
 
             
 
-            if(name != 1)
+            if(name + phone < 1)
             {
               customerForm.submit();
               return true;
@@ -415,3 +613,19 @@ $(document).ready(function(){
   $this->load->view('layout/footer');
    $this->load->view('layout/validation');
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

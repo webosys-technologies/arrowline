@@ -70,6 +70,11 @@ class Customer_model extends CI_Model
        }
     }
 
+    public function gettelecaller($id)
+    {
+        $query=$this->db->query("select * from users where id='$id'");
+        return $query->row();
+    }
      /*
           Get All Country Data
     */     

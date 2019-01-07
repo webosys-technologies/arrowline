@@ -23,14 +23,12 @@
             redirect('auth/login', 'refresh');
         }
 
-//        $data['data'] = $this->Customer_model->custUserData();
-         $data['data'] = $this->Lead_model->getall();
+        $data['data'] = $this->Customer_model->custUserData();
+       
         $data['customer']=$this->Customer_model->getCustomer();
         $data['status']=$this->Customer_model->getStatus();
         $data['deactive']=$this->Customer_model->getDeactive();
         
-//        print_r( $data['data']);
-//        die;
         
 
         $this->load->view('management/lead_customer',$data);
@@ -47,7 +45,9 @@
             redirect('auth/login', 'refresh');
         }
 
-        $data['data'] = $this->Customer_model->custUserData();
+        $data['country']  = $this->Customer_model->dataCountry();
+        $data['state'] = $this->Customer_model->dataState();
+        $data['city'] = $this->Customer_model->dataCity();
        
 
         $this->load->view('management/add_customer_lead',$data);
@@ -55,31 +55,63 @@
         
          public function add()
 	{  
-        if(!$this->ion_auth->logged_in())
+               if(!$this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
         }
-         
-     
+        $this->form_validation->set_rules('name', 'Name ', 'required');
+        //$this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('phone', '', 'required|numeric');
         
-            $data=array('customer_id'=>$this->input->post('name'),
-                        'followup'=>$this->input->post('followup'),
-                        'nextfollow'=>$this->input->post('nextfollow'),   
-                        'remark'=>$this->input->post('remark'),
-                        'telecaller'=>$this->input->post('telecaller'),
-                        'created_at'=>date('Y-m-d'),
-                        'status'=>'1',
-                        'is_deleted'=>'0'
-                        );
-           if($this->Lead_model->insert($data))
-           {
-               redirect('Management/lead_customer');
-           }else{
-                redirect('Management/lead_customer');
+      
+        
+        
+        if ($this->form_validation->run() == true)
+        {
+            	
+            $customer = array(
+                'name'             => $this->input->post('name'),
+                'email'            => $this->input->post('email'),
+                'phone'            => $this->input->post('phone'),
+                'street'           => $this->input->post('street'),
+                'city'             => $this->input->post('city'),
+                'state'            => $this->input->post('state'),
+                'state_code'       => $this->input->post('state_code'),
+                'zip_code'         => $this->input->post('zip_code'),
+                'country'          => $this->input->post('country'),
+                'gstin'            => $this->input->post('gstin'),
+                'gst_registration_type'=> $this->input->post('gst_reg_type'),
+                'user_id'          => $this->session->userdata("userId"),
+                'follow'            =>$this->input->post('followup'),
+                'nextfollow'       =>$this->input->post('nextfollow'),
+                'remark'            =>$this->input->post('remark'),
+                'telecaller'        =>$this->session->userdata("userId"),
+                'status'            =>'0'
+             );
+            /*echo "<pre>";
+            print_r($customer);
+            exit();*/
+            $shipping=array(
+            'street1'             => $this->input->post('street1'),
+             'city1'              => $this->input->post('city1'),
+             'state1'             => $this->input->post('state1'),
+            'zip_code1'           => $this->input->post('zip_code1'),
+            'country_id'          => $this->input->post('country1'),
+            'user_id'             => $this->session->userdata("userId")
+                );
+                
+        }
 
-           }
-          
-       
+
+        if ( ($this->form_validation->run() == true) && $this->Lead_model->addCustomer($customer,$shipping))
+        {
+        	redirect("Management/lead_customer",'refresh');
+        }    
+		
+        else
+	{  
+		$this->add_customer_lead();
+	}
 	}
         
         
