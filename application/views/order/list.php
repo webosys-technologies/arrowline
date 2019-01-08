@@ -17,7 +17,7 @@
         <div class="box-footer">
             <h4 class="box-title">
             <!-- Quotation   -->
-              <?php echo "Sales Order";?>
+              <?php echo "Sales Order"; ?>
               <?php if(in_array("add_quotation",$user_session)){?>
                 <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>Order/add_form"><i class="fa fa-plus"></i>
                  <!-- New Quotation -->
