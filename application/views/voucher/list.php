@@ -119,7 +119,7 @@
                   <tr> 
                     <td><?php echo $row->account_name;?></td>
                     <td><?php echo $row->account_no;?></td>
-                    <td><?php?></td>
+                    <td><?php ?></td>
                     <td><?php echo $row->description;?></td>
                     <td><?php echo $row->amount;?></td>
                     <td><?php echo $row->date;?></td>
@@ -128,7 +128,7 @@
                       <?php if(isset($user_session)){
                         if(in_array("edit_balance_transfer",$user_session)){
                       ?>                        
-                        <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>transfer/edit/<?php echo $row->id;?>" data-tt="tooltip"><span class="fa fa-edit"></span></a>
+                        <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Voucher/edit/<?php echo $row->id;?>" data-tt="tooltip"><span class="fa fa-edit"></span></a>
                       <?php }} ?>
                       &nbsp;
                       <?php if(isset($user_session)){
@@ -165,7 +165,7 @@
                                       <button type="button" class="btn btn-default" data-dismiss="modal">
                                         <?php echo $this->lang->line('btn_modal_close');?>
                                       </button>
-                                      <a href="<?php echo base_url();?>transfer/delete/<?php echo $row->id;?>" class="btn btn-danger" >
+                                      <a href="<?php echo base_url();?>Voucher/delete/<?php echo $row->id;?>" class="btn btn-danger" >
                                         <?php echo $this->lang->line('btn_modal_delete');?>
                                       </a>
                                     

@@ -100,23 +100,19 @@
                   </th>
                   <th class="text-center">
                     <!-- Invoice No -->
-                      <?php echo 'Invoice No'//$this->lang->line('lbl_saleshistoryreport_quotationno');?>
-                  </th>
-                  <th class="text-center">
-                   <!--  Customer -->
-                      <?php echo $this->lang->line('lbl_saleshistoryreport_customer');?>
-                  </th>          
+                      <?php echo 'Description'//$this->lang->line('lbl_saleshistoryreport_quotationno');?>
+                  </th>    
                   <th class="text-center">
                     <!-- Sale Id -->
-                      <?php echo 'Sale Id'//$this->lang->line('lbl_saleshistoryreport_quantity');?>
+                      <?php echo 'Debit'//$this->lang->line('lbl_saleshistoryreport_quantity');?>
                   </th>
                   <th class="text-center">
                   <!--   Sales Value -->
-                      <?php echo 'Sales Value'//$this->lang->line('lbl_saleshistoryreport_salesvalue');?>
+                      <?php echo 'Credit'//$this->lang->line('lbl_saleshistoryreport_salesvalue');?>
                   </th>
                   <th class="text-center">
                    <!--  Paid Value -->
-                      <?php echo 'Paid Value'//$this->lang->line('lbl_saleshistoryreport_costvalue');?>
+                      <?php echo 'Balance'//$this->lang->line('lbl_saleshistoryreport_costvalue');?>
                   </th>
                   
                 </tr>
@@ -198,19 +194,20 @@
              dataType:"json", 
              success:function(data)
              {
-             //alert("success"); 
+//                 console.log(data);
+             alert(data.ob); 
               var table="";
                $('#sales').html("");
                 for(var i = 0; i< data.length;i++) 
                 {
                     var profit = data[i].margin;
                     table +='<tr>'+
-                        '<td class="text-center">'+data[i].date+'</td>'+
-                        '<td class="text-center">'+data[i].invoice_no+'</td>'+
-                        '<td class="text-center">'+data[i].name+'</td>'+
-                        '<td class="text-center">'+data[i].id+'</td>'+
-                        '<td class="text-center">'+data[i].sales_amount+'</td>'+
-                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
+                        '<td class="text-center">'+data[i].dt+'</td>'+
+                        '<td class="text-center">'+data[i].desc+'</td>'+
+                        '<td class="text-center">'+data[i].deb+'</td>'+
+                        '<td class="text-center">'+data[i].cr+'</td>'+
+//                        '<td class="text-center">'+data[i].sales_amount+'</td>'+
+//                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
                       '</tr>';  
                 }     
                 //$('#sales').html(table); 

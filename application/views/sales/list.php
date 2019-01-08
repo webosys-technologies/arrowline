@@ -52,6 +52,10 @@
                             <?php echo $this->lang->line('lbl_invoice_cust_name');?>
                           </th>
                           <th>
+                            <!-- Supplier Name -->
+                            <?php echo 'Refrence'//$this->lang->line('lbl_invoice_cust_name');?>
+                          </th>
+                          <th>
                             <!-- Total Price  -->
                             <?php echo $this->lang->line('lbl_invoice_totalprice');?>
                             (<?php echo $this->session->userdata("currencySymbol");?>)
@@ -83,7 +87,7 @@
                             <a href="<?php echo base_url();?>customer/edit_data/<?php echo $value->customer_id;?>"><?php echo $value->name;?></a>
                           </td>
 
-                          <!-- <td><?php echo $value->name;?></td> -->
+                           <td><?php echo $value->supplier_ref;?></td> 
                           <td><?php echo $value->sales_amount + $value->shipping_charges;?></td>
                           <td><?php echo $value->paid_amount;?></td>
                           <td>

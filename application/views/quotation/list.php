@@ -60,6 +60,10 @@
                         <?php echo $this->lang->line('lbl_quotation_quantity');?>
                       </th>
                       <th>
+                        <!-- Refrence -->
+                        <?php echo 'Refrence'//$this->lang->line('lbl_quotation_quantity');?>
+                      </th>
+                      <th>
                         <!-- Total  -->
                         <?php echo $this->lang->line('lbl_quotation_total');?>
                         (<?php echo $this->session->userdata("currencySymbol");?>)
@@ -82,6 +86,7 @@
                       <td><a href="<?php echo base_url();?>quotation/order_details/<?php echo $value->quotation_id;?>"><?php echo $value->reference_no;?></td>
                       <td><a href="<?php echo base_url();?>customer/edit_data/<?php echo $value->customer_id;?>"><?php echo $value->name;?></a></td>
                       <td><?php echo $value->salesqty;?></td>
+                      <td><?php echo $value->supplier_ref;?></td>
                       <td><?php echo $value->total_amount;?></td>
                       <td><?php echo $value->date;?></td>
                       <td>

@@ -12,7 +12,7 @@ class Sales_model extends CI_Model{
     {   
         if($this->session->userdata('type')=='admin')
         {
-            $this->db->select('s.id as sales_id,s.shipping_charges,c.id as customer_id,c.name,i.sales_amount,i.paid_amount,invoice_date,i.invoice_no,s.status,i.id as invoice_id');
+            $this->db->select('s.id as sales_id,s.shipping_charges,c.id as customer_id,c.name,i.sales_amount,i.paid_amount,invoice_date,i.invoice_no,s.status,i.id as invoice_id,s.supplier_ref   ');
             $this->db->from('invoice i');
             $this->db->join('sales s','i.sales_id=s.id');
             $this->db->join('customer c','c.id=s.customer_id');
@@ -23,7 +23,7 @@ class Sales_model extends CI_Model{
         }
         else
         {
-            $this->db->select('s.id as sales_id,s.shipping_charges,c.id as customer_id,c.name,i.sales_amount,i.paid_amount,invoice_date,i.invoice_no,s.status,i.id as invoice_id');
+            $this->db->select('s.id as sales_id,s.shipping_charges,c.id as customer_id,c.name,i.sales_amount,i.paid_amount,invoice_date,i.invoice_no,s.status,i.id as invoice_id,s.supplier_ref');
             $this->db->from('invoice i');
             $this->db->join('sales s','i.sales_id=s.id');
             $this->db->join('customer c','c.id=s.customer_id');

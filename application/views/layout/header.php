@@ -598,16 +598,16 @@
                 <?php 
             if (isset($user_session)) {
             if(in_array("manage_balance_transfer",$user_session)){?>
-              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-list text-success"></i> 
+<!--              <li><a href="#"><i class="fa fa-list text-success"></i> 
                <?php echo 'Payment Voucher'//$this->lang->line('sidebar_transfer');?>
-              <!-- Voucher -->
-              </a></li>
+               Voucher 
+              </a></li>-->
             <?php }} ?>
               
               <?php 
             if (isset($user_session)) {
             if(in_array("manage_balance_transfer",$user_session)){?>
-              <li><a href="#"><i class="fa fa-file text-aqua"></i> 
+              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-file text-aqua"></i> 
                <?php echo 'Receipt Voucher'//$this->lang->line('sidebar_transfer');?>
               <!-- Voucher -->
               </a></li>
@@ -635,12 +635,12 @@
         </li>
         <?php }} ?>
 
-        <li class="treeview">
+<!--        <li class="treeview">
             <a href="#">
               <i class="fa fa-navicon text-red"></i>
               <span> 
                   GST Return
-                  <!-- <?php echo $this->lang->line('sidebar_sales');?> -->
+                   <?php echo $this->lang->line('sidebar_sales');?> 
               </span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -649,12 +649,12 @@
             <ul class="treeview-menu">
                 <li>
                   <a href="<?php echo base_url();?>gst_return/"><i class="fa fa-gg text-red"></i>
-                      <!-- <?php echo $this->lang->line('sidebar_quotation');?> -->
+                       <?php echo $this->lang->line('sidebar_quotation');?> 
                       GSTR1
                   </a>
                 </li>
             </ul>
-        </li>
+        </li>-->
 
 
         <li class="treeview">
@@ -713,9 +713,9 @@
                 <?php 
             if (isset($user_session)) {
             if(in_array("manage_balance_transfer",$user_session)){?>
-              <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-list text-success"></i> 
-               <?php echo 'Payment Voucher'//$this->lang->line('sidebar_transfer');?>
-              <!-- Voucher -->
+              <li><a href="<?php echo base_url();?>Ledger/"><i class="fa fa-list text-success"></i> 
+               <?php echo 'Debitors'//$this->lang->line('sidebar_transfer');?>
+              <!-- Ledger -->
               </a></li>
             <?php }} ?>
               
@@ -723,8 +723,8 @@
             if (isset($user_session)) {
             if(in_array("manage_balance_transfer",$user_session)){?>
               <li><a href="#"><i class="fa fa-file text-aqua"></i> 
-               <?php echo 'Receipt Voucher'//$this->lang->line('sidebar_transfer');?>
-              <!-- Voucher -->
+               <?php echo 'Creditors'//$this->lang->line('sidebar_transfer');?>
+              <!-- Ledger -->
               </a></li>
             <?php }} ?>
               
