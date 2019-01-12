@@ -286,6 +286,60 @@ class Customer_model extends CI_Model
         return false;
     }
     
+    
+        public function customer_edit($customer,$shipping)
+    {
+       
+       
+        $sql="UPDATE `customer` SET 
+            `name`= ?,
+            `email`= ?,
+            `phone`= ?,
+            `street`= ?,
+            `city_id`= ?,
+            `state_id`= ?,
+            `state_code`= ?,
+            `zip_code`= ?,
+            `country_id`= ?, 
+            `gstin`= ?,
+            `gst_registration_type` = ?,
+            `user_id` = ?,
+            follow = ?,
+            nextfollow = ?,
+            remark = ?,
+            telecaller = ?
+            WHERE id = ?";
+
+
+        if($this->db->query($sql,$customer))
+        {
+           
+            $sql1="UPDATE `shipping_address` SET 
+                `customer_id`= ?,
+                `street`= ?,
+                `city_id`= ?,
+                `state_id`= ?,
+                `zip_code`= ?,
+                `country_id`=?,
+                `user_id`=?
+                 WHERE `id` = ?";
+
+
+          if($this->db->query($sql1,$shipping)){
+          
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+       
+        return false;
+    }
+    
+    
+    
      /*
 
     this function used for delete customer details
@@ -318,6 +372,25 @@ class Customer_model extends CI_Model
        } 
    
        return FALSE;
+   }
+   
+   public function custstate($id)
+   {
+       $query=$this->db->query("select * from states where id='$id'");
+       return $query->row();
+   }
+   
+   public function shippingaddress($id)
+   {
+      
+       $query=$this->db->query("select * from shipping_address where customer_id='$id'");
+       return $query->row();
+   }
+   
+   public function custcity($id)
+   {
+       $query=$this->db->query("select * from cities where id='$id'");
+       return $query->row(); 
    }
 
 

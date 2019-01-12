@@ -32,7 +32,7 @@
               <div class="col-md-6">
                 <h5><b>Customer Information</b></h5>
                   <div class="well">
-
+    
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -40,7 +40,7 @@
                             <!-- Customer  -->
                               <?php echo $this->lang->line('lbl_add_quotation_customer');?>
                               <span class="text-danger"> *</span>
-                              <a href="#customer" data-toggle="modal" data-target=""><span class="">Add Customer</span></a>
+                              <!--<a href="#customer" data-toggle="modal" data-target=""><span class="">Add Customer</span></a>-->
                           </label>
                           <div class="form-group">
                           <select class="form-control select2" style="" name="customer_id" id="customer_id">
@@ -48,9 +48,10 @@
                               <!-- Select Customer -->
                               <?php echo $this->lang->line('lbl_dropdown_customer');?>
                             </option>
-                            <?php foreach ($customer as $value) {   
-                              echo "<option value='$value->id'".set_select('customer_id',$value->id).">$value->name</option>";
-                            }?>
+                            <?php foreach ($customer as $value) {  ?> 
+                              <!--echo "<option value='$value->id'".set_select('customer_id',$value->id).">$value->name</option>";-->
+                              <option value="<?php echo $value->id; ?>" <?php if($customer_id==$value->id){echo "selected"; }?>><?php echo $value->name; ?></option>
+                           <?php }?>
                           </select>
                           <p style="color:#990000;"></p>
                           <span style="color:#990000"><?php echo form_error('customer_id');?></span>
@@ -88,7 +89,7 @@
                               <!-- Payment Method  -->
                               <?php echo $this->lang->line('lbl_add_quotation_payment');?>
                               <span class="text-danger"> *</span>
-                              <a href="#paymentmethod" data-toggle="modal" data-target=""><span class="" style="">Add Method</span></a>
+                              <!--<a href="#paymentmethod" data-toggle="modal" data-target=""><span class="" style="">Add Method</span></a>-->
                             </label>
                               <div class="form-group">
                               <select class="form-control select2" name="paymentmethod_id" id="paymentmethod_id">
@@ -117,7 +118,7 @@
                             <label for="exampleInputEmail1">
                               <?php echo $this->lang->line('lbl_payment_term');?>
                               <span class="text-danger"> *</span>
-                              <a href="#paymentterm1" data-toggle="modal" data-target=""><span class="" style="">Add Term</span></a>
+                              <!--<a href="#paymentterm1" data-toggle="modal" data-target=""><span class="" style="">Add Term</span></a>-->
                             </label>
                             <div class="form-group">
                               <select class="form-control select2" name="paymentterm" id="paymentterm">
@@ -280,9 +281,9 @@
                                 <option value="">
                                   <?php echo $this->lang->line('lbl_dropdown_customer');?>
                                 </option>
-<!--                                 <?php foreach ($country as $val) { ?>
-                                   <option value="<?php echo $val->id;?>"><?php echo $val->name;?></option>
-                                  <?php } ?> -->
+                                 <?php foreach ($country as $val) { ?>
+                                   <option value="<?php echo $val->id;?>" <?php if($customer_info->country_id==$val->id){echo "selected";}?>><?php echo $val->name;?></option>
+                                  <?php } ?> 
                                
                               </select>
 
@@ -303,9 +304,9 @@
                                 <option value="">
                                   <?php echo $this->lang->line('lbl_dropdown_customer');?>
                                 </option>
-                                <!-- <?php foreach ($state1 as $value) { 
-                                    echo "<option value='$value->id'".set_select('state',$value->id).">$value->name</option>";
-                                  }?> -->
+                              
+                                   <option selected value="<?php echo $state->id;?>"><?php echo $state->name;?></option>
+                              
                               </select>
 
                               <p style="color:#990000;"></p>
@@ -324,9 +325,10 @@
                                 <option value="">
                                   <?php echo $this->lang->line('lbl_dropdown_customer');?>
                                 </option>
-                                <!-- <?php foreach ($customer as $value) { 
-                                    echo "<option value='$value->id'".set_select('customer',$value->id).">$value->name</option>";
-                                  }?> -->
+                             
+                                   <option selected value="<?php echo $city->id;?>"><?php echo $city->name;?></option>
+                              
+                            
                                   
                               </select>
                               <p style="color:#990000;"></p>
@@ -341,7 +343,7 @@
                               <!-- <?php echo $this->lang->line('lbl_add_quotation_customer');?> -->
                             </label>
                             <div class="form-group">
-                              <textarea class="form-control" rows="2" id="shipping_address" name="shipping_address"></textarea>
+                              <textarea class="form-control" rows="2" id="shipping_address" name="shipping_address"><?php echo $shipping->street;?></textarea>
                               <p style="color:#990000;"></p>
                               <span style="color:#990000"><?php echo form_error('shipping_address');?></span>
                             </div>

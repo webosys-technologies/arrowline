@@ -123,9 +123,38 @@
         
         public function edit($id)
         {
-             $data['data'] = $this->Customer_model->custUserData();
-             $data['customer']=$this->Lead_model->getrow(array('customer_id'=>$id));
-           
+             if(!$this->ion_auth->logged_in())
+            {
+                redirect('auth/login', 'refresh');
+            }	
+
+            $data1['country'] = $this->Customer_model->getCountryID($id);
+            $country_id = $data1['country']->country_id;
+
+            $data1['state'] = $this->Customer_model->getStateID($id);
+            $temp_state_id = $data1['state']->state_id;
+
+            $data1['country1'] = $this->Customer_model->getShippingCountryID($id);
+            $country_id1 = $data1['country1']->country_id;
+
+            $data1['state1'] = $this->Customer_model->getShippingStateID($id);
+            $temp_state_id1 = $data1['state1']->state_id;
+
+            //echo $temp_state_id1;exit();
+
+            $data['data'] = $this->Customer_model->getData($id);
+            
+
+            $data['shipping'] = $this->Customer_model->getShipping($id);
+            $data['country']  = $this->Customer_model->dataCountry();
+            
+            $data['state'] = $this->Quotation_model->getStateByCountryID($country_id);
+            $data['city'] = $this->Quotation_model->getCityByStateID($temp_state_id);
+
+            $data['state1'] = $this->Quotation_model->getStateByCountryID($country_id1);
+            $data['city1'] = $this->Quotation_model->getCityByStateID($temp_state_id1);
+//            print_r($data);
+//            die;
              $this->load->view('management/edit_customer',$data);
         }
         
@@ -148,22 +177,87 @@
         
         public function update()
         {
-             $data=array('customer_id'=>$this->input->post('name'),
-                        'followup'=>$this->input->post('followup'),
-                        'nextfollow'=>$this->input->post('nextfollow'),   
-                        'remark'=>$this->input->post('remark'),
-                        'telecaller'=>$this->input->post('telecaller'),
-                        'id'=>$this->input->post('id'),
-                        );
-           if($this->Lead_model->update($data))
-           {
-                $this->session->set_flashdata('success', 'Lead customer Updated successfully.');
-               redirect('Management/lead_customer');
-           }else{
-                redirect('Management/lead_customer');
-              
+            
+             if(!$this->ion_auth->logged_in())
+            {
+                redirect('auth/login', 'refresh');
+            }
 
-           }
+            $id = $this->input->post('id');
+
+            $this->form_validation->set_rules('name', 'Name ', 'required');
+            $this->form_validation->set_rules('phone', 'phone', 'required');
+            
+            if ($this->form_validation->run() == true)
+            {
+            	$id = $this->input->post('id');
+            	
+                $customer = array(
+                    'name'             =>$this->input->post('name'),
+                    'email'            =>$this->input->post('email'),
+                    'phone'            =>$this->input->post('phone'),
+                    'street'           =>$this->input->post('street'),
+                    'city_id'             =>$this->input->post('city'),
+                    'state_id'            =>$this->input->post('state'),
+                    'state_code'       =>$this->input->post('state_code'),
+                    'zip code'         =>$this->input->post('zip_code'),
+                    'country_id'          =>$this->input->post('country'),
+                    'gstin'            =>$this->input->post('gstin'),
+                    'gst_registration_type'  => $this->input->post('gst_reg_type'),
+                    'user_id'          => $this->session->userdata("userId"),                   
+                    'follow'            =>$this->input->post('followup'),
+                    'nextfollow'       =>$this->input->post('nextfollow'),
+                    'remark'            =>$this->input->post('remark'),
+                    'telecaller'        =>$this->session->userdata("userId"),
+                     'id'=>$id
+                      );
+
+               
+                $shipping=array(
+                    'customer_id'        => $this->input->post('id'),
+                	'street'             => $this->input->post('street1'),
+                    'city_id'               => $this->input->post('city1'),
+                    'state_id'              => $this->input->post('state1'),
+                    'zip_code'           => $this->input->post('zip_code1'),
+                    'country_id'         => $this->input->post('country1'),
+                    'user_id'          => $this->session->userdata("userId"),
+                    'id'                 => $this->input->post('shippingid')
+                );           
+            /*echo "<pre>";
+            print_r($customer);
+            print_r($shipping);
+            exit();*/
+
+        }
+
+        if ( ($this->form_validation->run() == true) && $this->Customer_model->customer_edit($customer,$shipping))
+        {
+             $this->session->set_flashdata('success', 'Lead customer Update successfully.');
+                 redirect("Management/lead_customer",'refresh');
+        }    
+        else
+	{  
+            $this->session->set_flashdata('error', 'Lead customer is not updated.');
+         redirect("Management/lead_customer",'refresh');
+	}
+            
+            
+//             $data=array('customer_id'=>$this->input->post('name'),
+//                        'followup'=>$this->input->post('followup'),
+//                        'nextfollow'=>$this->input->post('nextfollow'),   
+//                        'remark'=>$this->input->post('remark'),
+//                        'telecaller'=>$this->input->post('telecaller'),
+//                        'id'=>$this->input->post('id'),
+//                        );
+//           if($this->Lead_model->update($data))
+//           {
+//                $this->session->set_flashdata('success', 'Lead customer Updated successfully.');
+//               redirect('Management/lead_customer');
+//           }else{
+//                redirect('Management/lead_customer');
+//              
+//
+//           }
         }
         
         
@@ -194,7 +288,7 @@
             redirect('auth/login', 'refresh');
         }
 
-        $data['state1'] = $this->Customer_model->dataState();
+       
 		$data['customer']=$this->Order_model->getCustomer();
 		$data['location']=$this->Order_model->getLocation();
 		$data['lastid']=$this->Order_model->getLastId();
@@ -203,6 +297,11 @@
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['country']  = $this->Customer_model->dataCountry();
                 $data['SO']=$this->Order_model->getlastorder();
+                $data['customer_info']=$this->Customer_model->getCustomerById($id);
+                $data['state'] = $this->Customer_model->custstate($data['customer_info']->state_id);
+                $data['city'] = $this->Customer_model->custcity($data['customer_info']->city_id);
+                $data['shipping'] = $this->Customer_model->shippingaddress($id);
+                $data['customer_id']=$id;
 		/*echo "<pre>";
 		print_r($data);exit();*/
 		$this->load->view('management/add',$data);	
