@@ -18,7 +18,7 @@
             <h4 class="box-title">
             <!-- Quotation   -->
               <?php echo "Sales Order"; ?>
-              <?php if(in_array("add_quotation",$user_session)){?>
+              <?php if(in_array("add_order",$user_session)){?>
                 <a class="btn btn-primary btn-flat pull-right" href="<?php echo base_url()?>Order/add_form"><i class="fa fa-plus"></i>
                  <!-- New Quotation -->
                  <?php echo "New Order";?>
@@ -97,21 +97,23 @@
                           if($value->status == "draft"){
                         ?>
 
-                        <?php if(in_array("edit_quotation",$user_session)){?>
+                        <?php if(in_array("edit_order",$user_session)){?>
                           <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>quotation/edit_data/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-edit"></span></a>
                         <?php }} ?>
 
                         <!-- <a title="Edit" class="btn btn-xs btn-danger" href="<?php echo base_url();?>invoice/edit"><span class="fa fa-remove"></span></a> -->
 
 
-                        <?php if(in_array("delete_quotation",$user_session)){?>
+                        <?php if(in_array("delete_order",$user_session)){?>
                           <a href="#<?php echo''.$value->order_id.'';?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" title="Delete" data-tt="tooltip"><span class="fa fa-remove"></span></a>
                         <?php } ?>
 
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>order/order_print/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
-                         <?php if(!isset($invoice)){ ?>
+                         <?php
+                          if(in_array("convert_order_to_invoice",$user_session)){
+                         if(!isset($invoice)){ ?>
                         <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>order/convert_invoice/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
-                         <?php } ?>       
+                          <?php } }?>       
                          <!--<a title="Convert" class="btn btn-xs btn-info" href="<?php echo base_url();?>order/order_details/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>-->
 
                         <div class="example-modal">

@@ -374,6 +374,8 @@ class Customer_model extends CI_Model
        return FALSE;
    }
    
+  
+   
    public function custstate($id)
    {
        $query=$this->db->query("select * from states where id='$id'");

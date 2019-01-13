@@ -22,6 +22,8 @@
         {
             redirect('auth/login', 'refresh');
         }
+        
+      
 
         $data['data'] = $this->Customer_model->custUserData();
        
@@ -297,7 +299,9 @@
 		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
 		$data['country']  = $this->Customer_model->dataCountry();
                 $data['SO']=$this->Order_model->getlastorder();
-                $data['customer_info']=$this->Customer_model->getCustomerById($id);
+                $data['customer_info']=$this->Customer_model->shippingaddress($id);
+               
+                
                 $data['state'] = $this->Customer_model->custstate($data['customer_info']->state_id);
                 $data['city'] = $this->Customer_model->custcity($data['customer_info']->city_id);
                 $data['shipping'] = $this->Customer_model->shippingaddress($id);

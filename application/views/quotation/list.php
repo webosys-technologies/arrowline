@@ -107,8 +107,9 @@
                         <?php } ?>
 
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>quotation/order_print/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
+                         <?php if(in_array("convert_quotation_to_invoice",$user_session)){?>
                         <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>quotation/convert_invoice/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
-
+                                <?php } ?>
                         <div class="example-modal">
                           <div class="modal fade" id="<?php echo''.$value->quotation_id.'';?>">
                             <div class="modal-dialog">

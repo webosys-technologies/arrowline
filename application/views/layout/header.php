@@ -460,7 +460,7 @@
                 
                    <?php 
               if (isset($user_session)) {
-                if(in_array("manage_invoice",$user_session)){
+                if(in_array("manage_order",$user_session)){
                 ?>
               <li>
                 <a href="<?php echo base_url();?>Order/"><i class="fa fa-shopping-bag text-aqua"></i>
@@ -582,7 +582,7 @@
           
            <?php 
           if (isset($user_session)) {
-          if(in_array("manage_banking_transaction",$user_session)){?>
+          if(in_array("manage_voucher",$user_session)){?>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-folder text-danger"></i>
@@ -606,7 +606,7 @@
               
               <?php 
             if (isset($user_session)) {
-            if(in_array("manage_balance_transfer",$user_session)){?>
+            if(in_array("manage_reciept_voucher",$user_session)){?>
               <li><a href="<?php echo base_url();?>Voucher/"><i class="fa fa-file text-aqua"></i> 
                <?php echo 'Receipt Voucher'//$this->lang->line('sidebar_transfer');?>
               <!-- Voucher -->
@@ -673,7 +673,7 @@
                 <?php 
           if(isset($user_session)){
 
-          if(in_array("manage_relationship",$user_session)){?>
+          if(in_array("manage_lead",$user_session)){?>
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users text-aqua"></i>
@@ -697,7 +697,7 @@
 
              <?php 
           if (isset($user_session)) {
-          if(in_array("manage_banking_transaction",$user_session)){?>
+          if(in_array("manage_ledger",$user_session)){?>
           <li class="treeview">
             <a href="#">
               <i class="fa fa-folder text-danger"></i>
@@ -712,7 +712,7 @@
              
                 <?php 
             if (isset($user_session)) {
-            if(in_array("manage_balance_transfer",$user_session)){?>
+            if(in_array("manage_debitors",$user_session)){?>
               <li><a href="<?php echo base_url();?>Ledger/"><i class="fa fa-list text-success"></i> 
                <?php echo 'Debitors'//$this->lang->line('sidebar_transfer');?>
               <!-- Ledger -->
@@ -721,7 +721,7 @@
               
               <?php 
             if (isset($user_session)) {
-            if(in_array("manage_balance_transfer",$user_session)){?>
+            if(in_array("manage_creditors",$user_session)){?>
               <li><a href="#"><i class="fa fa-file text-aqua"></i> 
                <?php echo 'Creditors'//$this->lang->line('sidebar_transfer');?>
               <!-- Ledger -->

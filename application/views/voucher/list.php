@@ -67,7 +67,7 @@
                 <?php echo 'Voucher'//$this->lang->line('lbl_bank_transfer_header');?>
               </h3>
               <?php if(isset($user_session)){
-                if(in_array("add_balance_transfer",$user_session)){
+                if(in_array("add_reciept_voucher",$user_session)){
               ?>
               <a class="btn btn-primary btn-flat" style="float: right;" href="<?php echo base_url()?>Voucher/view"><i class="fa fa-user-plus"></i>
                  <!-- Add Transfer -->
@@ -126,13 +126,13 @@
                     
                     <td>
                       <?php if(isset($user_session)){
-                        if(in_array("edit_balance_transfer",$user_session)){
+                        if(in_array("edit_reciept_voucher",$user_session)){
                       ?>                        
                         <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Voucher/edit/<?php echo $row->id;?>" data-tt="tooltip"><span class="fa fa-edit"></span></a>
                       <?php }} ?>
                       &nbsp;
                       <?php if(isset($user_session)){
-                          if(in_array("delete_balance_transfer",$user_session)){
+                          if(in_array("delete_reciept_voucher",$user_session)){
                       ?>
                         <a class="btn btn-xs btn-danger" href="#<?php echo $row->id;?>" title="Delete" onclick="" data-toggle="modal" data-target="" data-tt="tooltip">
                         <i class="fa fa-remove" aria-hidden="true"></i></a>   

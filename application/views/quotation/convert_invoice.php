@@ -201,10 +201,13 @@
                             </label> 
                               <div class="input-group">
                                  <?php
-//                                 echo $AL;
+                                 
+                                  $lastid=explode('/',$AL)[2];
                                  if(explode('/',$AL)[0]=="AL")
                                  {
                                      $prev=explode("-",explode('/',$AL)[1])[0];
+                                    
+                                     
                                      if($prev!=substr(date("Y"),2,2))
                                      {
                                          $lastid=0;
@@ -214,6 +217,7 @@
                                  }else{
                                      $lastid=0;
                                  }
+                                 
                                  ?>
                                   <div class="input-group-addon">AL/<?php echo substr(date("Y"),2,2)."-"; echo substr(date("Y"),2,2)+1; echo "/"; ?></div>
                                     <?php $orderno=sprintf('%04d',intval($lastid)+1);?>

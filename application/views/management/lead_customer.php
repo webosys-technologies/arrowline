@@ -44,7 +44,7 @@
             <?php } ?>
 
             <?php  
-              if(in_array("add_customer",$user_session)){
+              if(in_array("add_lead",$user_session)){
             ?>
             <div class="col-md-2 col-xs-2 top-right-btn">
                 <a href="<?php echo base_url()?>Management/add_customer_lead" class="btn btn-block btn-primary btn-flat btn-border-orange"><span class="fa fa-plus"></span>
@@ -231,18 +231,19 @@
                         </td>-->
                          <td>
                           <?php  
-                            if(in_array("edit_customer",$user_session)){
+                      
+                            if(in_array("edit_lead",$user_session)){
                           ?>
                          <a title="Edit" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Management/edit/<?php echo $value->id;?>" data-tt="tooltip"><span class="fa fa-edit"></span>
                          </a>
                          <?php } ?>                      
                                
-                          <a href="#<?php echo $value->id; ?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" data-tt="tooltip" title="Delete"><span class="fa fa-remove"></span>
-                          </a>
+<!--                          <a href="#<?php echo $value->id; ?>" data-toggle="modal" data-target="" class="btn btn-xs btn-danger" data-tt="tooltip" title="Delete"><span class="fa fa-remove"></span>
+                          </a>-->
                              
                              
                               <?php  
-                            if(in_array("edit_customer",$user_session)){
+                            if(in_array("convert_lead_to_customer",$user_session)){
                                 if($value->status=='0')
                                 {
                                     

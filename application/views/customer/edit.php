@@ -114,6 +114,7 @@
                                   <select class="form-control select2" id="state" name="state" tabindex="6">
 
                                        <?php 
+                                      
                                         if(isset($state)){
                                          foreach ($state as $val) {?>
                                           <option value="<?php echo $val->id;?>" <?php if($val->id == $data->state_id){ echo "selected"; }?>><?php echo $val->name;?></option>
@@ -148,6 +149,7 @@
                                     <select class="form-control select2" id="city" name="city" tabindex="8">
                                      <?php 
                                       if(isset($city)){
+                                          
                                       foreach ($city as $value) {?>
                                           <option value="<?php echo $value->id;?>" <?php if($value->id == $data->city_id){ echo "selected"; }?>><?php echo $value->name;?></option>
                                           <?php }} ?>
