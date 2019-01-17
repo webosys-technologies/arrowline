@@ -6,7 +6,7 @@ class Voucher extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library(array('form_validation','ion_auth'));
-        $this->load->model(array('Voucher_model','Transfer_model'));
+        $this->load->model(array('Voucher_model','Transfer_model','Customer_model'));
 	}
 
 
@@ -42,7 +42,7 @@ class Voucher extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 
-//		$data['cat']=$this->Transfer_model->getCategory();
+		$data['cust']=$this->Customer_model->customerData();
 		$data['pay']=$this->Voucher_model->getPayment();
 		$data['acc'] = $this->Voucher_model->getAccount();
 		//$data['transfer'] = $this->Transfer_model->joinTransfer();
@@ -60,7 +60,7 @@ class Voucher extends CI_Controller {
 			redirect('auth/login', 'refresh');
 		}
 
-		$this->form_validation->set_rules('from','Account Name','required');
+		$this->form_validation->set_rules('from','Customer Name','required');
 		$this->form_validation->set_rules('to','Account Name','required');
 		$this->form_validation->set_rules('date','Date','required');
 		$this->form_validation->set_rules('amount','Amount','required');
@@ -74,7 +74,7 @@ class Voucher extends CI_Controller {
 			else{
 				
 				$acc=array(
-					'from_account_id'=>$this->input->post('from'),
+					'customer_id'=>$this->input->post('from'),
 //                                        'voucher_type' =>$this->input->post('type'),
 					'to_account_id'=>$this->input->post('to'),		
 					'date'=>$this->input->post('date'),
@@ -107,7 +107,7 @@ class Voucher extends CI_Controller {
 				if($this->Voucher_model->add($acc))
 				{
 					$this->Voucher_model->addTransaction($transaction);                                        
-                                        $this->Voucher_model->updateacc($acc['from_account_id'],$acc['amount']);
+                                        $this->Voucher_model->updateacc($acc['to_ccount_id'],$acc['amount']);
 					$this->session->set_flashdata('success', 'Amount transfer successfully');
 					redirect('Voucher','refresh');
 				}

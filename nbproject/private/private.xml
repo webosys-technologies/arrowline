@@ -11,6 +11,14 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/G:/xampp/htdocs/arrowline/application/controllers/Sales.php</file>
+            <file>file:/G:/xampp/htdocs/arrowline/application/controllers/Ledger.php</file>
+            <file>file:/G:/xampp/htdocs/arrowline/application/controllers/Invoice.php</file>
+            <file>file:/G:/xampp/htdocs/arrowline/application/models/Invoice_model.php</file>
+            <file>file:/G:/xampp/htdocs/arrowline/application/views/ledger/cust_ledger.php</file>
+            <file>file:/G:/xampp/htdocs/arrowline/application/views/invoice/payment.php</file>
+            <file>file:/G:/xampp/htdocs/arrowline/application/models/Ledger_model.php</file>
+        </group>
     </open-files>
 </project-private>

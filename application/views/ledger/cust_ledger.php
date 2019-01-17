@@ -51,7 +51,7 @@
                     <?php echo $this->lang->line('lbl_saleshistoryreport_customertype');?>
                 </label>
                 <select class="form-control select2" name="customer" id="customer" required>
-                        <option value="all">All</option>
+                        <!--<option value="all">All</option>-->
                           <?php 
                             
                                 foreach($customer as $row1)
@@ -195,21 +195,30 @@
              success:function(data)
              {
 //                 console.log(data);
-             alert(data.ob); 
+//             alert(data.ob); 
               var table="";
                $('#sales').html("");
+               var deb=0;
+               var cr=0;
                 for(var i = 0; i< data.length;i++) 
                 {
-                    var profit = data[i].margin;
+                    
+                    deb += data[i].debit;
+                    cr += data[i].credit;
                     table +='<tr>'+
-                        '<td class="text-center">'+data[i].dt+'</td>'+
-                        '<td class="text-center">'+data[i].desc+'</td>'+
-                        '<td class="text-center">'+data[i].deb+'</td>'+
-                        '<td class="text-center">'+data[i].cr+'</td>'+
-//                        '<td class="text-center">'+data[i].sales_amount+'</td>'+
+                        '<td class="text-center">'+data[i].date+'</td>'+
+                        '<td class="text-center">'+data[i].invoice_no+'</td>'+
+                        '<td class="text-center">'+data[i].debit+'</td>'+
+                        '<td class="text-center">'+data[i].credit+'</td>'+
+                        '<td class="text-center"></td>'+
 //                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
                       '</tr>';  
-                }     
+                      
+                }    
+               var amt=deb-cr;
+                table +='<tr>'+'<td class="text-right" colspan="4">Closing Balance</td>'+
+                            '<td>'+amt+'</td>'+
+                            '</tr>';
                 //$('#sales').html(table); 
                  $('#example1 tbody').html(table); 
              }

@@ -5,7 +5,7 @@ class Invoice extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();	
-		$this->load->model(array('Quotation_model','Invoice_model','Sales_model','Deposite_model'));
+		$this->load->model(array('Quotation_model','Invoice_model','Sales_model','Deposite_model','Ledger_model'));
 		$this->load->library(array('ion_auth','form_validation'));
 	}
 
@@ -216,6 +216,7 @@ class Invoice extends CI_Controller {
 
 	        if($this->Invoice_model->addSalesPayment($paymemtDetails))
 	        {
+                        
 	        	$transaction = array(
 					'amount' => $this->input->post('amount'),
 					'type' => "income",
@@ -229,6 +230,16 @@ class Invoice extends CI_Controller {
 				);
 	        	
 				$this->Deposite_model->addTransaction($transaction);
+                                
+                        $led=array( 'date' => $this->input->post('payment_date'),
+                                    'cust_id' => $this->input->post('cust_id'),
+                                    'Invoice' => $this->input->post('description'),
+                                    'credit' => $this->input->post('amount'),
+                                    'account_id' => $this->input->post('account'),
+                                );
+                        
+                        $led_id=$this->Ledger_model->add_custledger($led);
+                        
 	        	$this->session->set_flashdata('success', 'Payment Save Successfully.');
 				redirect('sales','refresh');
 	        }

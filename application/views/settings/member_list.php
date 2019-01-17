@@ -96,6 +96,16 @@
                             <span class="fa fa-edit"></span>
                         </a>
                       <?php }} ?>
+                        <?php 
+                        if(isset($user_session)){
+                          if(in_array("edit_team_member",$user_session)){
+                          ?>
+
+
+                        <a title="view" class="btn btn-xs btn-warning" href="#" onclick="view(<?php echo $user->id; ?>)" data-tt="tooltip">
+                            <span class="fa fa-eye"></span>
+                        </a>
+                      <?php }} ?>
                     </td>
                   </tr>
                 <?php endforeach;?>
@@ -152,7 +162,98 @@
     </div>
   </div>
       <!-- /.content -->
+      
+      
+  <!-- Modal Dialog for view -->
+       <div class="modal fade" id="viewdetails" role="dialog" aria-labelledby="viewdetails" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header" style="background-color: #605ca8;color:white;text-align: center" >
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">User Details</h4>
+        </div>
+        <div class="modal-body">
+            
+            <div class="row">
+                <div class="form-group">                    
+                <div class="col-md-6">
+                    <label>First Name:</label>
+                    <p id="firstname"></p>                    
+                </div>
+               <div class="col-md-6">
+                    <label>Last Name:</label>
+                    <p id="lastname"></p> 
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">                    
+                <div class="col-md-6">
+                    <label>Username :</label>
+                    <p id="username"></p>                    
+                </div>
+               <div class="col-md-6">
+                    <label>Email :</label>
+                    <p id="email"></p> 
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">                    
+                <div class="col-md-6">
+                    <label>Company :</label>
+                    <p id="company"></p>                    
+                </div>
+               <div class="col-md-6">
+                    <label>Phone :</label>
+                    <p id="phone"></p> 
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">                    
+                <div class="col-md-6">
+                    <label>Role :</label>
+                    <p id="role"></p>                    
+                </div>
+               <div class="col-md-6">
+                    <label>Created On :</label>
+                    <p id="created_on"></p> 
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>  
   </div>
+  </div>
+<script>
+    
+    function view(id)
+    {
+    $.ajax({
+        url: "<?php echo base_url('Settings/member_view')?>/" + id,
+        method: 'Get',
+        dataType: 'Json',
+        success: function(result){
+//      $("#div1").html(result);
+//    alert(result.first_name);
+    $('#firstname').html(result.first_name);
+    $('#lastname').html(result.last_name);
+    $('#username').html(result.username);
+    $('#email').html(result.email);
+    $('#company').html(result.company);
+    $('#phone').html(result.phone);
+    $('#role').html(result.name);
+    $('#created_on').html(result.created_on);
+    
+        $('#viewdetails').modal('show');
+    }});
+    }
+    </script>
   <?php 
 
   $this->load->view('layout/footer');

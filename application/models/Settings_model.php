@@ -106,5 +106,13 @@ class Settings_model extends CI_Model
       return $query->row();
     } 
 
-
+    function getmember($id)
+    {
+        $this->db->select('*');
+        $this->db->from('users as u');
+        $this->db->join('groups as g','g.id=u.group_id','left');
+        $this->db->where('u.id',$id);
+        $query=$this->db->get();
+        return $query->row();
+    }
 }

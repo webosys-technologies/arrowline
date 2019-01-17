@@ -2420,5 +2420,11 @@ class Ion_auth_model extends CI_Model
     	print_r($query->result());
     	exit();*/
     }	
+    
+    function addpersonal($data)
+    {
+        $this->db->insert('userinfo',$data);
+        return $this->db->insert_id();
+    }
 
 }

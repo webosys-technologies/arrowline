@@ -68,11 +68,11 @@
                           <?php echo $this->lang->line('lbl_dropdown_customer');?>
                         </option>
                               <?php 
-                              foreach($acc as $row) 
+                              foreach($cust as $row) 
                               {
                               ?>
                                   <option value="<?php echo $row->id;?>">
-                                <?php echo $row->account_name;?></option>  
+                                <?php echo $row->name;?></option>  
                             <?php
                               }
                             ?>
