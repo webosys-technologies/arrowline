@@ -664,12 +664,24 @@ class Auth extends CI_Controller {
             /*echo "<pre>";
             print_r($additional_data);exit();*/
         }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data))
+        if ($this->form_validation->run() == true)
         {
+            $res=$this->ion_auth->register($identity, $password, $email, $additional_data);
+            if($res)
+            {
+                $per=array('user_id' =>$res,
+                            'dob'=>$this->input->post('dob'),
+                            'address' => $this->input->post('address'),
+                            'gender' => $this->input->post('gender'),
+                            'education' => $this->input->post('education'),
+                    );
+                $this->load->model('Ion_auth_model');
+                $this->Ion_auth_model->addpersonal($per);
             // check to see if we are creating the user
             // redirect them back to the admin page
             $this->session->set_flashdata('message', $this->ion_auth->messages());
             redirect("settings/member_list", 'refresh');
+            }
         }
         else
         {

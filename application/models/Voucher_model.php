@@ -36,8 +36,8 @@ class Voucher_model extends CI_Model
        
       if($this->db->insert('transaction',$transaction))
       {
-//        return true;
-          echo 'success';
+        return true;
+//          echo 'success';
       }else{
            $msg = $this->db->conn_id->error_list;
            print_r($msg);
@@ -49,7 +49,8 @@ class Voucher_model extends CI_Model
    {
     $this->db->select('*');
         $this->db->from('account as a');
-        $this->db->join('voucher as v','v.from_account_id = a.id','LEFT');
+        $this->db->join('voucher as v','v.to_account_id = a.id','LEFT');
+        $this->db->join('customer as c','c.id=v.customer_id','LEft');
         $this->db->where('v.delete_status',0);
          $query = $this->db->get();
          
@@ -68,7 +69,7 @@ class Voucher_model extends CI_Model
        $this->db->where('id',$id);
        $res=$this->db->get();
         $data= $res->row();
-       $amt= $data->opening_balance-$amount;
+       $amt= $data->opening_balance+$amount;
        $updt=array('opening_balance' => $amt);
        
        $this->db->where('id',$id);

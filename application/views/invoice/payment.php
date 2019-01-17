@@ -42,6 +42,7 @@
 
                 <input type="hidden" name="quotation_id" value="<?php echo $invoice->quotation_id;?>">
                 <input type="hidden" name="sales_id" value="<?php echo $invoice->sales_id;?>">
+                <input type="hidden" name="cust_id" value="<?php echo $sales->customer_id;?>" />
 
                 <div class="form-group">
                   <label for="description" class="col-sm-2 control-label">

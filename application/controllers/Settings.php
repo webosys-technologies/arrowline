@@ -268,6 +268,14 @@ class Settings extends CI_Controller {
 	{
 		$this->load->view('settings/email_setup');
 	}
+        
+        public function member_view($id)
+        {
+            $data=$this->Settings_model->getmember($id);
+            echo json_encode($data);
+        }
+        
+        
 
 	
 }	

@@ -5,7 +5,7 @@ class Sales extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();	
-		$this->load->model(array('Sales_model','Quotation_model','Customer_model','Invoice_model'));
+		$this->load->model(array('Sales_model','Quotation_model','Customer_model','Invoice_model','Ledger_model'));
 		$this->load->library(array('ion_auth','form_validation'));
 		$this->load->library("cart");
 		
@@ -173,6 +173,14 @@ class Sales extends CI_Controller {
 			$data1=json_decode($this->input->post('temptext'));
 
 			$sales_id=$this->Sales_model->addSales($data);
+                        
+                        $led=array( 'date' => $this->input->post('sales_date'),
+                                    'cust_id' => $this->input->post('customer'),
+                                    'invoice_no' => $this->input->post('reference'),
+                                    'debit' => $this->input->post('grandTotal'),
+                            );
+                        
+                        $led_id=$this->Ledger_model->add_custledger($led);
 
 			$SalesItem=array();
 			if(isset($sales_id))

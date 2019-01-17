@@ -48,13 +48,13 @@
               <div class="col-md-3">
                 <label for="exampleInputEmail1">
                  <!--  Customer -->
-                    <?php echo $this->lang->line('lbl_saleshistoryreport_customertype');?>
+                    <?php echo 'Supplier'//$this->lang->line('lbl_saleshistoryreport_customertype');?>
                 </label>
                 <select class="form-control select2" name="customer" id="customer" required>
-                        <!--<option value="all">All</option>-->
+<!--                        <option value="all">All</option>-->
                           <?php 
                             
-                                foreach($customer as $row1)
+                                foreach($supplier as $row1)
                                 {
                           ?>
                             <option value="<?php echo $row1->id;?>">
@@ -73,7 +73,7 @@
             </form>
             </div>
             </div>
-          <div class="col-md-5 col-xs-12">
+          <div class="col-md-4 col-xs-12">
             <br>
             <div class="btn-group pull-right">
               <a href="<?php echo base_url();?>reports/create_csv" title="CSV" class="btn btn-default btn-flat" id="csv"> <!-- CSV  -->  <?php echo $this->lang->line('lbl_saleshistoryreport_csv');?> </a>
@@ -183,11 +183,11 @@
           //alert(customer_id+'=='+from_date+'=='+to_date);
 
           $.ajax({
-             url:"<?php echo base_url();?>Ledger/ledger_filter",
+             url:"<?php echo base_url();?>Ledger/supplier_filter",
              type:"POST",
              data:{
               
-              customer1:customer_id,
+              supplier:customer_id,
               st_date:from_date,
               end_date:to_date,
               },
@@ -195,30 +195,21 @@
              success:function(data)
              {
 //                 console.log(data);
-//             alert(data.ob); 
+             alert(data.ob); 
               var table="";
                $('#sales').html("");
-               var deb=0;
-               var cr=0;
                 for(var i = 0; i< data.length;i++) 
                 {
-                    
-                    deb += data[i].debit;
-                    cr += data[i].credit;
+                    var profit = data[i].margin;
                     table +='<tr>'+
-                        '<td class="text-center">'+data[i].date+'</td>'+
-                        '<td class="text-center">'+data[i].invoice_no+'</td>'+
-                        '<td class="text-center">'+data[i].debit+'</td>'+
-                        '<td class="text-center">'+data[i].credit+'</td>'+
-                        '<td class="text-center"></td>'+
+                        '<td class="text-center">'+data[i].dt+'</td>'+
+                        '<td class="text-center">'+data[i].desc+'</td>'+
+                        '<td class="text-center">'+data[i].deb+'</td>'+
+                        '<td class="text-center">'+data[i].cr+'</td>'+
+//                        '<td class="text-center">'+data[i].sales_amount+'</td>'+
 //                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
                       '</tr>';  
-                      
-                }    
-               var amt=deb-cr;
-                table +='<tr>'+'<td class="text-right" colspan="4">Closing Balance</td>'+
-                            '<td>'+amt+'</td>'+
-                            '</tr>';
+                }     
                 //$('#sales').html(table); 
                  $('#example1 tbody').html(table); 
              }
