@@ -262,6 +262,13 @@
                          </a>
                             <?php } } ?>
                              
+                              <?php  
+                            if(in_array("edit_customer",$user_session)){
+                           
+                          ?>
+                         <a title="Add Quotation" class="btn btn-xs btn-primary" href="<?php echo base_url();?>Management/get_quotation/<?php echo $value->id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-plus"></span>
+                         </a>
+                            <?php }  ?>
                          
                           
                           <div class="example-modal">

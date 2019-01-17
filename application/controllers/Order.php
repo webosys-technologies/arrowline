@@ -699,6 +699,11 @@ class Order extends CI_Controller {
                {
                    redirect('auth/login', 'refresh');
                }
+               
+               if($this->Order_model->get_order_detail($id)->invoice_status==1)
+               {
+                   redirect('order');
+               }
                 $data['country']  = $this->Customer_model->dataCountry();
 		$data['state1'] = $this->Customer_model->dataState();
 		$data['customer']=$this->Order_model->getCustomer();
@@ -711,13 +716,14 @@ class Order extends CI_Controller {
 		$data['state']=$this->Sales_model->getCompanyState();
                 $data['quotation']=$this->Order_model->get_Order_detail($id);
                 $data['order_id']=$id;
+              
                
 		$this->load->view('quotation/convert_invoice',$data);	   
         }
         
         	function add_sales()
 	{
-
+                 
 		if(!$this->ion_auth->logged_in())
         {
             redirect('auth/login', 'refresh');
@@ -776,6 +782,7 @@ class Order extends CI_Controller {
 			$SalesItem=array();
 			if(isset($sales_id))
 			{
+                            $this->Sales_model->change_status($this->input->post('order_id'));
 				$i=0;
 				foreach ($data1 as $val) {
 					$SalesItem[$i]=array(

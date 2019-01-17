@@ -214,6 +214,11 @@ class Sales_model extends CI_Model{
         $query=$this->db->get('tax');
         return $query->result();      
     }
+    
+    function change_status($id)
+    {
+       $this->db->update('sales_order',array('invoice_status'=>1),array('id'=>$id));
+    }
 
     public function addSales($data)
     {

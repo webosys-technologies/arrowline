@@ -411,6 +411,169 @@
         }
 	}
         
+        
+        public function get_quotation($id)
+        {
+            if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+
+        $data['state1'] = $this->Customer_model->dataState();
+		$data['customer']=$this->Quotation_model->getCustomer();
+		$data['location']=$this->Quotation_model->getLocation();
+		$data['lastid']=$this->Quotation_model->getLastId();
+		$data['items']=$this->Quotation_model->getItems();
+		$data['paymentmethod']=$this->Quotation_model->getPaymentMethod();
+		$data['paymentTerm']=$this->Sales_model->getPaymentTerm();
+		$data['country']  = $this->Customer_model->dataCountry();
+                 $data['customer_info']=$this->Customer_model->shippingaddress($id);
+                 $data['states']=$this->Customer_model->dataState();
+                 $data['QN']=$this->Quotation_model->getlastquotation();
+                 
+                  $data['state'] = $this->Customer_model->custstate($data['customer_info']->state_id);
+                $data['city'] = $this->Customer_model->custcity($data['customer_info']->city_id);
+                $data['shipping'] = $this->Customer_model->shippingaddress($id);
+                 
+                 $data['customer_id']=$id;
+		/*echo "<pre>";
+		print_r($data);exit();*/
+		$this->load->view('management/quotation_form',$data);	
+        }
+        
+        
+        	function add_quotation()
+	{
+
+		if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+
+        $this->form_validation->set_rules('order_date','Order Date','required');
+        $this->form_validation->set_rules('customer_id','Customer Name','required');
+        $this->form_validation->set_rules('location_id','Location Name','required');
+        $this->form_validation->set_rules('paymentmethod_id','Payment Method','required');
+        $this->form_validation->set_rules('reference','Reference Number','required');
+        $this->form_validation->set_rules('paymentterm','Payment Term','required');
+        $this->form_validation->set_rules('status','Status','required');
+        $this->form_validation->set_rules('state','State','required');
+
+        /*$this->form_validation->set_rules('city','City','required');
+        $this->form_validation->set_rules('shipping_address','Shipping Address','required');*/
+
+
+        if($this->form_validation->run()== true)
+        {
+			$data['customer_id']=$this->input->post('customer_id');	
+			$data['location_id']=$this->input->post('location_id');	
+			$data['payment_method_id']=$this->input->post('paymentmethod_id');	
+			$data['payment_term_id']=$this->input->post('paymentterm');	
+			$data['date'] = $this->input->post('order_date');
+			$data['reference_no']=$this->input->post('reference');	
+			$data['total_tax']=$this->input->post('totalTax');	
+			$data['shipping_charges']=$this->input->post('shipping');	
+			$data['total_amount']=$this->input->post('grandTotal');	
+			$data['notes']=$this->input->post('notes');	
+			$data['country_id']=$this->input->post('country');	
+			$data['state_id']=$this->input->post('state');	
+			$data['city_id']=$this->input->post('city');	
+			$data['shipping_address']=$this->input->post('shipping_address');	
+			$data['status']=$this->input->post('status');	
+
+			$data['sales_invoice']=$this->input->post('invoice_type');	
+			$data['sales_type']=$this->input->post('sales_type');	
+			$data['port_code']=$this->input->post('port_code');	
+			$data['shipping_bill_no']=$this->input->post('shipping_bill_no');	
+			$data['shipping_bill_date']=$this->input->post('shipping_bill_date');	
+			$data['gst_payable']=$this->input->post('gst_payable');
+			$data['user_id']		= $this->session->userdata("userId");
+
+			$data['delivery_note']=$this->input->post('delivery_note');	
+			$data['supplier_ref']=$this->input->post('supplier_reference');	
+			$data['buyer_order']=$this->input->post('buyer_order_no');	
+			$data['dispatch_doc_no']=$this->input->post('dispatch_doc_no');	
+			$data['dilivery_note_date']=$this->input->post('del_note_date');	
+			$data['dispatch_through']=$this->input->post('dispatch_through');
+
+			
+
+			$data1=json_decode($this->input->post('largeArea'));
+			
+//			echo "<pre>";
+//			print_r($data);
+//			print_r($data1);
+//                        die;
+
+			$quotation_id=$this->Quotation_model->addQuotation($data);
+
+			$quotationItem=array();
+			if(isset($quotation_id))
+			{
+				$i=0;
+				foreach ($data1 as $key => $val) {
+						$quotationItem[$i]=array(
+							'quotation_id' => $quotation_id,
+							'item_id' => $val->item_id,
+							//'item_description' => $value->item_desc,
+							'qty' => $val->qty,
+							'rate' => $val->rate,
+							'tax_id' => $val->tax_id,
+							'tax' => $val->tax,
+							'discount' => $val->discount,
+							'amount' => $val->amount,
+							'sub_invoice_no'=> $data['reference_no'].'-'.$val->tax_id
+						);
+			
+					$i++;		
+				}
+					
+				$this->Quotation_model->addQuotationItem($quotationItem);
+		
+				//$this->order_details($quotation_id);            		
+				redirect('management/quotation_order_details/'.$quotation_id);			
+			}
+        }
+        else
+        {
+        	//redirect('quotation/add_form');			
+        	$this->get_quotation($this->input->post('customer_id'));
+        }
+	}
+        
+        
+        public function quotation_order_details($quotation_id)
+        {
+          if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+
+		$data['quotation']=$this->Quotation_model->getQuotaion($quotation_id);
+		$data['quotation_items']=$this->Quotation_model->getQuotaionItems($quotation_id);
+		/*echo "<pre>";
+		print_r($data);
+		exit();*/
+
+		//$data['orderdetails']=$this->Quotation_model->orderDetails($quotation_id);
+		$data['country']=$this->Quotation_model->companyDetails();
+
+		if(!isset($data['country']))
+		{
+			$this->session->set_flashdata('success','Please Add Company Setting Details');
+			redirect('quotation','refresh');
+		}
+
+		$data['invoice']=$this->Quotation_model->getInvoiceDetails($quotation_id);
+		$data['s'] = $this->Quotation_model->quotationByID($quotation_id);
+
+		/*echo "<pre>";
+		print_r($data);
+		exit();*/
+		$this->load->view('management/quotation_order',$data);  
+        }
+        
+        
         	public function order_details($order_id)
 	{
 		if(!$this->ion_auth->logged_in())

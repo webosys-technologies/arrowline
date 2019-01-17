@@ -298,6 +298,20 @@ class Quotation extends CI_Controller {
 		exit();*/
 		$this->load->view('quotation/order',$data);
 	}
+        
+        
+        function approve($id)
+        {
+            if($this->Quotation_model->quotation_status(array('quotation_status'=>1),array('id'=>$id)))
+            {
+                $this->session->set_flashdata('success','Quotation Approved Successfully...!');
+                
+                redirect('quotation');
+            }else{
+                $this->session->set_flashdata('success','Quotation is not Approved...');
+                 redirect('quotation');
+            }
+        }
 
 
 	/*
@@ -821,5 +835,10 @@ $this->email->message($htmlContent);
 //Send email
 $this->email->send();
  echo $this->email->print_debugger();
+}
+
+public function query()
+{
+    $this->Quotation_model->query();
 }
 }

@@ -72,6 +72,7 @@
                         <!-- Quotation Date -->
                         <?php echo $this->lang->line('lbl_quotation_date');?>
                       </th>
+                      <th>Status</th>
                       <th>
                         <!-- Action -->
                         <?php echo $this->lang->line('lbl_quotation_action');?>
@@ -91,6 +92,21 @@
                       <td><?php echo $value->supplier_ref;?></td>
                       <td><?php echo $value->total_amount;?></td>
                       <td><?php echo $value->date;?></td>
+                       <td>
+                          <?php if($value->invoice_status==1){?>
+                            <span class="label label-success">
+                              <!-- Active -->
+                              <?php echo "Success";?>
+                            </span>
+                          <?php } 
+                          else {?>
+                            <span class="label label-warning">
+                              <!-- Deactive -->
+                              <?php echo "Pending";?>
+                            </span>
+                        <?php } ?>
+                        
+                        </td>
                       <td>
 
                         <?php 
@@ -111,7 +127,7 @@
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>order/order_print/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
                          <?php
                           if(in_array("convert_order_to_invoice",$user_session)){
-                         if(!isset($invoice)){ ?>
+                         if($value->invoice_status==0){ ?>
                         <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>order/convert_invoice/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
                           <?php } }?>       
                          <!--<a title="Convert" class="btn btn-xs btn-info" href="<?php echo base_url();?>order/order_details/<?php echo $value->order_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>-->

@@ -142,6 +142,11 @@ class Voucher_model extends CI_Model
    		$query=$this->db->get('account');
 		  return $query->result();
    }
-        
+   
+   public function query()
+   {
+       $this->db->query('ALTER TABLE `voucher` ADD `paid_amount` VARCHAR(55) NOT NULL AFTER `user_id`, ADD `status` INT(11) NOT NULL AFTER `paid_amount`');
+       return true;
+   }
    
 }

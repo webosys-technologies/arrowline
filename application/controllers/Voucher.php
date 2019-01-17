@@ -204,5 +204,10 @@ class Voucher extends CI_Controller {
             redirect("Voucher",'refresh');	
 		}
    }
+   public function query()
+   {
+       $this->Voucher_model->query();
+       redirect('Voucher');
+   }
 
 }

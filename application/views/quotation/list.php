@@ -72,6 +72,15 @@
                         <!-- Quotation Date -->
                         <?php echo $this->lang->line('lbl_quotation_date');?>
                       </th>
+                        <?php if(in_array("approve_quotation",$user_session)){
+                         ?>
+                       <th>
+                        <!-- Quotation Date -->
+                        <?php echo "Approval"?>
+                      </th>
+                      <?php 
+                               
+                           }?>
                       <th>
                         <!-- Action -->
                         <?php echo $this->lang->line('lbl_quotation_action');?>
@@ -80,6 +89,7 @@
                 </thead>
                 <tbody>
                 <?php if(isset($quotation)){
+   
                     foreach ($quotation as $value){ 
                   ?>
                   <tr>
@@ -89,6 +99,19 @@
                       <td><?php echo $value->supplier_ref;?></td>
                       <td><?php echo $value->total_amount;?></td>
                       <td><?php echo $value->date;?></td>
+                        <?php if(in_array("approve_quotation",$user_session)){ ?>
+                         <td>
+                            <?php   if($value->quotation_status==0){   ?>
+                      
+                         
+                          <a title="Approve" class="btn btn-xs btn-warning" data-toggle="modal" data-target="" href="#approve_<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="fa fa-circle">Approve</span></a>
+                           <?php }else{?>
+                          <span class="text-success">Approved</span>                               
+                        
+                          <?php } ?>
+                             </td>  
+                          <?php }?>
+                           
                       <td>
 
                         <?php 
@@ -108,7 +131,7 @@
 
                         <a title="Print" class="btn btn-xs btn-info" target="_blank" href="<?php echo base_url();?>quotation/order_print/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="fa fa-print"></span></a>
                          <?php if(in_array("convert_quotation_to_invoice",$user_session)){?>
-                        <a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>quotation/convert_invoice/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>
+                        <!--<a title="Convert" class="btn btn-xs btn-warning" href="<?php echo base_url();?>quotation/convert_invoice/<?php echo $value->quotation_id;?>" data-tt="tooltip"><span class="glyphicon glyphicon-share"></span></a>-->
                                 <?php } ?>
                         <div class="example-modal">
                           <div class="modal fade" id="<?php echo''.$value->quotation_id.'';?>">
@@ -146,6 +169,43 @@
                           <!-- /.modal -->
                         </div>
                         <!-- /.example-modal -->
+                        
+                        
+                                 <div class="example-modal">
+                          <div class="modal fade" id="<?php echo'approve_'.$value->quotation_id.'';?>">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                  <center><h4 class="modal-title">
+                                    <!-- !!  Delete Quotation !! -->
+                                    <?php echo "Approve Quotation";?>
+                                  </h4></center>
+                                </div>
+                                <div class="modal-body">
+                                  <p><h4><b>
+                                    <!-- Are you sure to delete this Record !!&hellip; -->
+                                    <?php echo "Are you sure want to approve quotation";?>
+                                  </b></h4></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><!-- Close -->
+                                    <?php echo $this->lang->line('btn_modal_close');?>
+                                    </button>
+                                    <a href="<?php echo base_url();?>quotation/approve/<?php echo $value->quotation_id; ?>" class="btn btn-warning">
+                                    <!-- Delete -->
+                                    <?php echo "Approve";?>
+                                    </a>
+                                   
+                                </div>
+                              </div>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                          </div>
+                          <!-- /.modal -->
+                        </div>
                       </td>
                   </tr>
                   <?php } }?>
