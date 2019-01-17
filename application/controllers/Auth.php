@@ -242,6 +242,9 @@ class Auth extends CI_Controller {
 				foreach ($data as $value) {
 					array_push($userRole, $value->name);
 				}
+//                                
+//                                print_r($userRole);
+//                                die;
 
 				$this->session->set_userdata("userRole",$userRole);
 				

@@ -209,15 +209,15 @@
             //echo $temp_state_id1;exit();
 
             $data['data'] = $this->Customer_model->getData($id);
-            
+             
 
             $data['shipping'] = $this->Customer_model->getShipping($id);
             $data['country']  = $this->Customer_model->dataCountry();
             
-            $data['state'] = $this->Quotation_model->getStateByCountryID($country_id);
-            $data['city'] = $this->Quotation_model->getCityByStateID($temp_state_id);
+           $data['state'] = $this->Quotation_model->getStateByCountryID($country_id);
+           $data['city'] = $this->Quotation_model->getCityByStateID($temp_state_id);
 
-            $data['state1'] = $this->Quotation_model->getStateByCountryID($country_id1);
+           $data['state1'] = $this->Quotation_model->getStateByCountryID($country_id1);
             $data['city1'] = $this->Quotation_model->getCityByStateID($temp_state_id1);
 
             /*echo "<pre>";

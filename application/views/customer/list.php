@@ -130,6 +130,8 @@
                 <tbody>
                      <?php
                            foreach ($data as $value) {
+                               if($value->status=='1')
+                               {
                       ?>
                       <tr>
                         <td><?php echo $value->name; ?></td>
@@ -192,6 +194,7 @@
                         </td>
                     </tr>
                      <?php
+                               }
                       }
                         ?>
               </tbody>
