@@ -21,7 +21,8 @@ class Voucher extends CI_Controller {
 			// redirect them to the login page
 			redirect('auth/login', 'refresh');
 		}
-                $data['voch']=$this->Voucher_model->get();
+                $data['voch']=$this->Voucher_model->getvoucher();
+                
                 
 //		$data['cat']=$this->Transfer_model->getCategory();
 //		$data['pay']=$this->Transfer_model->getPayment();

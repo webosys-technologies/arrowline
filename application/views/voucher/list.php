@@ -94,11 +94,7 @@
                     <!--Customer -->
                     <?php echo 'Customer'//$this->lang->line('lbl_transfer_accountno');?>
                   </th>
-                  
-                  <th>
-                    <!-- Description -->
-                    <?php echo $this->lang->line('lbl_transfer_desc');?>
-                  </th>
+                 
                   <th>
                     <!-- Amount -->
                     <?php echo $this->lang->line('lbl_transfer_amount');?>
@@ -116,12 +112,13 @@
                 </thead>
                 <tbody>
                 <?php if(isset($voch)):
+     print_r($voch);
                 foreach ($voch as $row):?>
                   <tr> 
                     <td><?php echo $row->account_name;?></td>
                     <td><?php echo $row->account_no;?></td>
                     <td><?php echo $row->name;?></td>
-                    <td><?php echo $row->description;?></td>
+                  
                     <td><?php echo $row->amount;?></td>
                     <td><?php echo $row->date;?></td>
                     

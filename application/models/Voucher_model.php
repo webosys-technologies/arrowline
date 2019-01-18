@@ -50,7 +50,23 @@ class Voucher_model extends CI_Model
     $this->db->select('*');
         $this->db->from('account as a');
         $this->db->join('voucher as v','v.to_account_id = a.id','LEFT');
-        $this->db->join('customer as c','c.id=v.customer_id','LEft');
+        $this->db->join('customer as c','c.id=v.customer_id','LEFT');
+        $this->db->where('v.delete_status',0);
+         $query = $this->db->get();
+         
+         if(isset($query))
+         {
+                     return $query->result();
+
+         }
+
+   }
+    public function getvoucher()
+   {
+    $this->db->select('v.id,a.account_name,a.account_no,c.name,v.amount,v.date,v.reference_no');
+        $this->db->from('voucher as v');
+        $this->db->join('account as a','v.to_account_id = a.id','LEFT');
+        $this->db->join('customer as c','c.id=v.customer_id','LEFT');
         $this->db->where('v.delete_status',0);
          $query = $this->db->get();
          
@@ -147,6 +163,7 @@ class Voucher_model extends CI_Model
    public function query()
    {
        $this->db->query('ALTER TABLE `voucher` ADD `paid_amount` VARCHAR(55) NOT NULL AFTER `user_id`, ADD `status` INT(11) NOT NULL AFTER `paid_amount`');
+       $this->db->query('ALTER TABLE `voucher` CHANGE `from_account_id` `customer_id` INT(11) NOT NULL');
        return true;
    }
    
