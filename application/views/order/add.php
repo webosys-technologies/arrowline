@@ -1860,10 +1860,11 @@
 //                  '<input type="hidden" name="hiddendiscount" id="hiddendiscount" class="form-control hiddendiscount">'+
 //                '</td>'+
 
-                '<td hidden="true">'+
+                '<td>'+
                   '<input type="text" name="subtotal" id="subtotal" class="form-control subtotal" value="'+data1['items'].sales_price * 0 +'" readonly>'+
                   '<input type="hidden" name="totalsub" id="totalsub" class="form-control totalsub" value="">'+
                 '</td>'+
+               
 
                 '<td>'+
                       '<button type="button" name="remove" class="btn btn-danger btn-xs remove_inventory delete" onclick="hello(this.value);" value="" id=""><span class="fa fa-remove"></span></button>'+ 
