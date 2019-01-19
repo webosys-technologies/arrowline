@@ -115,18 +115,19 @@ class Voucher extends CI_Controller {
                                         if($pd_amt > 0)
                                         {
                                             $this->Voucher_model->addTransaction($transaction);
-                                            $this->Voucher_model->updateacc($acc['to_ccount_id'],$acc['paid_amount']);
+                                            $this->Voucher_model->updateacc($acc['to_account_id'],$acc['paid_amount']);
                                         }
                                        $led=array(
                                            'date' => $this->input->post('date'),
-					'customer_id'=>$this->input->post('from'),
+					'cust_id'=>$this->input->post('from'),
                                          'debit' => $this->input->post('amount'),
                                          'credit' => $this->input->post('paid_amount'),
                                           'account_id' =>$this->input->post('to'),
-					'reference_no'=>$this->input->post('desc'),
+					'description'=>$this->input->post('desc'),
                                            );
-                                        $this->Ledger_model->add_custledger($led);
-                                        die;
+//                                           print_r($led);
+                                       $res= $this->Ledger_model->add_custledger($led);
+//                                        die;
 					$this->session->set_flashdata('success', 'Amount transfer successfully');
 					redirect('Voucher','refresh');
 				}

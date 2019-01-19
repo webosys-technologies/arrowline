@@ -63,7 +63,7 @@ class Voucher_model extends CI_Model
    }
     public function getvoucher()
    {
-    $this->db->select('v.id,a.account_name,a.account_no,c.name,v.amount,v.date,v.reference_no');
+    $this->db->select('v.id,a.account_name,a.account_no,c.name,v.amount,v.paid_amount,v.date,v.reference_no');
         $this->db->from('voucher as v');
         $this->db->join('account as a','v.to_account_id = a.id','LEFT');
         $this->db->join('customer as c','c.id=v.customer_id','LEFT');
