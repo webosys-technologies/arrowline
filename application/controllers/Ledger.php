@@ -62,7 +62,7 @@ class Ledger extends CI_Controller
 
         //log_message('debug',print_r($data,true));
         
-        print_r(json_encode($data));
+        echo(json_encode($data));
         
     }
     

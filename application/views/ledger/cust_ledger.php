@@ -140,6 +140,7 @@
                 
                 </tbody>-->
               </table>
+                <p id="test"></p>
             </div>
             <!-- /.box-body -->
       </div>
@@ -194,28 +195,48 @@
              dataType:"json", 
              success:function(data)
              {
-//                 console.log(data);
-//             alert(data.ob); 
+//             alert(data.ob.ob); 
+    console.log('test');
               var table="";
-               $('#sales').html("");
+               $('#test').html(data);
                var deb=0;
                var cr=0;
-                for(var i = 0; i< data.length;i++) 
-                {
-                    
-                    deb += data[i].debit;
-                    cr += data[i].credit;
+//                for(var i = 0; i< data.length;i++) 
+//                {
+//                    
+//                    deb += data[i].debit;
+//                    cr += data[i].credit;
+//                    table +='<tr>'+
+//                        '<td class="text-center">'+data[i].date+'</td>'+
+//                        '<td class="text-center">'+data[i].invoice_no+'</td>'+
+//                        '<td class="text-center">'+data[i].debit+'</td>'+
+//                        '<td class="text-center">'+data[i].credit+'</td>'+
+//                        '<td class="text-center"></td>'+
+//                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
+//                      '</tr>';  
+//                      
+//                }    
+                        $.each(data, function () {
+//                            alert(value);
+                            var temp = this.debit;
+                            deb = +deb + +temp;
+                                                        alert(deb);
+
+                    var temp1= this.credit;
+                    cr = +cr + +temp1;
+                                                    alert(cr);
+
                     table +='<tr>'+
-                        '<td class="text-center">'+data[i].date+'</td>'+
-                        '<td class="text-center">'+data[i].invoice_no+'</td>'+
-                        '<td class="text-center">'+data[i].debit+'</td>'+
-                        '<td class="text-center">'+data[i].credit+'</td>'+
+                        '<td class="text-center">'+this.date+'</td>'+
+                        '<td class="text-center">'+this.invoice_no+'</td>'+
+                        '<td class="text-center">'+this.debit+'</td>'+
+                        '<td class="text-center">'+this.credit+'</td>'+
                         '<td class="text-center"></td>'+
 //                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
                       '</tr>';  
-                      
-                }    
+                        });
                var amt=deb-cr;
+               alert(amt);
                 table +='<tr>'+'<td class="text-right" colspan="4">Closing Balance</td>'+
                             '<td>'+amt+'</td>'+
                             '</tr>';

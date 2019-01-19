@@ -101,12 +101,12 @@ class Ledger_model extends CI_Model
   
   function opening_balance($customer,$from,$to)
   {
-      $this->db->select('SUM(sales_amount)- SUM(paid_amount)as ob');
-      $this->db->from('customer c');
-      $this->db->join('sales s','s.customer_id=c.id');
-      $this->db->join('invoice in','in.sales_id=s.id');
+      $this->db->select('SUM(debit)- SUM(credit)as ob');
+      $this->db->from('cust_ledger as c');
+//      $this->db->join('sales s','s.customer_id=c.id');
+//      $this->db->join('invoice in','in.sales_id=s.id');
       $this->db->where('c.id=',$customer);
-      $this->db->where('in.invoice_date <',$from);
+      $this->db->where('c.date <',$from);
       $query=$this->db->get()->result();
       
       return $query;

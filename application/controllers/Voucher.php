@@ -6,7 +6,7 @@ class Voucher extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library(array('form_validation','ion_auth'));
-        $this->load->model(array('Voucher_model','Transfer_model','Customer_model'));
+        $this->load->model(array('Voucher_model','Transfer_model','Customer_model','Ledger_model'));
 	}
 
 
@@ -74,6 +74,9 @@ class Voucher extends CI_Controller {
 				$this->view();
 			}
 			else{
+                            $amt=$this->input->post('amount');
+                            $pd_amt=$this->input->post('paid_amount');
+                           
 				
 				$acc=array(
 					'customer_id'=>$this->input->post('from'),
@@ -82,15 +85,16 @@ class Voucher extends CI_Controller {
 					'date'=>$this->input->post('date'),
 					'description'=>$this->input->post('desc'),
 					'amount'=>$this->input->post('amount'),
+                                        'paid_amount' => $this->input->post('paid_amount'),
 					'payment_method_id'=>$this->input->post('payment'),
 					'bank_name'=>$this->input->post('bank_name'),
 					'cheque_no'=>$this->input->post('cheque_no'),
 					'reference_no'=>$this->input->post('refer'),
-					'user_id' =>$this->session->userdata("userId")
+					'user_id' =>$this->session->userdata("userId"),
 				);
 
 				$transaction = array(
-					'amount' => $this->input->post('amount'),
+					'amount' => $this->input->post('paid_amount'),
 					'type' => "Voucher Transfer",
 					'account_id' => $this->input->post('to'), 
 					'date' => $this->input->post('date'), 
@@ -108,8 +112,21 @@ class Voucher extends CI_Controller {
 //                                die();
 				if($this->Voucher_model->add($acc))
 				{
-					$this->Voucher_model->addTransaction($transaction);                                        
-                                        $this->Voucher_model->updateacc($acc['to_ccount_id'],$acc['amount']);
+                                        if($pd_amt > 0)
+                                        {
+                                            $this->Voucher_model->addTransaction($transaction);
+                                            $this->Voucher_model->updateacc($acc['to_ccount_id'],$acc['paid_amount']);
+                                        }
+                                       $led=array(
+                                           'date' => $this->input->post('date'),
+					'customer_id'=>$this->input->post('from'),
+                                         'debit' => $this->input->post('amount'),
+                                         'credit' => $this->input->post('paid_amount'),
+                                          'account_id' =>$this->input->post('to'),
+					'reference_no'=>$this->input->post('desc'),
+                                           );
+                                        $this->Ledger_model->add_custledger($led);
+                                        die;
 					$this->session->set_flashdata('success', 'Amount transfer successfully');
 					redirect('Voucher','refresh');
 				}
