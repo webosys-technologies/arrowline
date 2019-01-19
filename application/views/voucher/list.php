@@ -104,6 +104,7 @@
                     <!-- Date -->
                     <?php echo $this->lang->line('lbl_transfer_date');?>
                   </th>
+                  <th>Status</th>
                   <th>
                     <!-- Action -->
                     <?php echo $this->lang->line('lbl_transfer_action');?>
@@ -121,7 +122,7 @@
                   
                     <td><?php echo $row->amount;?></td>
                     <td><?php echo $row->date;?></td>
-                    
+                    <td></td>
                     <td>
                       <?php if(isset($user_session)){
                         if(in_array("edit_reciept_voucher",$user_session)){

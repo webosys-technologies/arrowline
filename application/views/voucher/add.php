@@ -147,13 +147,28 @@
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">
                     <!-- Amount -->
-                    <?php echo $this->lang->line('lbl_addtransfer_amount');?>
+                    <?php echo "Total ".$this->lang->line('lbl_addtransfer_amount');?>
                       <span class="text-danger">*</span>
                   </label>
                   <div class="col-sm-4">
                     <div class="control">
                         <input type="text" class="form-control" name="amount" 
                         id="amount" placeholder="<?php echo $this->lang->line('lbl_addtransfer_amount');?>">
+                        <span style="font-size:20px;"><?php echo form_error('amount');?></span>
+                        <p style="color:#990000;"></p>
+                      </div> 
+                  </div>
+                </div>
+               <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">
+                    <!-- Amount -->
+                    <?php echo "Paid ".$this->lang->line('lbl_addtransfer_amount');?>
+                      <span class="text-danger">*</span>
+                  </label>
+                  <div class="col-sm-4">
+                    <div class="control">
+                        <input type="text" class="form-control" name="paid_amount" 
+                        id="paid_amount" placeholder="Paid <?php echo $this->lang->line('lbl_addtransfer_amount');?>">
                         <span style="font-size:20px;"><?php echo form_error('amount');?></span>
                         <p style="color:#990000;"></p>
                       </div> 
