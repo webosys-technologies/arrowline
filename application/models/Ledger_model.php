@@ -117,4 +117,9 @@ class Ledger_model extends CI_Model
       $this->db->insert('cust_ledger',$data);
       return $this->db->insert_id();
   }
+  function query()
+  {
+      $this->db->query('ALTER TABLE `cust_ledger` ADD `description` VARCHAR(55) NOT NULL AFTER `credit`');
+      return true;
+  }
 }

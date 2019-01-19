@@ -89,4 +89,10 @@ class Ledger extends CI_Controller
         
         
     }
+    
+    public function query()
+    {
+       $this->Ledger_model->query();
+       redirect('Ledger');
+    }
 }
