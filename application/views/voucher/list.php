@@ -112,7 +112,7 @@
                 </thead>
                 <tbody>
                 <?php if(isset($voch)):
-     print_r($voch);
+    
                 foreach ($voch as $row):?>
                   <tr> 
                     <td><?php echo $row->account_name;?></td>

@@ -15,6 +15,7 @@ class Voucher extends CI_Controller {
 	*/
 	public function index()
 	{
+            print_r($this->session->userdata());
 
 		if (!$this->ion_auth->logged_in())
 		{
