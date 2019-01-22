@@ -101,6 +101,11 @@
                     (<?php echo $this->session->userdata("currencySymbol");?>)
                   </th>
                   <th>
+                    <!-- Amount -->
+                    <?php echo 'Paid Amount'//$this->lang->line('lbl_transfer_amount');?>
+                    (<?php echo $this->session->userdata("currencySymbol");?>)
+                  </th>
+                  <th>
                     <!-- Date -->
                     <?php echo $this->lang->line('lbl_transfer_date');?>
                   </th>
@@ -121,6 +126,7 @@
                     <td><?php echo $row->name;?></td>
                   
                     <td><?php echo $row->amount;?></td>
+                    <td><?php echo $row->paid_amount;?></td>
                     <td><?php echo $row->date;?></td>
                     <td></td>
                     <td>

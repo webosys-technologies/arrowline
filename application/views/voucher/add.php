@@ -267,11 +267,11 @@
           var from = $("#from").val();
           var to = $("#to").val();
 
-          if(from == to)
-          {
-            $("select[name='to']").parent().find("p").text("From account and to account should not be same");
-            return false;
-          }
+//          if(from == to)
+//          {
+//            $("select[name='to']").parent().find("p").text("From account and to account should not be same");
+//            return false;
+//          }
 
          /*var b=chkEmpty("transferForm","desc","Please Enter Description"); */         
          var acc_from=chkDrop("transferForm","from","Please Account Name");

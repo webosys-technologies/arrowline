@@ -196,7 +196,7 @@
              success:function(data)
              {
 //             alert(data.ob.ob); 
-    console.log('test');
+//    console.log('test');
               var table="";
                $('#test').html(data);
                var deb=0;
@@ -220,11 +220,11 @@
 //                            alert(value);
                             var temp = this.debit;
                             deb = +deb + +temp;
-                                                        alert(deb);
+//                                                        alert(deb);
 
                     var temp1= this.credit;
                     cr = +cr + +temp1;
-                                                    alert(cr);
+//                                                    alert(cr);
 
                     table +='<tr>'+
                         '<td class="text-center">'+this.date+'</td>'+
@@ -236,7 +236,7 @@
                       '</tr>';  
                         });
                var amt=deb-cr;
-               alert(amt);
+//               alert(amt);
                 table +='<tr>'+'<td class="text-right" colspan="4">Closing Balance</td>'+
                             '<td>'+amt+'</td>'+
                             '</tr>';
