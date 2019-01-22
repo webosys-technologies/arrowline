@@ -11,8 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-
-        <group/>
         <group>
             <file>file:/G:/xampp/htdocs/arrowline/application/controllers/Sales.php</file>
             <file>file:/G:/xampp/htdocs/arrowline/application/controllers/Ledger.php</file>
@@ -37,8 +35,16 @@
             <file>file:/D:/xampp/htdocs/arrowline/application/models/Customer_model.php</file>
             <file>file:/D:/xampp/htdocs/arrowline/application/config/database.php</file>
             <file>file:/D:/xampp/htdocs/arrowline/application/models/Ion_auth_model.php</file>
-
         </group>
-
+        <group>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/purchases/add.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Ledger.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/models/Purchase_model.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/supplier_ledger.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Purchases.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/models/Ledger_model.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/cust_ledger.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/layout/header.php</file>
+        </group>
     </open-files>
 </project-private>

@@ -724,7 +724,7 @@
             if (isset($user_session)) {
 
             if(in_array("manage_creditors",$user_session)){?>
-              <li><a href="#"><i class="fa fa-file text-aqua"></i> 
+              <li><a href="<?php echo base_url();?>Ledger/supplier_ledger"><i class="fa fa-file text-aqua"></i> 
                       
                <?php echo 'Creditors'//$this->lang->line('sidebar_transfer');?>
               <!-- Ledger -->

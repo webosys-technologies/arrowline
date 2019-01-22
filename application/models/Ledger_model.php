@@ -72,11 +72,12 @@ class Ledger_model extends CI_Model
   }
   public function supplierFilter($supplier,$from,$to)
   {
-      
-            $this->db->select('p.date as dt,p.refrence_no as desc ,p.total_amount as tm');
-            $this->db->from('supplier s'); 
-            $this->db->join('purchase p','p.supplier_id=s.id');
+          
+            $this->db->select('*');
+            $this->db->from('supplier_ledger as c'); 
+//            $this->db->join('sales s','s.customer_id=c.id');
 //            $this->db->join('invoice in','in.sales_id=s.id');
+//            $this->db->join('payment py','py.sales_id=s.id');
 //            if(!$this->session->userdata('type')=='admin')
 //            {
 //              $this->db->where('s.user_id',$this->session->userdata('userId')); 
@@ -84,15 +85,15 @@ class Ledger_model extends CI_Model
             
             if($supplier=="all")
             {   
-              $this->db->where('p.date >=',$from); 
-              $this->db->where('p.date <=',$to); 
+              $this->db->where('c.date >=',$from); 
+              $this->db->where('c.date <=',$to); 
             }
             else{
-              $this->db->where('s.id="'.$supplier.'"');
-              $this->db->where('p.date >=',$from); 
-              $this->db->where('p.date <=',$to);   
+              $this->db->where('c.supp_id="'.$supplier.'"');
+              $this->db->where('c.date >=',$from); 
+              $this->db->where('c.date <=',$to);   
             }
-            $this->db->order_by('p.date'); 
+            $this->db->order_by('c.date'); 
             
             $query = $this->db->get();
             return $query->result();   
@@ -117,9 +118,17 @@ class Ledger_model extends CI_Model
       $this->db->insert('cust_ledger',$data);
       return $this->db->insert_id();
   }
+  
+  function add_suppledger($data)
+  {
+      $this->db->insert('supplier_ledger',$data);
+       return $this->db->insert_id();
+  }
+  
   function query()
   {
       $this->db->query('ALTER TABLE `cust_ledger` ADD `description` VARCHAR(55) NOT NULL AFTER `credit`');
+      $this->db->query('CREATE TABLE `arrowline`.`supplier_ledger` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `date` DATE NOT NULL , `supp_id` INT(11) NOT NULL , `purchase_no` VARCHAR(55) NOT NULL , `debit` VARCHAR(55) NOT NULL , `credit` VARCHAR(55) NOT NULL , `description` VARCHAR(55) NOT NULL , `account_id` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
       return true;
   }
 }

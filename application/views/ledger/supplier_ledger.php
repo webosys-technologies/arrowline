@@ -194,22 +194,51 @@
              dataType:"json", 
              success:function(data)
              {
-//                 console.log(data);
-             alert(data.ob); 
+                              
+    
               var table="";
-               $('#sales').html("");
-                for(var i = 0; i< data.length;i++) 
-                {
-                    var profit = data[i].margin;
+             
+               var deb=0;
+               var cr=0;
+//                for(var i = 0; i< data.length;i++) 
+//                {
+//                    
+//                    deb += data[i].debit;
+//                    cr += data[i].credit;
+//                    table +='<tr>'+
+//                        '<td class="text-center">'+data[i].date+'</td>'+
+//                        '<td class="text-center">'+data[i].invoice_no+'</td>'+
+//                        '<td class="text-center">'+data[i].debit+'</td>'+
+//                        '<td class="text-center">'+data[i].credit+'</td>'+
+//                        '<td class="text-center"></td>'+
+//                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
+//                      '</tr>';  
+//                      
+//                }    
+                        $.each(data, function () {
+//                            alert(value);
+                            var temp = this.debit;
+                            deb = +deb + +temp;
+                                                        alert(deb);
+
+                    var temp1= this.credit;
+                    cr = +cr + +temp1;
+                                                    alert(cr);
+
                     table +='<tr>'+
-                        '<td class="text-center">'+data[i].dt+'</td>'+
-                        '<td class="text-center">'+data[i].desc+'</td>'+
-                        '<td class="text-center">'+data[i].deb+'</td>'+
-                        '<td class="text-center">'+data[i].cr+'</td>'+
-//                        '<td class="text-center">'+data[i].sales_amount+'</td>'+
+                        '<td class="text-center">'+this.date+'</td>'+
+                        '<td class="text-center">'+this.invoice_no+'</td>'+
+                        '<td class="text-center">'+this.debit+'</td>'+
+                        '<td class="text-center">'+this.credit+'</td>'+
+                        '<td class="text-center"></td>'+
 //                        '<td class="text-center">'+data[i].paid_amount+'</td>'+
                       '</tr>';  
-                }     
+                        });
+               var amt=deb-cr;
+               alert(amt);
+                table +='<tr>'+'<td class="text-right" colspan="4">Closing Balance</td>'+
+                            '<td>'+amt+'</td>'+
+                            '</tr>';
                 //$('#sales').html(table); 
                  $('#example1 tbody').html(table); 
              }

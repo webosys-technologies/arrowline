@@ -77,7 +77,7 @@ class Ledger extends CI_Controller
         $to=$this->input->post('end_date');
 
         $trans=$this->Ledger_model->supplierFilter($supplier,$from,$to);
-        print_r($trans);
+     
         
         
 //        $data['ob']=$this->Ledger_model->opening_balance($customer,$from,$to);

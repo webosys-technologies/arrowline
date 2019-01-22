@@ -5,7 +5,7 @@ class Purchases extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('Purchase_model','Quotation_model'));
+		$this->load->model(array('Purchase_model','Quotation_model','Ledger_model'));
 		$this->load->library(array('ion_auth','form_validation'));
 	}
 
@@ -133,6 +133,8 @@ class Purchases extends CI_Controller {
 			$data['user_id']=$this->session->userdata("userId");
 
 			$data1=json_decode($this->input->post('allpurchase'));
+                        
+                  
 
 			/*echo "<pre>";
 			print_r($data);
@@ -140,6 +142,16 @@ class Purchases extends CI_Controller {
 			exit();*/
 
 			$purchase_id=$this->Purchase_model->addPurchase($data);
+                        
+                              $ledger=array('date'=>$this->input->post('purchase_date'),
+                                      'supp_id'=>$this->input->post('supplier'),
+                                      'purchase_no'=>"PO-".$this->input->post('reference_no'),
+                                      'debit'=>'',
+                                      'credit'=>$this->input->post('grandTotal'),
+                                      'description'=>$this->input->post('largeArea'));
+                              
+                              $this->Ledger_model->add_suppledger($ledger);
+                              
 			$this->Purchase_model->AddPurchaseLog($purchase_id);
 			$purchaseItem=array();
 
