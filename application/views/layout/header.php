@@ -689,6 +689,10 @@
                 if(in_array("manage_customer",$user_session)){?>
                 <li><a href="<?php echo base_url();?>Management/lead_customer"><i class="fa fa-user text-red"></i> <?php echo "Lead Customer";?> </a></li>
               <?php }} ?>
+                <?php if(isset($user_session)){
+                if(in_array("manage_customer",$user_session)){?>
+                <li><a href="<?php echo base_url();?>Management/lead_status"><i class="fa fa-user text-red"></i> <?php echo "Lead Status";?> </a></li>
+              <?php }} ?>
 
            
               </ul>

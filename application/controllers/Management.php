@@ -665,12 +665,60 @@
                
 		$this->load->view('management/convert_invoice',$data);	   
         }
+         function lead_status()
+        {
+               if(!$this->ion_auth->logged_in())
+               {
+                   redirect('auth/login', 'refresh');
+               }
+               
+               $data['status']=$this->Lead_model->get_status();
+               $this->load->view('management/lead_status',$data);	
+        }
         
+        function add_lead_status()
+        {
+             if(!$this->ion_auth->logged_in())
+               {
+                   redirect('auth/login', 'refresh');
+               }
+           
+               $this->load->view('management/add_status');
+        }
+        
+        function add_status()
+        {
+            $data=array('name'=>$this->input->post('name'),
+                        'description'=>$this->input->post('description'),
+                        'created_at'=>date('Y-m-d'));
+            $this->Lead_model->add_status($data);
+            
+            if($id)
+		{
+			$this->session->set_flashdata('success','Status Added Successfully');
+			redirect('Management/lead_status');
+		}else{
+                    $this->session->set_flashdata('success','Status Not Added....!');
+			redirect('Management/lead_status');
+                }
+        }
+        
+        function edit_status($id)
+        {
+             if(!$this->ion_auth->logged_in())
+               {
+                   redirect('auth/login', 'refresh');
+               }
+               $data['status']=$this->Lead_model->edit_status($id);
+               $this->load->view('management/edit_status',$data);
+        }
         
         function query()
         {
             $this->Lead_model->query();
+            redirect('Management/lead_customer');
         }
+       
         
         
     }

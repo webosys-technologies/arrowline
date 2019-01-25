@@ -101,11 +101,30 @@ class Lead_model extends CI_Model
         }
    }
    
+   public function get_status()
+   {
+       $query=$this->db->get('lead_status');
+       return $query->result();
+   }
+   function edit_status($id)
+   {
+      $this->db->from('lead_status');
+      $this->db->where('id',$id);
+      $query=$this->db->get();
+      return $query->row();
+   }
+   function add_status($data)
+   {
+       $this->db->insert('lead_status',$data);
+       return $this->db->insert_id();
+   }
+   
    function query()
    {
      
        $query=$this->db->query('ALTER TABLE `customer` ADD `follow` DATE NOT NULL AFTER `country_id`, ADD `nextfollow` DATE NOT NULL AFTER `follow`, ADD `remark` VARCHAR(55) NOT NULL AFTER `nextfollow`, ADD `telecaller` VARCHAR(55) NOT NULL AFTER `remark`');
-   
-     
+       $this->db->query('ALTER TABLE `lead_status` ADD `description` VARCHAR(55) NOT NULL AFTER `name`');
+       $this->db->query('CREATE TABLE `arrowline`.`lead_status` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(55) NOT NULL , `created_at` DATE NOT NULL , `is_deleted` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+       return true;    
    }
 }
