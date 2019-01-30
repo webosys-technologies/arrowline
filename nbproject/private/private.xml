@@ -12,24 +12,21 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/purchases/add.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Ledger.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/models/Purchase_model.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/supplier_ledger.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Purchases.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/models/Ledger_model.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/cust_ledger.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/layout/header.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/edit_customer.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/models/Lead_model.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/add_customer_lead.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Management.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/lead_customer.php</file>
         </group>
         <group>
-            <file>file:/D:/xampp/htdocs/arrowline/application/models/Lead_model.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/layout/validation.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/edit_status.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/add_status.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Management.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/lead_status.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/layout/header.php</file>
-            <file>file:/D:/xampp/htdocs/arrowline/application/views/management/lead_customer.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Quotation.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/cust_ledger_print.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Ledger.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/controllers/Order.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/order/add.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/supp_ledger_print.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/supplier_ledger.php</file>
+            <file>file:/D:/xampp/htdocs/arrowline/application/views/ledger/cust_ledger.php</file>
         </group>
     </open-files>
 </project-private>

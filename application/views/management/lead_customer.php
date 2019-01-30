@@ -139,11 +139,11 @@
                     </th>
                      <th>
                       <!-- Status -->
-                      <?php echo "Remark";?>
+                      <?php echo "Status";?>
                     </th>
                      <th>
                       <!-- Status -->
-                      <?php echo "Telecaller";?>
+                      <?php echo "Updated By";?>
                     </th>
 <!--                    <th>
                        Status 
@@ -181,11 +181,11 @@
                     </th>
                      <th>
                       <!-- Status -->
-                      <?php echo "Remark";?>
+                      <?php echo "Status";?>
                     </th>
                      <th>
                       <!-- Status -->
-                      <?php echo "Telecaller";?>
+                      <?php echo "Updated By";?>
                     </th>
 <!--                    <th>
                        Status 
@@ -220,7 +220,24 @@
                         <td><?php if(isset($city)){ echo $city->name; }?></td>
                         <td><?php echo $value->follow; ?></td>
                         <td><?php echo $value->nextfollow; ?></td>
-                        <td><?php echo $value->remark; ?></td>
+                        <td>
+                            <?php if(!empty($value->lead_status))
+                            { ?>
+                            <select class="form-control selcet2" id="status" name="status">
+                                   <?php
+                                   foreach($statuses as $stat)
+                                   {
+                                       if($stat->is_deleted!=1)
+                                       {
+                                   ?>
+                                    <option value="<?php echo $value->id."-".$stat->name;?>" <?php if($value->lead_status==$stat->name){echo "selected";}?>><?php echo $stat->name;?></option>
+                                    <?php
+                                   }
+                                   }
+                                    ?>
+                                    </select>
+                            <?php } ?>
+                        </td>
                         <td><?php if($telecaller){echo $telecaller->first_name." ".$telecaller->last_name;} ?></td>
 <!--                        <td>
                           <?php if($value->delete_status=="0"){?>
@@ -346,7 +363,9 @@
 " placeholder="Search ' + title + '" />');
         }
         i++;
-    });
+    });   
+    
+   
 
     // DataTable
     var table = $('#example1').DataTable();
@@ -359,7 +378,27 @@
                 .draw();
         });
     });
+    
+  
+    
 });
+
+ $("select").change(function() {
+       
+            $.ajax({
+       url : "<?php echo base_url('Management/update_customer_status')?>/" + $("#status").val(),        
+       type: "GET",        
+       dataType: "JSON",
+       success: function(data)
+       {        
+          location.reload();
+       },
+       error: function (jqXHR, textStatus, errorThrown)
+       {
+       //  alert('Error...!');
+       }
+     });   
+    });
 
   </script>
 

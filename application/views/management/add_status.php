@@ -61,7 +61,7 @@
                   </label>
                   <div class="col-sm-4">
                     <div class="control">
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Bank Name">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Status Name">
                         <span style="font-size:20px;"></span>
                         <p style="color:#990000;"></p>
                       </div> 

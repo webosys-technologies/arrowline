@@ -26,7 +26,7 @@
       
 
         $data['data'] = $this->Customer_model->custUserData();
-       
+        $data['statuses']=$this->Lead_model->get_status();
         $data['customer']=$this->Customer_model->getCustomer();
         $data['status']=$this->Customer_model->getStatus();
         $data['deactive']=$this->Customer_model->getDeactive();
@@ -50,7 +50,7 @@
         $data['country']  = $this->Customer_model->dataCountry();
         $data['state'] = $this->Customer_model->dataState();
         $data['city'] = $this->Customer_model->dataCity();
-       
+        $data['status']=$this->Lead_model->get_status();
 
         $this->load->view('management/add_customer_lead',$data);
 	}
@@ -88,7 +88,8 @@
                 'nextfollow'       =>$this->input->post('nextfollow'),
                 'remark'            =>$this->input->post('remark'),
                 'telecaller'        =>$this->session->userdata("userId"),
-                'status'            =>'0'
+                'status'            =>'0',
+                'lead_status'       =>$this->input->post('status')
              );
             /*echo "<pre>";
             print_r($customer);
@@ -709,8 +710,58 @@
                {
                    redirect('auth/login', 'refresh');
                }
+               $data['status_id']=$id;
                $data['status']=$this->Lead_model->edit_status($id);
                $this->load->view('management/edit_status',$data);
+        }
+        
+        function update_status()
+        {
+           
+            $data=array('name'=>$this->input->post('name'),
+                       'description'=>$this->input->post('description'));
+            $where=array('id'=>$this->input->post('status_id'));
+            if($this->Lead_model->update_status($data,$where))
+            {
+                 $this->session->set_flashdata('success','Status Updated Successfully.');
+			redirect('Management/lead_status');
+                
+            }else{
+                 $this->session->set_flashdata('success','Status Not Updated....!');
+			redirect('Management/lead_status');
+                
+            }
+        }
+        
+        function update_customer_status($val)
+        {
+            $data=explode("-",$val);
+           
+            if($this->Lead_model->update_customer_status(array('lead_status'=>$data[1]),array('id'=>$data[0])))
+            {
+                $this->session->set_flashdata('success','Lead Status Updated....!');
+                echo json_encode(array('success'=>true));
+            }else{
+                 $this->session->set_flashdata('success','Lead Status Not Updated....!');
+                  echo json_encode(array('success'=>true));
+                
+            }
+        }
+        
+        function delete_status($id)
+        {
+            if($this->Lead_model->update_status(array('is_deleted'=>1),array('id'=>$id)))
+                 {
+                 $this->session->set_flashdata('success','Status Deleted Successfully.');
+			redirect('Management/lead_status');
+                
+            }else{
+                 $this->session->set_flashdata('success','Status Not Deleted....!');
+			redirect('Management/lead_status');
+                
+            }
+            
+            
         }
         
         function query()

@@ -4,7 +4,7 @@ class Ledger extends CI_Controller
 {
     public function __construct() {
         parent::__construct();
-        $this->load->model(array('Sales_model','Reports_model','Ledger_model'));
+        $this->load->model(array('Sales_model','Reports_model','Ledger_model','Order_model'));
         $this->load->library(array('form_validation','ion_auth'));
     }
     
@@ -89,6 +89,43 @@ class Ledger extends CI_Controller
         
         
     }
+    
+ public function cust_ledger_print()
+	{
+	if(!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+        
+        $customer=$this->input->post('customer');
+        $from=$this->input->post('from');
+        $to=$this->input->post('to');
+        
+        $data['ledger_data']=$this->Ledger_model->ledgerFilter($customer,$from,$to);
+          
+        
+        $data['from']=date('d-F-Y', strtotime($this->input->post('from')));
+        $data['to']=date('d-F-Y', strtotime($this->input->post('to')));
+        $data['customer']="Sachin Rodge";
+        
+        
+
+		$data['country']=$this->Order_model->companyDetails();
+		
+	    ob_start();
+	    $html=ob_get_clean();
+	    $html=utf8_encode($html);
+	    
+	    //$html=$this->load->view('report/list_vehicle','',TRUE);
+	    $html=$this->load->view('ledger/cust_ledger_print',$data,TRUE);
+	    require_once(APPPATH.'third_party/mpdf60/mpdf.php');
+	    
+	    $mpdf=new mPDF();
+	    $mpdf->allow_charset_conversion=true;
+	    $mpdf->charset_in='UTF-8';
+	    $mpdf->WriteHTML($html);
+	    $mpdf->output('meu-pdf','I');
+	}
     
     public function query()
     {

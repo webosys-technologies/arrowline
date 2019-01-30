@@ -39,7 +39,7 @@
             </div>
 
             <form action="<?php echo base_url();?>Management/update_status"  method="post" class="form-horizontal" enctype="multipart/form-data" name="transferForm">
-                 
+                <input type="hidden" name="status_id" value="<?php echo $status_id;?>">
               <div class="box-body" style="padding: 20px">
 <!--                   <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">

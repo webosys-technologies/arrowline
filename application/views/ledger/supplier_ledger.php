@@ -77,6 +77,7 @@
             <br>
             <div class="btn-group pull-right">
               <a href="<?php echo base_url();?>reports/create_csv" title="CSV" class="btn btn-default btn-flat" id="csv"> <!-- CSV  -->  <?php echo $this->lang->line('lbl_saleshistoryreport_csv');?> </a>
+              <a href="<?php echo base_url();?>Ledger/supp_ledger_print" title="CSV" target="_blank" class="btn btn-warning btn-flat " id="print_ledger"> <!-- CSV  -->  <?php echo "Print";?> </a>
               <!-- <a href="<?php echo base_url();?>reports/sales_pdf" title="PDF" class="btn btn-default btn-flat" id="pdf">PDF</a> -->
             </div>
 

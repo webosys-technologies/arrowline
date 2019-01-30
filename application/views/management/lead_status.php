@@ -137,28 +137,28 @@
                 </tr>
                 
                 </thead>
-                 <tfoot>
+<!--                 <tfoot>
                 <tr>
                    <th width="10%">
-                      <!-- Customer Name -->
+                       Customer Name 
                       <?php echo "Id";?>
                     </th>
                    
                     <th>
-                      <!-- Phone -->
+                       Phone 
                       <?php echo "Status Name";?>
                     </th>
                      <th>
-                      <!-- Email -->
+                       Email 
                       <?php echo "Created At"; ?>
                     </th>
                    
                     <th>
-                      <!-- Action -->
+                       Action 
                       <?php echo $this->lang->line('cust_action');?>
                     </th>
                 </tr>
-                </tfoot>
+                </tfoot>-->
                 <tbody>
                     
                      <?php
@@ -203,7 +203,7 @@
                                     <span aria-hidden="true">&times;</span></button>
                                   <center><h4 class="modal-title">
                                     <!-- !!  Delete Customer !! -->
-                                    <?php echo $this->lang->line('lbl_cust_delete_modal');?>
+                                    <?php echo "Delete Status";?>
                                   </h4></center>
                                 </div>
                                 <div class="modal-body">
@@ -217,7 +217,7 @@
                                     <!-- Close -->
                                       <?php echo $this->lang->line('btn_modal_close');?>
                                     </button>
-                                    <a href="<?php echo base_url();?>Management/delete/<?php echo $value->id; ?>" class="btn btn-danger">
+                                    <a href="<?php echo base_url();?>Management/delete_status/<?php echo $value->id; ?>" class="btn btn-danger">
                                     <!-- Delete -->
                                     <?php echo $this->lang->line('btn_modal_delete');?>
                                     </a>

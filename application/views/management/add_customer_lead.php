@@ -278,7 +278,7 @@
                                     <p style="color:#990000;"></p>
                                 </div>
                             </div>
-
+                                
                       
                             <div class="form-group">
                                <label class="col-sm-4 control-label" for="inputEmail3">
@@ -324,6 +324,34 @@
                                 <p style="color:#990000;"></p>
                             </div>
                         </div>
+                            <?php
+                            if(isset($status))
+                            {
+                            ?>
+                             <div class="form-group">
+                        <label class="col-sm-4 control-label require" for="nextfollow">Status</label>
+                            <div class="col-sm-8">
+                                <select class="form-control selcet2" id="status" name="status">
+                                   <?php
+                                   foreach($status as $stat)
+                                   {
+                                       if($stat->is_deleted!=1)
+                                       {
+                                   ?>
+                                    <option value="<?php echo $stat->name;?>"><?php echo ucfirst($stat->name);?></option>
+                                    <?php
+                                   }
+                                   }
+                                    ?>
+                                    </select>
+                               
+                                <span style="color: red;"></span>
+                                <span style="font-size:20px;"></span>
+                                <p style="color:#990000;"></p>
+                            </div>
+                        </div>
+                            <?php
+                            } ?>
 <!--                         <div class="form-group">
                         <label class="col-sm-4 control-label require" for="nextfollow">Telecaller</label>
                             <div class="col-sm-8">

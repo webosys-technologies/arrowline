@@ -51,7 +51,7 @@ class Lead_model extends CI_Model
    {
        
 
-        $sql="INSERT INTO `customer`(`name`, `email`, `phone`, `street`, `city_id`, `state_id`,`state_code`, `zip_code`, `country_id`,`gstin`,`gst_registration_type`,`user_id`,`follow`,`nextfollow`,`remark`,`telecaller`,`status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)";
+        $sql="INSERT INTO `customer`(`name`, `email`, `phone`, `street`, `city_id`, `state_id`,`state_code`, `zip_code`, `country_id`,`gstin`,`gst_registration_type`,`user_id`,`follow`,`nextfollow`,`remark`,`telecaller`,`status`,lead_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)";
 
         if($this->db->query($sql,$customer))
         {
@@ -113,6 +113,19 @@ class Lead_model extends CI_Model
       $query=$this->db->get();
       return $query->row();
    }
+   
+   function update_status($data,$where)
+   {
+       $this->db->update('lead_status',$data,$where);
+       return $this->db->affected_rows();
+   }
+   
+   function update_customer_status($data,$where)
+   {
+       $this->db->update('customer',$data,$where);
+       return $this->db->affected_rows();
+   }
+  
    function add_status($data)
    {
        $this->db->insert('lead_status',$data);
@@ -125,6 +138,7 @@ class Lead_model extends CI_Model
        $query=$this->db->query('ALTER TABLE `customer` ADD `follow` DATE NOT NULL AFTER `country_id`, ADD `nextfollow` DATE NOT NULL AFTER `follow`, ADD `remark` VARCHAR(55) NOT NULL AFTER `nextfollow`, ADD `telecaller` VARCHAR(55) NOT NULL AFTER `remark`');
        $this->db->query('ALTER TABLE `lead_status` ADD `description` VARCHAR(55) NOT NULL AFTER `name`');
        $this->db->query('CREATE TABLE `arrowline`.`lead_status` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(55) NOT NULL , `created_at` DATE NOT NULL , `is_deleted` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+       $this->db->query('ALTER TABLE `customer` ADD `lead_status` VARCHAR(55) NOT NULL AFTER `status`');
        return true;    
    }
 }
