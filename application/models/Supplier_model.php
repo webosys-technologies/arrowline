@@ -77,6 +77,11 @@
       return $this->db->where('country_id',$country_id)->get('states')->result();
   }
 
+  function supplier_name($id)
+  {
+      
+       return $this->db->select('name')->where('id',$id)->get('supplier')->row();
+  }
 
   /*
         Get All city Data

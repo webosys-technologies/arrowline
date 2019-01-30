@@ -1,5 +1,5 @@
 <?php 
-  $this->load->view('layout/header');
+  //$this->load->view('layout/header');
 
   $user_session = $this->session->userdata('userRole');
   if(empty($user_session))
@@ -46,24 +46,22 @@
 <body>
 
 	<table width="100%" border="1" cellspacing="50" style="border: 0px solid black; border-collapse: collapse;" class="table" cellpadding="2">
-			<tr>
+<!--			<tr>
 				<td colspan="6" style="border: 0px;text-align: right;">Order Invoice</td>
 				<td colspan="8" style="border: 0px;text-align: right;">(ORIGINAL FOR RECIPIENT)</td>
-			</tr>
+			</tr>-->
 
-			<tr>
-    			<td rowspan="3" colspan="6">
-    				<table>
+			
+    			
     					<tr>
-    						<td style="border: 0px;font-size:13px;">
+    						<td valign="right" style="border: 0px;font-size:13px;">
     							<?php if(isset($country->loginpage_image)){?>
     								<img src="<?php echo base_url();?>/assets/images/<?php echo $country->invoice_image;?>" width="80" height="50">	
     							<?php }else{?>
     								<img src="<?php echo base_url();?>/assets/images/invoice_logo.jpeg;?>" width="70" height="50">
     							<?php } ?>
     						</td>
-    						<td style="border: 0px;font-size: 13px;"
-    						>
+    						<td style="border: 0px;font-size: 13px;">
     							<b><?php if(isset($country->name)){echo $country->name;}?></b><br>
 			    				
 			    					<b>Address :</b><?php if(isset($country->street)){echo $country->street;}?><br> 
@@ -76,425 +74,50 @@
 								
     						</td>
     					</tr>
-    				</table>
-    			</td>
+    				
     		
-				<td valign="top" style="width: 25%;font-size: 13px;" colspan="4">
-					Invoice Number<br>
-					<p style="font-size: 13px;"><?php if(isset($value->reference_no)){echo $value->reference_no;}?></p>
-				</td>
-				<td valign="top" style="width: 25%;font-size: 13px;" colspan="3">
-					Date<br>
-					<p style="font-size: 13px;"><?php if(isset($value->date)){echo $value->date;}?></p>
-				</td>
-    		</tr>
-		<tr style="font-size: 13px;">
-			<td valign="top" colspan="4" style="font-size: 13px;">
-				Delivery note<br>
-				<p style="font-size: 13px;"><?php if(isset($value->delivery_note)){echo $value->delivery_note;}?></p>
-			</td>
-			<td valign="top" colspan="3" style="font-size: 13px;">
-				Mode / Term of payment<br>
-				<p style="font-size: 13px;"><?php if(isset($value->payment_method_name)){echo $value->payment_method_name;}?> / <?php if(isset($value->due_days)){echo $value->due_days;}?></p>
-			</td>
-		</tr>
-
-		<tr style="font-size: 13px;">
-			<td valign="top" colspan="4" style="font-size: 13px;">
-				Supplier's Ref <br>
-				<p style="font-size: 13px;"><?php if(isset($value->delivery_note)){echo $value->delivery_note;}?></p>
-			</td>
-			<td valign="top" colspan="3" style="font-size: 13px;">
-				Other Reference<br>
-
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" rowspan="5" style="text-align:left;font-size: 13px;padding-left: 5px;" colspan="6" >
-					Buyer<br>
-				
-					<?php if(isset($value->name)){echo $value->name;} ?><br>
-					<?php if(isset($value->street)){echo $value->street; }?><br>
-					<?php if(isset($value->cust_city)){echo $value->cust_city.','.$value->cust_state; }?><br>
-					<?php if(isset($value->country_name)){echo $value->country_name; }?> - <?php if(isset($value->cust_zipcode)){echo $value->cust_zipcode;} ?><br>
-					<?php if(isset($value->phone)){echo $value->phone;} ?><br>
-					<?php if(isset($value->email)){echo $value->email;} ?><br>
-					GSTIN/UIN :<?php if(isset($value->gstin)){echo $value->gstin;}?><br>
-					
-				
-			</td>
-		</tr>		
-		<tr>
-			<td valign="top" colspan="4" style="font-size: 13px;">
-				Buyer Order <br>
-				<p style="font-size: 13px;"><?php if(isset($value->buyer_order)){echo $value->buyer_order;}?></p>
-			</td>
-			<td valign="top" colspan="3" style="font-size: 15px;">
-				Date<br>
-				<p style="font-size: 13px;"><?php if(isset($value->date)){echo $value->date;}?></p>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" colspan="4" style="font-size: 13px;">
-				Despatch Document No<br>
-				<p style="font-size: 13px;"><?php if(isset($value->dispatch_doc_no)){echo $value->dispatch_doc_no;}?></p>
-			</td>
-			<td valign="top" colspan="3" style="font-size: 13px;">
-				Delivery note date<br>
-				<p style="font-size: 13px;"><?php if(isset($value->dilivery_note_date)){echo $value->dilivery_note_date;}?></p>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" colspan="4" style="font-size: 13px;">
-				Despatched Through<br>
-				<p style="font-size: 13px;"><?php if(isset($value->dispatch_through)){echo $value->dispatch_through;}?></p>
-			</td>
-			<td valign="top" colspan="3" style="font-size: 13px;">
-				Destination<br>
-				<p style="font-size: 13px;"><?php if(isset($address->city_name)){echo $address->city_name;}?></p>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" colspan="7" style="height: 50px;font-size: 13px;">
-				Terms of Delivery<br>
-				<p style="font-size: 10px;"><?php if(isset($value->notes)){echo $value->notes;}?></p>
-			</td>
-		</tr>
-
-		<tr>
-			<th style="text-align: center;font-size: 12px;">
-				S.No
-				<!-- <?php echo $this->lang->line('no');?>  -->
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				<!-- Item Name -->
-				<?php echo $this->lang->line('add_item_name');?> 
-			</th>
-			<!-- <th style="font-size: 12px;">
-				<?php echo $this->lang->line('lbl_addpurchase_description');?>
-			</th> -->
-			<th style="font-size: 12px;">
-				<!-- HSN/SAC Code -->
-				<?php echo $this->lang->line('lbl_hsn_code');?>
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				Qty
-				<!-- <?php echo $this->lang->line('lbl_addpurchase_quantity');?> -->
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				<!-- Rate  -->
-				<?php echo $this->lang->line('lbl_add_quotation_rate');?>
-				(<?php echo $this->session->userdata("currencySymbol");?>)
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				<!-- Total Sales -->
-				<?php echo $this->lang->line('lbl_total_sales');?>
-                        (<?php echo $this->session->userdata("currencySymbol");?>)
-			</th>
-<!--			<th style="text-align: center;font-size: 12px;" width="5%">
-				Disc
-				 <?php echo $this->lang->line('lbl_add_quotation_discount');?> (%)
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				Disc
-				 <?php echo $this->lang->line('lbl_discount_value');?> 
-                        (<?php echo $this->session->userdata("currencySymbol");?>)
-			</th>-->
-			<th style="text-align: center;font-size: 12px;">
-				<!-- Taxable Value -->
-				<?php echo $this->lang->line('lbl_taxable_value');?>
-                        (<?php echo $this->session->userdata("currencySymbol");?>)
-			</th>
-
-			<th style="text-align: center;font-size: 12px;">
-				<!-- SGST -->
-				<?php echo $this->lang->line('lbl_sgst');?>
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				<!-- CGST -->
-				<?php echo $this->lang->line('lbl_cgst');?>
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				<!-- IGST -->
-				<?php echo $this->lang->line('lbl_igst');?>
-			</th>
-			<th style="text-align: center;font-size: 12px;">
-				<!-- Subtotal --> 
-				<?php echo $this->lang->line('lbl_add_quotation_amount');?>
-				(<?php echo $this->session->userdata("currencySymbol");?>)
-			</th>
-		</tr>
 		
-
-		<?php 
-              $qty_total=0;
-              $sub_total=0;$cnt = 1;
-              $total_salesvalue = 0;
-              $total_discount = 0;
-              $total_tax = 0;
-              $tax = 0;
-              $total_sgst = 0;
-              $total_cgst = 0;
-              $total_igst = 0;
-            ?>
-
-            <?php
-              foreach ($orderdetails as $value) {
-              	$tax += $value->tax;
-                $qty_total=$qty_total + $value->qty; 
-                $sub_total=$sub_total + $value->amount;
-
-                $total_sales = $value->qty * $value->rate;
-                $discount_value = ($total_sales * $value->discount / 100);
-                $taxable_value = $total_sales - $discount_value;
-
-                $sgst = 0;
-                $cgst = 0;
-                $igst = 0;
-                $sgst_percent ='';
-                $cgst_percent ='';
-                $igst_percent ='';
-
-                if($country->state_id == $s->state_id)
-                {
-                  $sgst = $value->tax/2;
-                  $cgst = $value->tax/2;  
-
-                  $sgst_percent = $value->tax/2;
-                  $cgst_percent = $value->tax/2;
-                }
-                else
-                {
-                  $igst = $value->tax;  
-                  $igst_percent = $value->tax;
-                }
-
-
-                /*$sgst = $value->tax_amount/2;
-                $cgst = $value->tax_amount/2;*/
-
-                $total_sgst += $sgst;
-                $total_cgst += $cgst;
-                $total_igst += $igst;
-
-                $total_salesvalue += $total_sales; 
-                $total_discount +=$discount_value;
-                $total_tax +=$taxable_value;
-              ?>
-			<tr>
-				<td align="center" class="fontS"><?php if(isset($cnt)){echo $cnt;}?></td>
-				<td class="fontS"><?php if(isset($value->item_name)){echo $value->item_name;}?></td>
-				<!-- <td class="fontS"><?php if(isset($value->item_description)){echo $value->item_description;}?></td> -->
-				<td class="fontS"><?php if(isset($value->hsn_code)){echo $value->hsn_code;}?></td>
-				<td align="center" class="fontS"><?php if(isset($value->qty)){echo $value->qty;}?></td>
-				<td align="right" class="fontS"><?php if(isset($value->rate)){echo $value->rate;}?>.00</td>
-				<td align="right" class="fontS"><?php if(isset($total_sales)){echo $total_sales;}?>.00</td>
-<!--				<td align="right" class="fontS"><?php if(isset($value->discount)){echo $value->discount;}?></td>
-				<td align="right" class="fontS"><?php if(isset($discount_value)){echo $discount_value;}?>.00</td>-->
-				<td align="right" class="fontS"><?php if(isset($taxable_value)){echo $taxable_value;}?>.00</td>
-				<td align="right" class="fontS"><?php if(isset($sgst)){echo $sgst.' ('.$sgst_percent.'%)';}?></td>
-				<td align="right" class="fontS"><?php if(isset($cgst)){echo $cgst.' ('.$sgst_percent.'%)';}?></td>
-				<td align="right" class="fontS"><?php if(isset($igst)){echo $igst.' ('.$igst_percent.'%)';}?></td>
-				<td align="right" class="fontS"><?php if(isset($value->amount)){echo $value->amount;}?></td>
-			</tr>
-			<?php 
-			$cnt++;
-			} ?>
-			<tr>
-				<td colspan="5" align="right" style="font-size: 11px;font-weight: bold;"><?php echo $this->lang->line('lbl_quotation_total');?></td>
-				<td align="right" style="font-size: 10px;">
-					<!-- <?php echo $total_salesvalue?> -->
-					<?php if(isset($total_salesvalue)){echo number_format((float)$total_salesvalue, 2, '.', '');}?>		
-				</td>
-<!--				<td></td>
-				<td align="right" class="fontS">
-					 <?php echo $total_discount?> 
-					<?php if(isset($total_discount)){echo number_format((float)$total_discount, 2, '.', '');}?>	
-				</td>-->
-				<td align="right" class="fontS">
-					<!-- <?php echo $total_tax?> -->
-					<?php if(isset($total_tax)){echo number_format((float)$total_tax, 2, '.', '');}?>	
-				</td>
-				<td align="right" class="fontS">
-					<!-- <?php echo $total_sgst;?> -->
-					<?php if(isset($total_sgst)){echo number_format((float)$total_sgst, 2, '.', '');}?>	
-				</td>
-				<td align="right" class="fontS">
-					<!-- <?php echo $total_cgst;?> -->
-					<?php if(isset($total_cgst)){echo number_format((float)$total_cgst, 2, '.', '');}?>	
-				</td>
-				<td align="right" class="fontS">
-					<!-- <?php echo $total_igst?> -->
-					<?php if(isset($total_igst)){echo number_format((float)$total_igst,2,'.','');}?>
-				</td>
-				<td align="right" class="fontS">
-					<!-- <?php echo $sub_total?> -->
-					<?php if(isset($sub_total)){echo number_format((float)$sub_total, 2, '.', '');}?>		
-				</td>
-				
-			</tr>
-			<tr>
-				<td colspan="11" style="padding: 10px;"></td>
-			</tr>
-			<tr>
-				<td colspan="9" align="right" class="footerpad fontH"><b>
-					<!-- Total Quantity -->
-					<?php echo $this->lang->line('lbl_quantity_total');?>
-					</b></td>
-				<td align="right" colspan="2" class="fontH"><?php if(isset($qty_total)){echo $qty_total;}?></td>
-			</tr>
-
-			<!-- <tr>
-				<td colspan="12" align="right" class="footerpad fontH"><b>
-					<?php echo $this->lang->line('lbl_total_taxable_value');?>
-                          (<?php echo $this->session->userdata("currencySymbol");?>)
-					</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<?php if(isset($total_salesvalue)){echo number_format((float)$total_salesvalue, 2, '.', '');}?>	
-				</td>
-			</tr>
-
-			<tr>
-				<td colspan="12" align="right" class="footerpad fontH"><b>
-					 <?php echo $this->lang->line('lbl_total_discount');?>
-                            (<?php echo $this->session->userdata("currencySymbol");?>)
-					</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<?php if(isset($total_discount)){echo number_format((float)$total_discount, 2, '.', '');}?>		
-				</td>
-			</tr>
-			<tr>
-				<td colspan="12" align="right" class="footerpad fontH"><b>
-					<?php echo $this->lang->line('lbl_total_sgst');?>
-					(<?php echo $this->session->userdata("currencySymbol");?>)</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<?php if(isset($total_sgst)){echo number_format((float)$total_sgst, 2, '.', '');}?>	
-				</td>
-			</tr>
-
-			<tr>
-				<td colspan="12" align="right" class="footerpad fontH"><b>
-					<?php echo $this->lang->line('lbl_total_cgst');?>
-					(<?php echo $this->session->userdata("currencySymbol");?>)</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<?php if(isset($total_cgst)){echo number_format((float)$total_cgst, 2, '.', '');}?>	
-				</td>
-			</tr>
-			<tr>
-				<td colspan="12" align="right" class="footerpad fontH"><b>
-					<?php echo $this->lang->line('lbl_total_igst');?>
-					(<?php echo $this->session->userdata("currencySymbol");?>)</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<?php if(isset($total_igst)){echo number_format((float)$total_igst, 2, '.', '');}?>
-				</td>
-			</tr> -->
-
-			<tr>
-				<td colspan="9" align="right" class="footerpad fontH"><b>
-					<?php echo $this->lang->line('lbl_shipping');?>
-					(<?php echo $this->session->userdata("currencySymbol");?>)</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<!-- <?php echo $value->shipping_charges;?> -->
-					<?php if(isset($value->shipping_charges)){echo number_format((float)$value->shipping_charges, 2, '.', '');}?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="9" align="right" class="footerpad fontH"><b>
-					<!-- <?php echo $this->lang->line('lbl_total_igst');?> -->
-					Total Tax
-					(<?php echo $this->session->userdata("currencySymbol");?>)</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<?php if(isset($tax)){echo number_format((float)$tax, 2, '.', '');}?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="9" align="right" class="footerpad fontH"><b>
-					<!-- Grand Total  -->
-					<?php echo $this->lang->line('lbl_add_quotation_grandtotal');?>
-					(<?php echo $this->session->userdata("currencySymbol");?>)</b></td>
-				<td align="right" colspan="2" class="fontH">
-					<!-- <?php echo $value->total_amount + $value->shipping_charges?> -->
-					<?php if(isset($value->total_amount)){echo number_format((float)$value->total_amount, 2, '.', '');}?>
-				</td>
-			</tr>
-
-			<!-- <tr>
-				<td colspan="11" align="right" class="footerpad fontH"><b>
-					
-					<?php echo $this->lang->line('btn_payment_status_paid');?>
-                          (<?php echo $this->session->userdata("currencySymbol");?>)
-				</td>
-				<td align="right" colspan="2" class="fontH">
-					
-					<?php if(isset($value->paid_amount)){echo $value->paid_amount;}?>
-				</td>
-			</tr>
-
-			<tr>
-				<td colspan="11" align="right" class="footerpad fontH"><b>
-					
-						<?php echo $this->lang->line('lbl_payment_due');?>
-                            (<?php echo $this->session->userdata("currencySymbol");?>)
-					</b></td>
-				<td align="right" colspan="2" class="fontH">
-					
-					<?php
-                        $due =  $value->total_amount - $value->paid_amount;
-                    ?>
-                    <?php if(isset($due)){echo number_format((float)$due, 2, '.', '');}?>
-				</td>
-			</tr> -->
-
-
-
-        <tr>
-        	<td colspan="11" valign="top" style="height: 60px;border-bottom: 0px;font-size: 13px;">
-        		Total Amount (in Words)<br>
-        		<b> INR <?php echo $this->numbertowords->convert_number($value->total_amount); ?> Only</b>
-        	</td>
-        </tr>
-        <tr>
-        	<td colspan="11" style="height: 60px;border-bottom: 0px;font-size: 13px;">Company's PAN  : <b><?php if(isset($country->pan)){echo $country->pan;}?></b></td>
-        </tr>
-        <tr>
-        	<td colspan="5" style="border-top:0px;border-right: 0px;font-size: 13px;">
-        		Declartion<br>
-        		We declare that this invoice shows the actual price of the goods describe and that all paticular are true and correct.
-        	</td>
-        	<td style="font-size: 10px;" colspan="6" style="border-top: 0px;border-top: 0px;border-left:0px;font-size: 13px;">
-        		Company Bank Details
-        		<table>
-        			<tr>
-        				<td style="border: 0px;font-size: 13px;" >Bank Name</td>
-          				<td style="border: 0px;font-size: 13px;"> : <?php if(isset($country->bank_name)){echo $country->bank_name;}?></td>
-        			</tr>
-        			<tr>
-						<td style="border: 0px;font-size: 13px;">A/C No</td>
-						<td style="border: 0px;font-size: 13px;"> : <?php if(isset($country->ac_no)){echo $country->ac_no;}?></td>
-	        		</tr>
-        		<tr>
-					<td style="border: 0px;font-size: 13px;">Branch code & Ifsc code</td>
-					<td style="border: 0px;font-size: 13px;"> : <?php if(isset($country->ifs_code)){echo $country->ifs_code;}?> </td>
-        		</tr>
-        		</table>
-        	</td>
-        </tr>
-        <tr>
-        	<td colspan="5" style="height: 80px;font-size: 13px;" valign="top">
-        		Custom Seal Signature
-        		<br>
-        		<br>
-        	</td>
-        	<td colspan="6" valign="top" style="text-align: right;font-size: 13px;">
-        		For <?php if(isset($country->name)){echo $country->name;}?>
-        		<br>
-        		Authorised signatory
-        	</td>
-        </tr>    
 	</table>
+    <table>
+        <tr>
+            <th>Supplier Name:</th><td><?php echo $customer;?></td><td></td><td></td><td></td><td  style='text-align:right'><?php echo $from?> to <?php echo $to;?></td>
+        </tr>
+        
+    </table>
+    <table width="100%" border="1px" style="border: 1px solid black; border-collapse: collapse;" class="table">
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Balance</th>
+        </tr>
+        <?php 
+        $cr=0;
+        $db=0;
+        $temp=0;
+        $temp1=0;
+        if(isset($ledger_data))
+        { 
+          
+     foreach ($ledger_data as $ledger) {
+         $cr=$cr+$ledger->credit;
+         $db=$db+$ledger->debit;
+         ?>
+        <tr>
+          <td><?php echo $ledger->date;?></td>
+            <td><?php echo $ledger->purchase_no;?></td>
+            <td><?php echo $ledger->debit;?></td>
+            <td><?php echo $ledger->credit;?></td>           
+        </tr>
+        
+        <?php } } ?>
+        
+    </table>
+    <h4 style='text-align:right'>Closing Balance: <?php echo $db-$cr; ?></h4>
 	<table>
 		<tr>
-        	<td colspan="11" style="border:0px;text-align: center;font-size: 13px;"><b>This is Computer Generated Invoice</b></td>
+        	<td colspan="11" style="border:0px;text-align: center;font-size: 13px;"><b>This is Computer Generated Ledger</b></td>
         </tr>
 	</table>
 </body>

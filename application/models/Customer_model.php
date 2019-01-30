@@ -374,6 +374,11 @@ class Customer_model extends CI_Model
        return FALSE;
    }
    
+   function customer_name($id)
+   {
+       return $this->db->select('name')->where('id',$id)->get('customer')->row(); 
+   }
+   
   
    
    public function custstate($id)

@@ -80,7 +80,7 @@
 	</table>
     <table>
         <tr>
-            <th>Customer Name:</th><td><?php echo $customer;?></td><td  style='text-align:right'><?php echo $from?> to <?php echo $to;?></td>
+            <th>Customer Name:</th><td><?php echo $customer;?></td><td></td><td></td><td  style='text-align:right'><?php echo $from?> to <?php echo $to;?></td>
         </tr>
         
     </table>

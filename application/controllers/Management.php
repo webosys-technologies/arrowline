@@ -721,6 +721,8 @@
             $data=array('name'=>$this->input->post('name'),
                        'description'=>$this->input->post('description'));
             $where=array('id'=>$this->input->post('status_id'));
+            
+          
             if($this->Lead_model->update_status($data,$where))
             {
                  $this->session->set_flashdata('success','Status Updated Successfully.');
@@ -735,9 +737,13 @@
         
         function update_customer_status($val)
         {
-            $data=explode("-",$val);
            
-            if($this->Lead_model->update_customer_status(array('lead_status'=>$data[1]),array('id'=>$data[0])))
+            $data=explode("-",$val);
+            
+            $stat=str_replace("%20"," ",$data[1]);
+           
+            
+            if($this->Lead_model->update_customer_status(array('lead_status'=>$stat),array('id'=>$data[0])))
             {
                 $this->session->set_flashdata('success','Lead Status Updated....!');
                 echo json_encode(array('success'=>true));

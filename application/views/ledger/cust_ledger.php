@@ -71,7 +71,7 @@
                 <button type="submit" name="filterbtn" id="filterbtn" class="btn btn-primary btn-flat"> <!-- Filter -->   <?php echo $this->lang->line('lbl_saleshistoryreport_filter');?></button>
                 
               </div>
-                       <div class="col-md-1">
+             <div class="col-md-1">
                 <label for="btn">&nbsp;</label>
                 <input type="submit" title="Print" name="print" value="print" target="_blank" class="btn btn-warning btn-md" id="print_ledger"> 
                 
