@@ -145,7 +145,8 @@ class Invoice extends CI_Controller {
 		$invoice_data['sales_item']=$this->Invoice_model->salesOrderDetails($id);
 		$invoice_data['payment']=$this->Invoice_model->getSalesPaymentData($id);
 		$invoice_data['s'] = $this->Sales_model->SalesByID($id);
-		echo "<pre>";
+
+                echo "<pre>";
 		print_r($invoice_data);
 		exit();
 		
