@@ -212,10 +212,10 @@ class Sales extends CI_Controller {
 					'invoice_date' =>   date('Y-m-d')
 				);
                                     
-                             
-				$this->Sales_model->addSalesItems($SalesItem);
-                                print_r($SalesItems);
+                               print_r($SalesItem);
                                 die;
+				$this->Sales_model->addSalesItems($SalesItem);
+                              
 				if($this->Sales_model->saveInvoice($addInvoice))
 				{
 					redirect('invoice/invoice_details/'.$sales_id);
