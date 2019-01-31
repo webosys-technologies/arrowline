@@ -175,14 +175,17 @@ class Invoice_model extends CI_Model{
         $this->db->select('
                 s.id as sales_id,
                 s.*,
-                si.*'
-               
+                si.*,
+                t.tax_value,
+                i.item_name,
+                i.hsn_code,
+                i.item_description'
                 );
         
         $this->db->from('sales s');
         $this->db->join('sales_item si','s.id=si.sales_id','left');
-//        $this->db->join('tax t','si.tax_id=t.tax_id','left');
-//        $this->db->join('item i','si.item_id=i.id','left');
+        $this->db->join('tax t','si.tax_id=t.tax_id','left');
+        $this->db->join('item i','si.item_id=i.id','left');
         $this->db->where('s.id',$id);
         $query = $this->db->get();
         return $query->result();

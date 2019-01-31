@@ -171,6 +171,8 @@ class Sales extends CI_Controller {
 			exit();*/
 
 			$data1=json_decode($this->input->post('temptext'));
+                        print_r($data1);
+                        die;
 
 			$sales_id=$this->Sales_model->addSales($data);
                         

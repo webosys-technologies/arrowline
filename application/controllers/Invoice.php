@@ -144,10 +144,10 @@ class Invoice extends CI_Controller {
 		$invoice_data['sales_item']=$this->Invoice_model->salesOrderDetails($id);
 		$invoice_data['payment']=$this->Invoice_model->getSalesPaymentData($id);
 		$invoice_data['s'] = $this->Sales_model->SalesByID($id);
-                echo $id;
-                echo "<pre>";
-		print_r($invoice_data);
-		exit();
+//                echo $id;
+//                echo "<pre>";
+//		print_r($invoice_data);
+//		exit();
 		
 		$this->load->view('invoice/order',$invoice_data);
 	}
@@ -204,15 +204,17 @@ class Invoice extends CI_Controller {
 	            'income_exp_category_id'       =>  $this->input->post('category'),
 	            'payment_no'                   =>  $payment_no,
 	            'amount'         	           =>  $this->input->post('amount'),
-	            'bank_name'         	           =>  $this->input->post('bank_name'),
-	            'cheque_no'         	           =>  $this->input->post('cheque_no'),
+	            'bank_name'         	   =>  $this->input->post('bank_name'),
+	            'cheque_no'                    =>  $this->input->post('cheque_no'),
 	            'payment_date'                 =>  $this->input->post('payment_date'),
 	            'description'                  =>  $this->input->post('description'),
 	            'reference'                    =>  $this->input->post('reference'),
 	            'status'                       =>   1,
-	            'user_id'			=>$this->session->userdata("userId")
+	            'user_id'			   =>$this->session->userdata("userId")
 	        );
 
+//                print_r($paymemtDetails);
+//                exit();
 
 	        if($this->Invoice_model->addSalesPayment($paymemtDetails))
 	        {
