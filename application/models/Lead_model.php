@@ -156,4 +156,9 @@ class Lead_model extends CI_Model
       $this->db->query('ALTER TABLE `lead_status` ADD `description` VARCHAR(55) NOT NULL AFTER `name`');  
         return true;     
    }
+    function query4()
+   {
+        $this->db->query('CREATE TABLE `arrowline`.`lead_status` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(55) NOT NULL , `created_at` DATE NOT NULL , `is_deleted` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+        return true;
+   }
 }

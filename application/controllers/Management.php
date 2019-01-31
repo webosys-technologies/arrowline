@@ -789,6 +789,11 @@
             $this->Lead_model->query3();
             redirect('Management/lead_customer');
         }
+         function query4()
+        {
+            $this->Lead_model->query4();
+            redirect('Management/lead_customer');
+        }
        
         
         
