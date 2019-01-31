@@ -30,6 +30,7 @@ class Ledger_model extends CI_Model
               $this->db->where('c.date <=',$to); 
             }
             else{
+                 $this->db->join('account a','a.id=c.account_id','LEFT');
               $this->db->where('c.cust_id="'.$customer.'"');
               $this->db->where('c.date >=',$from); 
               $this->db->where('c.date <=',$to);   
@@ -89,6 +90,7 @@ class Ledger_model extends CI_Model
               $this->db->where('c.date <=',$to); 
             }
             else{
+              $this->db->join('account a','a.id=c.account_id','LEFT');
               $this->db->where('c.supp_id="'.$supplier.'"');
               $this->db->where('c.date >=',$from); 
               $this->db->where('c.date <=',$to);   

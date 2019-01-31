@@ -84,7 +84,7 @@
             <br>
             <div class="btn-group pull-right">
               <a href="<?php echo base_url();?>reports/create_csv" title="CSV" class="btn btn-default btn-flat" id="csv"> <!-- CSV  -->  <?php echo $this->lang->line('lbl_saleshistoryreport_csv');?> </a> &nbsp;&nbsp;&nbsp;
-              <a href="<?php echo base_url();?>Ledger/cust_ledger_print/1" title="CSV" target="_blank" class="btn btn-warning btn-md pull-right" id="print_ledger"> <!-- CSV  -->  <?php echo "Print";?> <span class="fa fa-print"></span></a>
+              <!--<a href="<?php echo base_url();?>Ledger/cust_ledger_print/1" title="CSV" target="_blank" class="btn btn-warning btn-md pull-right" id="print_ledger">  CSV    <?php echo "Print";?> <span class="fa fa-print"></span></a>-->
               <!-- <a href="<?php echo base_url();?>reports/sales_pdf" title="PDF" class="btn btn-default btn-flat" id="pdf">PDF</a> -->
             </div>
 
@@ -205,6 +205,7 @@
              {
 //             alert(data.ob.ob); 
 //    console.log('test');
+                var descr;
               var table="";
                $('#test').html(data);
                var deb=0;
@@ -234,9 +235,16 @@
                     cr = +cr + +temp1;
 //                                                    alert(cr);
 
+            if(this.debit==0)
+            {
+             descr="Acc-"+this.account_no;   
+            }else{
+             descr=this.invoice_no;
+            }
+
                     table +='<tr>'+
                         '<td class="text-center">'+this.date+'</td>'+
-                        '<td class="text-center">'+this.invoice_no+'</td>'+
+                        '<td class="text-center">'+descr+'</td>'+
                         '<td class="text-center">'+this.debit+'</td>'+
                         '<td class="text-center">'+this.credit+'</td>'+
                         '<td class="text-center"></td>'+

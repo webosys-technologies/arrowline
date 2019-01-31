@@ -103,10 +103,17 @@
      foreach ($ledger_data as $ledger) {
          $cr=$cr+$ledger->credit;
          $db=$db+$ledger->debit;
+         
+         if($ledger->debit==0)
+         {
+             $descr="Acc-".$ledger->account_no;
+         }else{
+             $descr=$ledger->invoice_no;
+         }
          ?>
         <tr>
           <td><?php echo $ledger->date;?></td>
-            <td><?php echo $ledger->invoice_no;?></td>
+            <td><?php echo $descr ;?></td>
             <td><?php echo $ledger->debit;?></td>
             <td><?php echo $ledger->credit;?></td>           
         </tr>

@@ -233,7 +233,7 @@
 
                     table +='<tr>'+
                         '<td class="text-center">'+this.date+'</td>'+
-                        '<td class="text-center">'+this.invoice_no+'</td>'+
+                        '<td class="text-center">'+this.purchase_no+'</td>'+
                         '<td class="text-center">'+this.debit+'</td>'+
                         '<td class="text-center">'+this.credit+'</td>'+
                         '<td class="text-center"></td>'+
