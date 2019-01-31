@@ -141,12 +141,11 @@ class Ledger extends CI_Controller
         $from=$this->input->post('from');
         $to=$this->input->post('to');
        
-          print_r($this->input->post());
-         echo "<br>";
+       
         
          
         $data['ledger_data']=$this->Ledger_model->supplierFilter($supplier,$from,$to);
-         print_r($data['ledger_data']);
+   
         
         $data['from']=date('d-F-Y', strtotime($this->input->post('from')));
         $data['to']=date('d-F-Y', strtotime($this->input->post('to')));
