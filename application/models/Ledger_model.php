@@ -128,7 +128,8 @@ class Ledger_model extends CI_Model
   function query()
   {
       $this->db->query('ALTER TABLE `cust_ledger` ADD `description` VARCHAR(55) NOT NULL AFTER `credit`');
-      $this->db->query('CREATE TABLE `arrowline`.`supplier_ledger` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `date` DATE NOT NULL , `supp_id` INT(11) NOT NULL , `purchase_no` VARCHAR(55) NOT NULL , `debit` VARCHAR(55) NOT NULL , `credit` VARCHAR(55) NOT NULL , `description` VARCHAR(55) NOT NULL , `account_id` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+      $this->db->query('CREATE TABLE `arrowline1`.`supplier_ledger` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `date` DATE NOT NULL , `supp_id` INT(11) NOT NULL , `purchase_no` VARCHAR(55) NOT NULL , `debit` VARCHAR(55) NOT NULL , `credit` VARCHAR(55) NOT NULL , `description` VARCHAR(55) NOT NULL , `account_id` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+       $this->db->query('CREATE TABLE `arrowline_dev`.`supplier_ledger` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `date` DATE NOT NULL , `supp_id` INT(11) NOT NULL , `purchase_no` VARCHAR(55) NOT NULL , `debit` VARCHAR(55) NOT NULL , `credit` VARCHAR(55) NOT NULL , `description` VARCHAR(55) NOT NULL , `account_id` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
       return true;
   }
 }
