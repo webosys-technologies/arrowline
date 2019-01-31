@@ -137,8 +137,23 @@ class Lead_model extends CI_Model
      
        $query=$this->db->query('ALTER TABLE `customer` ADD `follow` DATE NOT NULL AFTER `country_id`, ADD `nextfollow` DATE NOT NULL AFTER `follow`, ADD `remark` VARCHAR(55) NOT NULL AFTER `nextfollow`, ADD `telecaller` VARCHAR(55) NOT NULL AFTER `remark`');
        $this->db->query('ALTER TABLE `lead_status` ADD `description` VARCHAR(55) NOT NULL AFTER `name`');
-       $this->db->query('CREATE TABLE `arrowline`.`lead_status` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(55) NOT NULL , `created_at` DATE NOT NULL , `is_deleted` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+      
        $this->db->query('ALTER TABLE `customer` ADD `lead_status` VARCHAR(55) NOT NULL AFTER `status`');
        return true;    
+   }
+   function query1()
+   {
+        $this->db->query('CREATE TABLE `arrowline`.`lead_status` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(55) NOT NULL , `created_at` DATE NOT NULL , `is_deleted` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB');
+        return true;
+   }
+   function query2()
+   {
+     $this->db->query('ALTER TABLE `customer` ADD `lead_status` VARCHAR(55) NOT NULL AFTER `status`');
+       return true;     
+   }
+   function query3()
+   {
+      $this->db->query('ALTER TABLE `lead_status` ADD `description` VARCHAR(55) NOT NULL AFTER `name`');  
+        return true;     
    }
 }

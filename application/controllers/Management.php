@@ -765,14 +765,28 @@
                  $this->session->set_flashdata('success','Status Not Deleted....!');
 			redirect('Management/lead_status');
                 
-            }
-            
+            }       
             
         }
         
         function query()
         {
             $this->Lead_model->query();
+            redirect('Management/lead_customer');
+        }
+         function query1()
+        {
+            $this->Lead_model->query1();
+            redirect('Management/lead_customer');
+        }
+        function query2()
+        {
+            $this->Lead_model->query2();
+            redirect('Management/lead_customer');
+        }
+        function query3()
+        {
+            $this->Lead_model->query3();
             redirect('Management/lead_customer');
         }
        
