@@ -212,8 +212,7 @@ class Sales extends CI_Controller {
 					'invoice_date' =>   date('Y-m-d')
 				);
                                     
-                                print_r($SalesItem);
-                                die;
+                             
 				$this->Sales_model->addSalesItems($SalesItem);
 				if($this->Sales_model->saveInvoice($addInvoice))
 				{
@@ -225,7 +224,12 @@ class Sales extends CI_Controller {
 		{
 			$this->add_form();
 		}	
-	}	
+	}
+        
+        public function get_items1($id)
+        {
+            print_r($this->Sales_model->get_items($id));
+        }
 
 	/*
 		Load Edit sales page with sales data
