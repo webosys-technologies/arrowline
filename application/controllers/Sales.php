@@ -171,8 +171,7 @@ class Sales extends CI_Controller {
 			exit();*/
 
 			$data1=json_decode($this->input->post('temptext'));
-                        print_r($data1);
-                        die;
+                     
 
 			$sales_id=$this->Sales_model->addSales($data);
                         
@@ -212,7 +211,9 @@ class Sales extends CI_Controller {
 					'sales_amount' =>   $data['total_amount'],
 					'invoice_date' =>   date('Y-m-d')
 				);
-
+                                    
+                                print_r($salesItem);
+                                die;
 				$this->Sales_model->addSalesItems($SalesItem);
 				if($this->Sales_model->saveInvoice($addInvoice))
 				{
