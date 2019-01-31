@@ -110,6 +110,7 @@ class Ledger extends CI_Controller
        
         
         
+        
 
 		$data['country']=$this->Order_model->companyDetails();
 		
@@ -148,6 +149,11 @@ class Ledger extends CI_Controller
         $data['to']=date('d-F-Y', strtotime($this->input->post('to')));
          $data['customer']=$this->Supplier_model->supplier_name($supplier)->name;
        
+         
+         print_r($this->input->post());
+         echo "<br>";
+         print_r($data['ledger_data']);
+         
        
 
 		$data['country']=$this->Order_model->companyDetails();
