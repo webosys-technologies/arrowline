@@ -140,12 +140,11 @@ class Invoice extends CI_Controller {
 			redirect('sales','refresh');
 		}
 		
-		$invoice_data['sales']=$this->Invoice_model->salesOrder($id);
-		
+		$invoice_data['sales']=$this->Invoice_model->salesOrder($id);		
 		$invoice_data['sales_item']=$this->Invoice_model->salesOrderDetails($id);
 		$invoice_data['payment']=$this->Invoice_model->getSalesPaymentData($id);
 		$invoice_data['s'] = $this->Sales_model->SalesByID($id);
-
+                echo $id;
                 echo "<pre>";
 		print_r($invoice_data);
 		exit();
