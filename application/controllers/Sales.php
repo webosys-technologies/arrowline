@@ -188,8 +188,8 @@ class Sales extends CI_Controller {
 			{
 				$i=0;
 				foreach ($data1 as $val) {
-//					$SalesItem[$i]=array(
-                                    $SalesItem=array(
+					$SalesItem[$i]=array(
+                                    
 						'item_id'  	=> $val->item_id,
 						'sales_id' 	=> $sales_id,
 						'rate' 		=> $val->rate,
@@ -202,7 +202,7 @@ class Sales extends CI_Controller {
 						'sub_invoice_no'=> $data['reference_no'].'-'.$val->tax_id
 					);
 					$i++;	
-                              $this->Sales_model->addSalesItems1($SalesItem);
+
 				}
 				
 
@@ -216,7 +216,7 @@ class Sales extends CI_Controller {
                                     
                        
                                 
-//				$this->Sales_model->addSalesItems($SalesItem);
+				$this->Sales_model->addSalesItems($SalesItem);
                               
 				if($this->Sales_model->saveInvoice($addInvoice))
 				{
