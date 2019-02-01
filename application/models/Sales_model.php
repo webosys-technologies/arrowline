@@ -241,6 +241,11 @@ class Sales_model extends CI_Model{
     {
         $this->db->insert_batch('sales_item', $SalesItem);
     }
+      public function addSalesItems1($SalesItem)
+    {
+        $this->db->insert('sales_item', $SalesItem);
+        
+    }
      function get_items($id)
      {
          $this->db->from('sales_item');
