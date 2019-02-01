@@ -214,6 +214,7 @@ class Sales extends CI_Controller {
                                     
                                print_r($SalesItem);
                                 die;
+                                
 				$this->Sales_model->addSalesItems($SalesItem);
                               
 				if($this->Sales_model->saveInvoice($addInvoice))
