@@ -51,7 +51,7 @@
                   </label>
                   <div class="col-sm-4">
                     <div class="control">
-                        <input type="text" class="form-control" name="description" id="description" value="<?php echo $invoice->invoice_no;?>" readonly="">
+                        <input type="text" class="form-control" name="invoice_no" id="invoice_no" value="<?php echo $invoice->invoice_no;?>" readonly="">
                         <span style="font-size:20px;"></span>
                         <p style="color:#990000;"></p>
                       </div> 

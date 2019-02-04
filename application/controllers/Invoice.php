@@ -190,6 +190,11 @@ class Invoice extends CI_Controller {
         {
             redirect('auth/login', 'refresh');
         }
+        
+            
+        
+        
+        
 		$sales_id=$this->input->post('sales_id');
 		$payment_id=$this->Invoice_model->getLastPaymentID();
 		$payment_no="P-".sprintf('%04d',intval($payment_id)+1);
@@ -231,11 +236,13 @@ class Invoice extends CI_Controller {
 					'user_id'			=>$this->session->userdata("userId")
 				);
 	        	
+                        
+                       
 				$this->Deposite_model->addTransaction($transaction);
                                 
                         $led=array( 'date' => $this->input->post('payment_date'),
                                     'cust_id' => $this->input->post('cust_id'),
-                                    'Invoice' => $this->input->post('description'),
+                                    'invoice_no' => $this->input->post('invoice_no'),
                                     'credit' => $this->input->post('amount'),
                                     'account_id' => $this->input->post('account'),
                                 );

@@ -235,7 +235,7 @@
                     cr = +cr + +temp1;
 //                                                    alert(cr);
 
-            if(this.debit==0)
+            if(this.debit==0 || this.debit==null)
             {
              descr="Acc-"+this.account_no;   
             }else{
