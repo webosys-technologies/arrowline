@@ -487,9 +487,8 @@ class Quotation extends CI_Controller {
 	    
 	    //$html=$this->load->view('report/list_vehicle','',TRUE);
 	    $html=$this->load->view('quotation/quotation_print',$data,TRUE);
-	    require_once(APPPATH.'third_party/mpdf60/mpdf.php');
-	    
-	    $mpdf=new mPDF();
+	    include(APPPATH . 'vendor/autoload.php');
+        $mpdf = new \Mpdf\Mpdf();
 	    $mpdf->allow_charset_conversion=true;
 	    $mpdf->charset_in='UTF-8';
 	    $mpdf->WriteHTML($html);

@@ -363,9 +363,9 @@ class Purchases extends CI_Controller {
 	    $html=ob_get_clean();
 	    $html=utf8_encode($html);
 	    $html=$this->load->view('purchases/purchase_print',$data,TRUE);
-	    require_once(APPPATH.'third_party/mpdf60/mpdf.php');
+	    include(APPPATH . 'vendor/autoload.php');
+        $mpdf = new \Mpdf\Mpdf();
 	    
-	    $mpdf=new mPDF();
 	    $mpdf->allow_charset_conversion=true;
 	    $mpdf->charset_in='UTF-8';
 	    $mpdf->WriteHTML($html);
